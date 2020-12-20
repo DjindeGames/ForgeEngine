@@ -31,7 +31,7 @@
   <ItemGroup>
     <ClCompile Include="src\engine\Game.cpp" />
     <ClCompile Include="src\engine\ShaderUtils.cpp" />
-    <ClCompile Include="src\engine\glad\glad.c" />
+    <ClCompile Include="src\extern\glad\glad.c" />
     <ClCompile Include="src\engine\CoreEngine.cpp" />
     <ClCompile Include="src\papierkraft\PapierKraft.cpp" />
   </ItemGroup>
