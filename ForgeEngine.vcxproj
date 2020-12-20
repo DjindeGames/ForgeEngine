@@ -19,16 +19,21 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\engine\Game.h" />
     <ClInclude Include="includes\glad\glad.h" />
     <ClInclude Include="includes\GLFW\glfw3.h" />
     <ClInclude Include="includes\GLFW\glfw3native.h" />
     <ClInclude Include="includes\KHR\khrplatform.h" />
+    <ClInclude Include="src\engine\ShaderUtils.h" />
     <ClInclude Include="src\engine\CoreEngine.h" />
+    <ClInclude Include="src\papierkraft\PapierKraft.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\engine\Game.cpp" />
+    <ClCompile Include="src\engine\ShaderUtils.cpp" />
     <ClCompile Include="src\engine\glad\glad.c" />
     <ClCompile Include="src\engine\CoreEngine.cpp" />
-    <ClCompile Include="src\papierkraft\Main.cpp" />
+    <ClCompile Include="src\papierkraft\PapierKraft.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
