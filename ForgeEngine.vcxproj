@@ -26,12 +26,16 @@
     <ClInclude Include="includes\KHR\khrplatform.h" />
     <ClInclude Include="src\engine\ShaderUtils.h" />
     <ClInclude Include="src\engine\CoreEngine.h" />
+    <ClInclude Include="src\extern\opengl\includes\glad\glad.h" />
+    <ClInclude Include="src\extern\opengl\includes\GLFW\glfw3.h" />
+    <ClInclude Include="src\extern\opengl\includes\GLFW\glfw3native.h" />
+    <ClInclude Include="src\extern\opengl\includes\KHR\khrplatform.h" />
     <ClInclude Include="src\papierkraft\PapierKraft.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\engine\Game.cpp" />
     <ClCompile Include="src\engine\ShaderUtils.cpp" />
-    <ClCompile Include="src\extern\glad\glad.c" />
+    <ClCompile Include="src\extern\opengl\includes\glad\glad.c" />
     <ClCompile Include="src\engine\CoreEngine.cpp" />
     <ClCompile Include="src\papierkraft\PapierKraft.cpp" />
   </ItemGroup>
@@ -87,12 +91,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LibraryPath>.\src\OpenGL\libs;$(LibraryPath)</LibraryPath>
-    <IncludePath>.\src\OpenGL\includes;$(IncludePath)</IncludePath>
+    <LibraryPath>.\src\extern\opengl\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>.\src\extern\opengl\includes;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LibraryPath>.\src\OpenGL\libs;$(LibraryPath)</LibraryPath>
-    <IncludePath>.\src\OpenGL\includes;$(IncludePath)</IncludePath>
+    <LibraryPath>.\src\extern\opengl\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>.\src\extern\opengl\includes;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
