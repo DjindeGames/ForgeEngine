@@ -26,7 +26,7 @@
     <ClInclude Include="src\engine\CoreEngine.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\glad\glad.c" />
+    <ClCompile Include="src\engine\glad\glad.c" />
     <ClCompile Include="src\engine\CoreEngine.cpp" />
     <ClCompile Include="src\papierkraft\Main.cpp" />
   </ItemGroup>
@@ -82,12 +82,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LibraryPath>E:\Thomas\Programming\OpenGL\libs;$(LibraryPath)</LibraryPath>
-    <IncludePath>E:\Thomas\Programming\OpenGL\includes;$(IncludePath)</IncludePath>
+    <LibraryPath>.\src\OpenGL\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>.\src\OpenGL\includes;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LibraryPath>E:\Thomas\Programming\OpenGL\libs;$(LibraryPath)</LibraryPath>
-    <IncludePath>E:\Thomas\Programming\OpenGL\includes;$(IncludePath)</IncludePath>
+    <LibraryPath>.\src\OpenGL\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>.\src\OpenGL\includes;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
