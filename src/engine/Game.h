@@ -19,11 +19,15 @@ namespace ForgeEngine
 		void (*m_UpdateCallback)(float) {};
 		bool (*m_TerminationConditionCallback)(GLFWwindow*) {};
 
+		int m_CurrentDrawMode;
+
 		/************************************/
 		/**************METHODS***************/
 		/************************************/
 
 	public:
+		Game();
+
 		/*** Following methods should always be called, and always in the following order ***/
 		//Creates a window
 		bool Init(std::string name, unsigned int width, unsigned int height);
@@ -39,5 +43,8 @@ namespace ForgeEngine
 		void CheckTermination();
 		//Called by default if no TerminationConditionCallback is set
 		bool DefaultTerminationCondition();
+		//Checks debug related input
+		void ProcessDebugInput();
+		void ToggleWireframeMode();
 	};
 }

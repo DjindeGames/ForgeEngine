@@ -1,11 +1,14 @@
 #include "PapierKraft.h"
 
 #include "../engine/Game.h"
+#include "../engine/math/Vector3.h"
+#include "../engine/Mesh.h"
 #include "../engine/ShaderUtils.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <vector>
 
 using namespace ForgeEngine;
 
@@ -39,23 +42,35 @@ namespace PapierKraft
 		"	FragColor = vec4(1.f, 0.f, 0.f, 1.f);\n"
 		"}\n";
 
+	//Coordinate indexes 
+	const int triangleIndexes[] = {
 	//First triangle
-	const float triangleVertices[] = {
-		//    x      y     z
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.0f,  0.5f, 0.0f
+		0, 1, 2,
+	//Second triangle
+		1, 2, 3
 	};
 
-	GL_ID vertexShader{}, fragmentShader{}, shaderProgram{}, vertexBufferObject{}, vertexArrayObject{};
+	Game game{};
+	std::vector<Mesh> meshes{};
+	GL_ID vertexShader{}, fragmentShader{}, shaderProgram{}, vertexBufferObject{}, vertexBufferElement{}, vertexArrayObject{};
 
 	/****************************************/
-	/************** FUCNTIONS ***************/
+	/************** FUNCTIONS ***************/
 	/****************************************/
 
 	int CoreLoop()
 	{
-		Game game{};
+		//4 vertices to define 2 triangles
+		float triangleVertices[] = {
+			//    x      y     z
+				-0.5f, -0.5f, 0.0f,
+				-0.5f,  0.5f, 0.0f,
+				 0.5f, -0.5f, 0.0f,
+				 0.5f,  0.5f, 0.0f
+		};
+
+		PerformTests();
+
 		game.Init("PapierKraft", 800, 600);
 		game.SetUpdateCallback(Update);
 		game.SetTerminationConditionCallback(ShouldTerminate);
@@ -64,7 +79,8 @@ namespace PapierKraft
 		{
 			return -1;
 		}
-		BuildTriangle();
+		BuildTriangle(triangleVertices);
+		//BuildMesh();
 
 		game.StartLoop();
 		
@@ -75,14 +91,35 @@ namespace PapierKraft
 
 	void Update(float dT)
 	{
+		ProcessInput();
 		// set state color
 		glClearColor(1.f, 1.f, 1.f, 1.f);
 		// applies state
 		glClear(GL_COLOR_BUFFER_BIT);
+
+		for (Mesh mesh : meshes)
+		{
+			mesh.Render();
+		}
+
+		
 		//Draw triangle
 		glUseProgram(shaderProgram);
 		glBindVertexArray(vertexArrayObject);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		
+		
+	}
+
+	void PerformTests()
+	{
+		Vector3 v{ 1, 2, 3 };
+		v[2] = 5;
+		std::cout << v << std::endl;
+	}
+
+	void ProcessInput()
+	{
 	}
 
 	bool ShouldTerminate(GLFWwindow* window)
@@ -107,10 +144,24 @@ namespace PapierKraft
 		return true;
 	}
 
-	void BuildTriangle()
+	void BuildMesh()
+	{
+		Vector3 vertices []{
+			Vector3{-0.5f, -0.5f, 0.0f},
+			Vector3{-0.5f,  0.5f, 0.0f},
+			Vector3{ 0.5f, -0.5f, 0.0f},
+		};
+		
+		int tab[]{ 1 , 2 , 3 };
+
+		//meshes.push_back(Mesh{ triangleVertices, 3, shaderProgram });
+	}
+
+	void BuildTriangle(float triangleVertices[])
 	{
 		//Generates buffer to store vertices
 		glGenBuffers(1, &vertexBufferObject);
+		glGenBuffers(1, &vertexBufferElement);
 		glGenVertexArrays(1, &vertexArrayObject);
 		
 		//Bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
@@ -121,7 +172,9 @@ namespace PapierKraft
 		//2. Copy our vertices array in a buffer for OpenGL to use
 		glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(triangleVertices), triangleVertices, GL_STATIC_DRAW);
-		
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vertexBufferElement);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(triangleIndexes), triangleIndexes, GL_STATIC_DRAW);
+
 		//3. Then set our vertex attributes pointers
 		//First argument corresponds to the vertex attribute location (comes from vertexShaderSource)
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
@@ -141,6 +194,7 @@ namespace PapierKraft
 	{
 		glDeleteVertexArrays(1, &vertexArrayObject);
 		glDeleteBuffers(1, &vertexBufferObject);
+		glDeleteBuffers(1, &vertexBufferElement);
 		glDeleteProgram(shaderProgram);
 	}
 }

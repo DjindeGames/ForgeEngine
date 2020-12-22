@@ -7,6 +7,10 @@
 
 namespace ForgeEngine
 {
+	Game::Game() : m_CurrentDrawMode(GL_FILL)
+	{
+	}
+
 	bool Game::Init(std::string name, unsigned int width, unsigned int height)
 	{
 		if (m_Window = InitWindow(name, width, height))
@@ -28,6 +32,8 @@ namespace ForgeEngine
 				{
 					m_UpdateCallback(0.f);
 				}
+
+				ProcessDebugInput();
 
 				// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 				glfwSwapBuffers(m_Window);
@@ -55,5 +61,20 @@ namespace ForgeEngine
 	bool Game::DefaultTerminationCondition()
 	{
 		return (glfwGetKey(m_Window, GLFW_KEY_ESCAPE) == GLFW_PRESS);
+	}
+
+	void Game::ProcessDebugInput()
+	{
+		if (glfwGetKey(m_Window, TOGGLE_WIREFRAME) == GLFW_PRESS)
+		{
+			ToggleWireframeMode();
+		}
+	}
+
+	void Game::ToggleWireframeMode()
+	{
+		int newDrawMode = ((m_CurrentDrawMode == GL_LINE) ? GL_FILL : GL_LINE);
+		glPolygonMode(GL_FRONT_AND_BACK, newDrawMode);
+		m_CurrentDrawMode = newDrawMode;
 	}
 }

@@ -8,6 +8,9 @@ namespace PapierKraft
 	bool ShouldTerminate(GLFWwindow* window);
 	int CoreLoop();
 	bool CompileShaders();
-	void BuildTriangle();
+	void BuildTriangle(float triangleVertices[]);
+	void BuildMesh();
 	void ClearResources();
+	void ProcessInput();
+	void PerformTests();
 }

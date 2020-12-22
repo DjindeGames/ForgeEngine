@@ -4856,7 +4856,7 @@ GLFWAPI int glfwJoystickPresent(int jid);
  *
  *  @ingroup input
  */
-GLFWAPI const float* glfwGetJoystickAxes(int jid, int* count);
+GLFWAPI float* glfwGetJoystickAxes(int jid, int* count);
 
 /*! @brief Returns the state of all buttons of the specified joystick.
  *

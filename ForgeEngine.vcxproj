@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\engine\Mesh.h" />
     <ClInclude Include="src\engine\Game.h" />
     <ClInclude Include="includes\glad\glad.h" />
     <ClInclude Include="includes\GLFW\glfw3.h" />
@@ -31,13 +32,16 @@
     <ClInclude Include="src\extern\opengl\includes\GLFW\glfw3native.h" />
     <ClInclude Include="src\extern\opengl\includes\KHR\khrplatform.h" />
     <ClInclude Include="src\papierkraft\PapierKraft.h" />
+    <ClInclude Include="src\engine\math\Vector3.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\engine\Mesh.cpp" />
     <ClCompile Include="src\engine\Game.cpp" />
     <ClCompile Include="src\engine\ShaderUtils.cpp" />
     <ClCompile Include="src\extern\opengl\includes\glad\glad.c" />
     <ClCompile Include="src\engine\CoreEngine.cpp" />
     <ClCompile Include="src\papierkraft\PapierKraft.cpp" />
+    <ClCompile Include="src\engine\math\Vector3.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
