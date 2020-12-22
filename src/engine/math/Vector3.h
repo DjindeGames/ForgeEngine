@@ -56,6 +56,7 @@ namespace ForgeEngine
 		Vector3& operator-=(float other);
 
 		float& operator[](const unsigned int index);
+		float operator[](const unsigned int index) const;
 
 		friend std::ostream& operator<<(std::ostream& os, const Vector3& v);
 	};

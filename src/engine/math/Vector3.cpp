@@ -167,6 +167,24 @@ namespace ForgeEngine
 		}
 	}
 
+	float Vector3::operator[](const unsigned int index) const
+	{
+		if (index > 2)
+		{
+			throw std::out_of_range("Index should be lower or equal to 2!");
+		}
+
+		switch (index)
+		{
+		case(0):
+			return m_X;
+		case(1):
+			return m_Y;
+		case(2):
+			return m_Z;
+		}
+	}
+
 	std::ostream& operator<<(std::ostream& os, const Vector3& v)
 	{
 		os << "{" << v.GetX() << ", " << v.GetY() << ", " << v.GetZ() << "}";

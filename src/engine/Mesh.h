@@ -17,7 +17,6 @@ namespace ForgeEngine
 		/************************************/
 
 		private:
-			float* m_Vertices{};
 			unsigned int m_NumVertices{};
 			GL_ID m_ShaderProgram{};
 			GL_ID m_VertexArrayObject{};
@@ -27,9 +26,7 @@ namespace ForgeEngine
 		/************************************/
 
 		public:
-			Mesh(Vector3 vertices[], unsigned int numVertices, GL_ID shaderProgram);
-			Mesh(float vertices[], unsigned int numVertices, GL_ID shaderProgram);
-			~Mesh();
+			Mesh(const std::vector<Vector3>& vertices, GL_ID shaderProgram);
 
 			void Render();
 	};
