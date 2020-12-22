@@ -1,6 +1,6 @@
 #pragma once
 
-#include "CoreEngine.h"
+#include "../core/CoreEngine.h"
 
 namespace ForgeEngine
 {

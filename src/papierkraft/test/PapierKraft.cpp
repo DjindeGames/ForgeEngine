@@ -1,9 +1,10 @@
 #include "PapierKraft.h"
 
-#include "../engine/Game.h"
-#include "../engine/math/Vector3.h"
-#include "../engine/Mesh.h"
-#include "../engine/ShaderUtils.h"
+#include "engine/misc/Color.h"
+#include "engine/core/Game.h"
+#include "engine/math/Vector3.h"
+#include "engine/3d/Mesh.h"
+#include "engine/shader/ShaderUtils.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -42,17 +43,9 @@ namespace PapierKraft
 		"	FragColor = vec4(1.f, 0.f, 0.f, 1.f);\n"
 		"}\n";
 
-	//Coordinate indexes 
-	const int triangleIndexes[] = {
-	//First triangle
-		0, 1, 2,
-	//Second triangle
-		1, 2, 3
-	};
-
 	Game game{};
 	std::vector<Mesh> meshes{};
-	GL_ID vertexShader{}, fragmentShader{}, shaderProgram{}, vertexBufferObject{}, vertexBufferElement{}, vertexArrayObject{};
+	GL_ID vertexShader{}, fragmentShader{}, shaderProgram{}, vertexBufferObject{};
 
 	/****************************************/
 	/************** FUNCTIONS ***************/
@@ -95,9 +88,6 @@ namespace PapierKraft
 
 	void PerformTests()
 	{
-		Vector3 v{ 1, 2, 3 };
-		v[2] = 5;
-		std::cout << v << std::endl;
 	}
 
 	void ProcessInput()
@@ -137,11 +127,28 @@ namespace PapierKraft
 		meshes.push_back(Mesh{ vertices, shaderProgram });
 	}
 
+	void BuildMesh2()
+	{
+		std::vector<Vector3> vertices{
+			Vector3{-0.5f, -0.5f, 0.0f},
+			Vector3{-0.5f,  0.5f, 0.0f},
+			Vector3{ 0.5f, -0.5f, 0.0f},
+			Vector3{-0.5f,  0.5f, 0.0f}
+		};
+
+		//Coordinate indexes 
+		std::vector<unsigned int> triangleIndices = {
+			//First triangle
+				0, 1, 2,
+			//Second triangle
+				1, 2, 3
+		};
+
+		meshes.push_back(Mesh{ vertices, shaderProgram, triangleIndices });
+	}
+
 	void ClearResources()
 	{
-		glDeleteVertexArrays(1, &vertexArrayObject);
-		glDeleteBuffers(1, &vertexBufferObject);
-		glDeleteBuffers(1, &vertexBufferElement);
 		glDeleteProgram(shaderProgram);
 	}
 }

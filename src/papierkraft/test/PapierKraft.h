@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../engine/CoreEngine.h"
+#include "engine/core/CoreEngine.h"
 
 namespace PapierKraft
 {
@@ -9,6 +9,7 @@ namespace PapierKraft
 	int CoreLoop();
 	bool CompileShaders();
 	void BuildMesh();
+	void BuildMesh2();
 	void ClearResources();
 	void ProcessInput();
 	void PerformTests();

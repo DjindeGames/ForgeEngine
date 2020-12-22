@@ -1,6 +1,6 @@
 #pragma once
 
-#include "CoreEngine.h"
+#include "engine/core/CoreEngine.h"
 
 #include <vector>
 
@@ -18,16 +18,23 @@ namespace ForgeEngine
 
 		private:
 			unsigned int m_NumVertices{};
+			unsigned int m_NumIndices{};
 			GL_ID m_ShaderProgram{};
 			GL_ID m_VertexArrayObject{};
+			GL_ID m_VertexBufferObject{};
+			GL_ID m_VertexBufferElement{};
 
 		/************************************/
 		/**************METHODS***************/
 		/************************************/
 
 		public:
-			Mesh(const std::vector<Vector3>& vertices, GL_ID shaderProgram);
+			Mesh(const std::vector<Vector3>& vertices, GL_ID shaderProgram, const std::vector<unsigned int>& indices = std::vector<unsigned int>{});
+			~Mesh();
 
 			void Render();
+
+		private:
+			void InitRender(const std::vector<Vector3>& vertices, GL_ID shaderProgram, const std::vector<unsigned int>& indices);
 	};
 }
