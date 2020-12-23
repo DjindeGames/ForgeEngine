@@ -4,6 +4,11 @@
 
 namespace ForgeEngine
 {
+	#define VECTOR3_NULL Vector3{0.f, 0.f, 0.f}
+	#define VECTOR3_UNIT_X Vector3{1.f, 0.f, 0.f}
+	#define VECTOR3_UNIT_Y Vector3{0.f, 1.f, 0.f}
+	#define VECTOR3_UNIT_Z Vector3{0.f, 0.f, 1.f}
+
 	class Vector3
 	{
 		/************************************/

@@ -9,7 +9,6 @@ namespace PapierKraft
 	int CoreLoop();
 	bool CompileShaders();
 	void BuildMesh();
-	void BuildMesh2();
 	void ClearResources();
 	void ProcessInput();
 	void PerformTests();

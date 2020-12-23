@@ -3,7 +3,7 @@
 #include "engine/misc/Color.h"
 #include "engine/core/Game.h"
 #include "engine/math/Vector3.h"
-#include "engine/3d/Mesh.h"
+#include "engine/3d/MeshFactory.h"
 #include "engine/shader/ShaderUtils.h"
 
 #include <glad/glad.h>
@@ -46,7 +46,7 @@ namespace PapierKraft
 	Game game{};
 	std::vector<Mesh> meshes{};
 	GL_ID vertexShader{}, fragmentShader{}, shaderProgram{}, vertexBufferObject{};
-
+	MeshFactory meshFactory{};
 	/****************************************/
 	/************** FUNCTIONS ***************/
 	/****************************************/
@@ -75,15 +75,10 @@ namespace PapierKraft
 	void Update(float dT)
 	{
 		ProcessInput();
-		// set state color
-		glClearColor(1.f, 1.f, 1.f, 1.f);
-		// applies state
-		glClear(GL_COLOR_BUFFER_BIT);
+		
+		SetBackgroundColor(COLOR_BLACK);
 
-		for (Mesh mesh : meshes)
-		{
-			mesh.Render();
-		}
+		meshFactory.Update();
 	}
 
 	void PerformTests()
@@ -118,33 +113,19 @@ namespace PapierKraft
 
 	void BuildMesh()
 	{
-		std::vector<Vector3> vertices {
-			Vector3{-0.5f, -0.5f, 0.0f},
-			Vector3{-0.5f,  0.5f, 0.0f},
-			Vector3{ 0.5f, -0.5f, 0.0f},
-		};
-		
-		meshes.push_back(Mesh{ vertices, shaderProgram });
-	}
-
-	void BuildMesh2()
-	{
 		std::vector<Vector3> vertices{
 			Vector3{-0.5f, -0.5f, 0.0f},
-			Vector3{-0.5f,  0.5f, 0.0f},
-			Vector3{ 0.5f, -0.5f, 0.0f},
-			Vector3{-0.5f,  0.5f, 0.0f}
+			Vector3{ 0.f,  0.5f, 0.0f},
+			Vector3{ 0.5f, -0.5f, 0.0f}
 		};
 
 		//Coordinate indexes 
 		std::vector<unsigned int> triangleIndices = {
 			//First triangle
 				0, 1, 2,
-			//Second triangle
-				1, 2, 3
 		};
 
-		meshes.push_back(Mesh{ vertices, shaderProgram, triangleIndices });
+		MeshFactory::CreateMesh(vertices, shaderProgram, triangleIndices);
 	}
 
 	void ClearResources()

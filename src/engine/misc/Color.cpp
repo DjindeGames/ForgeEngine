@@ -12,7 +12,8 @@ namespace ForgeEngine
 
 	Color Color::GetGrayScale() const
 	{
-		return Color{ m_R / 3.f, m_G / 3.f, m_B / 3.f, m_A };
+		float sumValues = m_R + m_G + m_B;
+		return Color{ sumValues / 3.f, sumValues / 3.f, sumValues / 3.f, m_A };
 	}
 
 	/*static*/ Color Color::GetGrayScale(Color c)

@@ -6,6 +6,7 @@ struct GLFWwindow;
 
 namespace ForgeEngine
 {
+	typedef unsigned int COUNTER;
 	typedef unsigned int GL_ID;
 	typedef int GL_RESULT;
 

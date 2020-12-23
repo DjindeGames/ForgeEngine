@@ -30,9 +30,11 @@ namespace ForgeEngine
 
 		public:
 			Mesh(const std::vector<Vector3>& vertices, GL_ID shaderProgram, const std::vector<unsigned int>& indices = std::vector<unsigned int>{});
+			//This should probably be done !
+			//Mesh(const Mesh& mesh) = delete;
 			~Mesh();
 
-			void Render();
+			void Render() const;
 
 		private:
 			void InitRender(const std::vector<Vector3>& vertices, GL_ID shaderProgram, const std::vector<unsigned int>& indices);

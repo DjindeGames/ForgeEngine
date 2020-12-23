@@ -23,16 +23,19 @@ namespace ForgeEngine
 
 	Mesh::~Mesh()
 	{
+		//THE FOLLOWING SHOULD BE DONE
+		/*
 		glDeleteVertexArrays(1, &m_VertexArrayObject);
 		glDeleteBuffers(1, &m_VertexBufferObject);
 		glDeleteBuffers(1, &m_VertexBufferElement);
+		*/
 	}
 
 	void Mesh::InitRender(const std::vector<Vector3>& vertices, GL_ID shaderProgram, const std::vector<unsigned int>& indices)
 	{
 		float* glVertices = new float[(m_NumVertices * 3)];
 
-		for (unsigned int i = 0; i < (m_NumVertices * 3); i++)
+		for (COUNTER i = 0; i < (m_NumVertices * 3); i++)
 		{
 			//In opengl, all coordinate x, y, z are packed together into a single float array
 			//thus we need to unpack our vector3 to store all x, y and z values in the same array
@@ -85,7 +88,7 @@ namespace ForgeEngine
 		delete[](glVertices);
 	}
 
-	void Mesh::Render()
+	void Mesh::Render() const
 	{
 		glUseProgram(m_ShaderProgram);
 		glBindVertexArray(m_VertexArrayObject);

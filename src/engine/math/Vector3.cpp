@@ -1,7 +1,6 @@
 #include "Vector3.h"
 
 #include <cmath>
-#include <type_traits>
 #include <stdexcept>
 
 namespace ForgeEngine

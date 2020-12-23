@@ -1,5 +1,7 @@
 #include "ShaderUtils.h"
 
+#include "engine/misc/Color.h"
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
@@ -76,5 +78,13 @@ namespace ForgeEngine
 		}
 
 		va_end(args);
+	}
+
+	void SetBackgroundColor(Color backgroundColor)
+	{
+		// set state color
+		glClearColor(backgroundColor.GetR(), backgroundColor.GetG(), backgroundColor.GetB(), backgroundColor.GetA());
+		// applies state
+		glClear(GL_COLOR_BUFFER_BIT);
 	}
 }
