@@ -1,9 +1,9 @@
 #include "PapierKraft.h"
 
-#include "engine/misc/Color.h"
+#include "engine/3d/MeshFactory.h"
 #include "engine/core/Game.h"
 #include "engine/math/Vector3.h"
-#include "engine/3d/MeshFactory.h"
+#include "engine/misc/Color.h"
 #include "engine/shader/ShaderUtils.h"
 
 #include <glad/glad.h>
@@ -20,69 +20,31 @@ int main()
 
 namespace PapierKraft
 {
-	/****************************************/
-	/************* GLOBAL DATA **************/
-	/****************************************/
-
-	//Basic vertex shader code (written in GLSL)
-	const char* vertexShaderSource =
-		"#version 330 core\n"
-		//This location = 0 is still a bit mysterious...
-		"layout (location = 0) in vec3 aPos;\n"
-		"void main()\n"
-		"{\n"
-		"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-		"}\0";
-
-	//Basic fragment shader code (written in GLSL)
-	const char* fragmentShaderSource =
-		"#version 330 core\n"
-		"out vec4 FragColor;\n"
-		"void main()"
-		"{\n"
-		"	FragColor = vec4(1.f, 0.f, 0.f, 1.f);\n"
-		"}\n";
-
-	Game game{};
-	std::vector<Mesh> meshes{};
-	GL_ID vertexShader{}, fragmentShader{}, shaderProgram{}, vertexBufferObject{};
-	MeshFactory meshFactory{};
-	/****************************************/
-	/************** FUNCTIONS ***************/
-	/****************************************/
+	//Try anything here
+	void PerformTests()
+	{
+	}
 
 	int CoreLoop()
 	{
 		PerformTests();
 
+		Game game{};
 		game.Init("PapierKraft", 800, 600);
 		game.SetUpdateCallback(Update);
 		game.SetTerminationConditionCallback(ShouldTerminate);
 
-		if (!CompileShaders())
-		{
-			return -1;
-		}
-		BuildMesh();
+		BuildMeshes();
 
-		game.StartLoop();
+		game.HandleProcess();
 		
-		ClearResources();
-
 		return 0;
 	}
 
 	void Update(float dT)
 	{
 		ProcessInput();
-		
-		SetBackgroundColor(COLOR_BLACK);
-
-		meshFactory.Update();
-	}
-
-	void PerformTests()
-	{
+		ShaderUtils::SetBackgroundColor(COLOR_BLACK);
 	}
 
 	void ProcessInput()
@@ -97,39 +59,27 @@ namespace PapierKraft
 			);
 	}
 
-	bool CompileShaders()
+	void BuildMeshes()
 	{
-		//Create and compile both vertex shader (geometry) and fragment shader (color) and links them into one shader program
-		if (
-			!TryCompileShader(vertexShader, vertexShaderSource, GL_VERTEX_SHADER) || 
-			!TryCompileShader(fragmentShader, fragmentShaderSource, GL_FRAGMENT_SHADER) ||
-			!TryLinkShaderProgram(shaderProgram, true, &vertexShader, &vertexShaderSource)
-		)
-		{
-			return false;
-		}
-		return true;
-	}
-
-	void BuildMesh()
-	{
-		std::vector<Vector3> vertices{
+		std::vector<Vector3> vertices1{
 			Vector3{-0.5f, -0.5f, 0.0f},
 			Vector3{ 0.f,  0.5f, 0.0f},
 			Vector3{ 0.5f, -0.5f, 0.0f}
 		};
 
+		std::vector<Vector3> vertices2{
+			Vector3{ 0.5f, 0.5f, 0.0f},
+			Vector3{ 1.f,  1.5f, 0.0f},
+			Vector3{ 1.5f, 0.5f, 0.0f}
+		};
+
 		//Coordinate indexes 
 		std::vector<unsigned int> triangleIndices = {
 			//First triangle
-				0, 1, 2,
+				0, 1, 2
 		};
 
-		MeshFactory::CreateMesh(vertices, shaderProgram, triangleIndices);
-	}
-
-	void ClearResources()
-	{
-		glDeleteProgram(shaderProgram);
+		MeshFactory::RegisterMesh(vertices1, triangleIndices, COLOR_GREEN);
+		MeshFactory::RegisterMesh(vertices2, triangleIndices, COLOR_RED);
 	}
 }

@@ -1,6 +1,11 @@
 #include "Game.h"
 
-#include "CoreEngine.h"
+#include "engine/3d/MeshFactory.h"
+#include "engine/core/CoreEngine.h"
+#include "engine/shader/ShaderUtils.h"
+
+#include <chrono>
+#include <cmath>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
@@ -20,25 +25,41 @@ namespace ForgeEngine
 		return false;
 	}
 
-	void Game::StartLoop()
+	void Game::HandleProcess()
 	{
+		std::chrono::time_point<std::chrono::high_resolution_clock> frameStart = std::chrono::high_resolution_clock::now();
+		std::chrono::time_point<std::chrono::high_resolution_clock> frameEnd = std::chrono::high_resolution_clock::now();
+
 		if (m_Window != nullptr)
 		{
 			while (!glfwWindowShouldClose(m_Window))
 			{
-				CheckTermination();
+				int elapsedNanoSeconds = std::chrono::duration_cast<std::chrono::nanoseconds>(frameEnd - frameStart).count();
+				//deltaTime is defined using seconds
+				float dT = 1.f / (elapsedNanoSeconds * std::pow(elapsedNanoSeconds, 9));
+
+				frameStart = std::chrono::high_resolution_clock::now();
 
 				if (m_UpdateCallback)
 				{
-					m_UpdateCallback(0.f);
+					m_UpdateCallback(dT);
 				}
 
+				MeshFactory::Update();
+
 				ProcessDebugInput();
+
+				CheckTermination();
 
 				// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 				glfwSwapBuffers(m_Window);
 				glfwPollEvents();
+
+				frameEnd = std::chrono::high_resolution_clock::now();
 			}
+
+			OnTermination();
+
 			// glfw: terminate, clearing all previously allocated GLFW resources.
 			glfwTerminate();
 		}
@@ -56,6 +77,11 @@ namespace ForgeEngine
 			shouldTerminate = DefaultTerminationCondition();
 		}
 		glfwSetWindowShouldClose(m_Window, shouldTerminate);
+	}
+
+	void Game::OnTermination()
+	{
+		ShaderUtils::ReleaseResources();
 	}
 
 	bool Game::DefaultTerminationCondition()

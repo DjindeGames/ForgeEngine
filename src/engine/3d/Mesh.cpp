@@ -1,6 +1,7 @@
 #include "Mesh.h"
 
 #include "engine/math/Vector3.h"
+#include "engine/shader/ShaderUtils.h"
 
 #include <algorithm>
 #include <glad/glad.h>
@@ -9,29 +10,42 @@
 
 namespace ForgeEngine
 {
+
 	Mesh::Mesh(
 		const std::vector<Vector3>& vertices,  
-		GL_ID shaderProgram, 
-		const std::vector<unsigned int>& indices /*= std::vector<unsigned int>{}*/
+		const std::vector<unsigned int>& indices /*= std::vector<unsigned int>{}*/,
+		Color renderColor /*= COLOR_MAGENTA*/
+
 	) :
-		m_ShaderProgram(shaderProgram),
+		m_ShaderProgram(ShaderUtils::GetDefaultShaderProgram()),
 		m_NumVertices(static_cast<unsigned int>(vertices.size())),
-		m_NumIndices(static_cast<unsigned int>(indices.size()))
+		m_NumIndices(static_cast<unsigned int>(indices.size())),
+		m_Vertices(vertices),
+		m_Indices(indices),
+		m_renderColor(renderColor)
 	{
-		InitRender(vertices, shaderProgram, indices);
+	}
+
+	Mesh::Mesh(
+		const std::vector<Vector3>& vertices,
+		Color renderColor /*= COLOR_MAGENTA*/
+	) :
+		m_ShaderProgram(ShaderUtils::GetDefaultShaderProgram()),
+		m_NumVertices(static_cast<unsigned int>(vertices.size())),
+		m_NumIndices(static_cast<unsigned int>(0)),
+		m_Vertices(vertices),
+		m_renderColor(renderColor)
+	{
 	}
 
 	Mesh::~Mesh()
 	{
-		//THE FOLLOWING SHOULD BE DONE
-		/*
 		glDeleteVertexArrays(1, &m_VertexArrayObject);
 		glDeleteBuffers(1, &m_VertexBufferObject);
 		glDeleteBuffers(1, &m_VertexBufferElement);
-		*/
 	}
 
-	void Mesh::InitRender(const std::vector<Vector3>& vertices, GL_ID shaderProgram, const std::vector<unsigned int>& indices)
+	void Mesh::InitRender()
 	{
 		float* glVertices = new float[(m_NumVertices * 3)];
 
@@ -39,7 +53,7 @@ namespace ForgeEngine
 		{
 			//In opengl, all coordinate x, y, z are packed together into a single float array
 			//thus we need to unpack our vector3 to store all x, y and z values in the same array
-			glVertices[i] = vertices[i / 3][i % 3];
+			glVertices[i] = m_Vertices[i / 3][i % 3];
 		} 
 
 		//Generates buffer to store vertices
@@ -56,15 +70,15 @@ namespace ForgeEngine
 		glBufferData(GL_ARRAY_BUFFER, m_NumVertices * sizeof(float) * 3, glVertices, GL_STATIC_DRAW);
 
 		//2.5. Use vertex buffer element if necessary
-		if (indices.size() > 0)
+		if (m_Indices.size() > 0)
 		{
 			glGenBuffers(1, &m_VertexBufferElement);
 
-			unsigned int* glIndices = new unsigned int[indices.size()];
-			std::copy(indices.begin(), indices.end(), glIndices);
+			unsigned int* glIndices = new unsigned int[m_Indices.size()];
+			std::copy(m_Indices.begin(), m_Indices.end(), glIndices);
 
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_VertexBufferElement);
-			glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), glIndices, GL_STATIC_DRAW);
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_Indices.size() * sizeof(unsigned int), glIndices, GL_STATIC_DRAW);
 
 			delete[](glIndices);
 		}
@@ -88,9 +102,19 @@ namespace ForgeEngine
 		delete[](glVertices);
 	}
 
-	void Mesh::Render() const
+	void Mesh::Render()
 	{
+		if (!m_IsInitialized)
+		{
+			m_IsInitialized = true;
+			InitRender();
+		}
+
+		//Set rendering color
+		int vertexColorLocation = glGetUniformLocation(m_ShaderProgram, "renderColor");
 		glUseProgram(m_ShaderProgram);
+		glUniform4f(vertexColorLocation, m_renderColor.GetR(), m_renderColor.GetG(), m_renderColor.GetB(), m_renderColor.GetA());
+
 		glBindVertexArray(m_VertexArrayObject);
 		if (m_NumIndices > 0)
 		{

@@ -36,11 +36,12 @@ namespace ForgeEngine
 		//Optional: Sets the termination check condition
 		void SetTerminationConditionCallback(bool (*callback)(GLFWwindow*)) { m_TerminationConditionCallback = callback; }
 		//Handles the main loop
-		void StartLoop();
+		void HandleProcess();
 
 	private:
 		//Checks whether the game should terminate
 		void CheckTermination();
+		void OnTermination();
 		//Called by default if no TerminationConditionCallback is set
 		bool DefaultTerminationCondition();
 		//Checks debug related input

@@ -7,9 +7,7 @@ namespace PapierKraft
 	void Update(float dT);
 	bool ShouldTerminate(GLFWwindow* window);
 	int CoreLoop();
-	bool CompileShaders();
-	void BuildMesh();
-	void ClearResources();
+	void BuildMeshes();
 	void ProcessInput();
 	void PerformTests();
 }

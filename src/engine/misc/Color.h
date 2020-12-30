@@ -7,6 +7,14 @@ namespace ForgeEngine
 	#define COLOR_RED Color{1.f, 0.f, 0.f}
 	#define COLOR_GREEN Color{0.f, 1.f, 0.f}
 	#define COLOR_BLUE Color{0.f, 0.f, 1.f}
+
+	#define COLOR_YELLOW Color{1.f, 1.f, 0.f}
+	#define COLOR_CYAN Color{0.f, 1.f, 1.f}
+	#define COLOR_MAGENTA Color{1.f, 0.f, 1.f}
+
+	#define COLOR_ORANGE Color{1.f, 0.5f, 0.f}
+	#define COLOR_PURPLE Color{0.5f, 0.f, 1.f}
+
 	#define COLOR_BLACK Color{0.f, 0.f, 0.f}
 	#define COLOR_WHITE Color{1.f, 1.f, 1.f}
 
