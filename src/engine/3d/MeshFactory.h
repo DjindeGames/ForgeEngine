@@ -3,6 +3,7 @@
 #include "engine/3d/Mesh.h"
 #include "engine/core/CoreEngine.h"
 #include "engine/misc/Color.h"
+#include "engine/shader/Shader.h"
 
 #include <memory>
 #include <vector>
@@ -13,8 +14,7 @@ namespace ForgeEngine
 	
 	namespace MeshFactory
 	{
-		void RegisterMesh(const std::vector<Vector3>& vertices, const std::vector<unsigned int>& indices = std::vector<unsigned int>{}, Color renderColor = COLOR_MAGENTA);
-		void RegisterMesh(const std::vector<Vector3>& vertices, Color renderColor = COLOR_MAGENTA);
+		void RegisterMesh(const std::vector<Vector3>& vertices, const std::vector<unsigned int>& indices, Shader* shader, Color renderColor = COLOR_RENDER_DEFAULT);
 		void Update();
 	}
 }

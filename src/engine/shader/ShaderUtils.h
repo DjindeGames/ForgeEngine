@@ -1,6 +1,7 @@
 #pragma once
 
 #include "engine/core/CoreEngine.h"
+#include "engine/shader/Shader.h"
 
 namespace ForgeEngine
 {
@@ -8,11 +9,10 @@ namespace ForgeEngine
 
 	namespace ShaderUtils
 	{
-		GL_ID GetDefaultShaderProgram();
 		bool TryCompileShader(GL_ID& shader, const char* shaderSource, int shaderType, bool outputLogs = true);
 		bool TryLinkShaderProgram(GL_ID& shaderProgram, bool outputLogs, const GL_ID* shaders, ...);
 		void DeleteShaders(const GL_ID* shaders, ...);
-		void ReleaseResources();
+		void DeletePrograms(const GL_ID* programs, ...);
 
 		void SetBackgroundColor(Color backgroundColor);
 	}

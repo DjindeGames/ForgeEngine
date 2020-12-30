@@ -17,6 +17,7 @@ namespace ForgeEngine
 
 	#define COLOR_BLACK Color{0.f, 0.f, 0.f}
 	#define COLOR_WHITE Color{1.f, 1.f, 1.f}
+	#define COLOR_RENDER_DEFAULT COLOR_MAGENTA
 
 	class Color
 	{

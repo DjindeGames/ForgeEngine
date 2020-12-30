@@ -81,7 +81,6 @@ namespace ForgeEngine
 
 	void Game::OnTermination()
 	{
-		ShaderUtils::ReleaseResources();
 	}
 
 	bool Game::DefaultTerminationCondition()

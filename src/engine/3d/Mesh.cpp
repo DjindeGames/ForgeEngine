@@ -10,31 +10,18 @@
 
 namespace ForgeEngine
 {
-
 	Mesh::Mesh(
-		const std::vector<Vector3>& vertices,  
-		const std::vector<unsigned int>& indices /*= std::vector<unsigned int>{}*/,
-		Color renderColor /*= COLOR_MAGENTA*/
-
+		const std::vector<Vector3>& vertices,
+		const std::vector<unsigned int>& indices,
+		Shader* shader,
+		Color renderColor /*= COLOR_RENDER_DEFAULT*/
 	) :
-		m_ShaderProgram(ShaderUtils::GetDefaultShaderProgram()),
 		m_NumVertices(static_cast<unsigned int>(vertices.size())),
 		m_NumIndices(static_cast<unsigned int>(indices.size())),
 		m_Vertices(vertices),
 		m_Indices(indices),
-		m_renderColor(renderColor)
-	{
-	}
-
-	Mesh::Mesh(
-		const std::vector<Vector3>& vertices,
-		Color renderColor /*= COLOR_MAGENTA*/
-	) :
-		m_ShaderProgram(ShaderUtils::GetDefaultShaderProgram()),
-		m_NumVertices(static_cast<unsigned int>(vertices.size())),
-		m_NumIndices(static_cast<unsigned int>(0)),
-		m_Vertices(vertices),
-		m_renderColor(renderColor)
+		m_renderColor(renderColor),
+		m_Shader(shader)
 	{
 	}
 
@@ -99,30 +86,34 @@ namespace ForgeEngine
 		//VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
 		glBindVertexArray(0);
 
+		//Clear vertices data
 		delete[](glVertices);
+		m_Vertices.erase(m_Vertices.begin(), m_Vertices.end());
+		m_Indices.erase(m_Indices.begin(), m_Indices.end());
+
+		m_IsInitialized = true;
 	}
 
 	void Mesh::Render()
 	{
 		if (!m_IsInitialized)
 		{
-			m_IsInitialized = true;
 			InitRender();
 		}
-
-		//Set rendering color
-		int vertexColorLocation = glGetUniformLocation(m_ShaderProgram, "renderColor");
-		glUseProgram(m_ShaderProgram);
-		glUniform4f(vertexColorLocation, m_renderColor.GetR(), m_renderColor.GetG(), m_renderColor.GetB(), m_renderColor.GetA());
-
-		glBindVertexArray(m_VertexArrayObject);
-		if (m_NumIndices > 0)
+		
+		if (m_Shader != nullptr)
 		{
-			glDrawElements(GL_TRIANGLES, m_NumIndices, GL_UNSIGNED_INT, 0);
-		}
-		else
-		{
-			glDrawArrays(GL_TRIANGLES, 0, m_NumVertices * 3);
+			m_Shader->Use();
+			m_Shader->SetColor(DEFAULT_RENDER_COLOR_NAME, m_renderColor);
+			glBindVertexArray(m_VertexArrayObject);
+			if (m_NumIndices > 0)
+			{
+				glDrawElements(GL_TRIANGLES, m_NumIndices, GL_UNSIGNED_INT, 0);
+			}
+			else
+			{
+				glDrawArrays(GL_TRIANGLES, 0, m_NumVertices * 3);
+			}
 		}
 	}
 }

@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\engine\shader\Shader.h" />
     <ClInclude Include="src\engine\3d\MeshFactory.h" />
     <ClInclude Include="src\engine\misc\Color.h" />
     <ClInclude Include="src\engine\3d\Mesh.h" />
@@ -37,6 +38,7 @@
     <ClInclude Include="src\engine\math\Vector3.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\engine\shader\Shader.cpp" />
     <ClCompile Include="src\engine\3d\MeshFactory.cpp" />
     <ClCompile Include="src\engine\misc\Color.cpp" />
     <ClCompile Include="src\engine\3d\Mesh.cpp" />

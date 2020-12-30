@@ -4,6 +4,7 @@
 #include "engine/core/Game.h"
 #include "engine/math/Vector3.h"
 #include "engine/misc/Color.h"
+#include "engine/shader/Shader.h"
 #include "engine/shader/ShaderUtils.h"
 
 #include <glad/glad.h>
@@ -12,6 +13,8 @@
 #include <vector>
 
 using namespace ForgeEngine;
+
+Shader* defaultShader{};
 
 int main()
 {
@@ -23,21 +26,24 @@ namespace PapierKraft
 	//Try anything here
 	void PerformTests()
 	{
+		
 	}
 
 	int CoreLoop()
 	{
-		PerformTests();
-
 		Game game{};
 		game.Init("PapierKraft", 800, 600);
 		game.SetUpdateCallback(Update);
 		game.SetTerminationConditionCallback(ShouldTerminate);
 
+		PerformTests();
+
 		BuildMeshes();
 
 		game.HandleProcess();
 		
+		delete(defaultShader);
+
 		return 0;
 	}
 
@@ -79,7 +85,9 @@ namespace PapierKraft
 				0, 1, 2
 		};
 
-		MeshFactory::RegisterMesh(vertices1, triangleIndices, COLOR_GREEN);
-		MeshFactory::RegisterMesh(vertices2, triangleIndices, COLOR_RED);
+		defaultShader = new Shader{ DEFAULT_VERTEX_SHADER_PATH, DEFAULT_FRAGMENT_SHADER_PATH };
+
+		MeshFactory::RegisterMesh(vertices1, triangleIndices, defaultShader);
+		MeshFactory::RegisterMesh(vertices2, triangleIndices, defaultShader, COLOR_ORANGE);
 	}
 }
