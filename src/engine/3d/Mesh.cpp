@@ -1,12 +1,14 @@
 #include "Mesh.h"
 
 #include "engine/math/Vector3.h"
+#include "engine/misc/Texture.h"
 #include "engine/shader/ShaderUtils.h"
 
 #include <algorithm>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iterator>
+#include <utility>
 
 namespace ForgeEngine
 {
@@ -14,7 +16,7 @@ namespace ForgeEngine
 		const std::vector<Vector3>& vertices,
 		const std::vector<unsigned int>& indices,
 		Shader* shader,
-		Color renderColor /*= COLOR_RENDER_DEFAULT*/
+		const Color& renderColor /*= COLOR_RENDER_DEFAULT*/
 	) :
 		m_NumVertices(static_cast<unsigned int>(vertices.size())),
 		m_NumIndices(static_cast<unsigned int>(indices.size())),
@@ -74,9 +76,15 @@ namespace ForgeEngine
 		//1st argument corresponds to the vertex attribute location (comes from vertexShaderSource)
 		//2nd argument corresponds to the number of float in a vec3 (used in the vertex shader)
 		//5th argument corresponds to the size of the stride in bytes, ie the number of bytes between 2 vec3
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-		//Argument corresponds to the vertex attribute location
-		glEnableVertexAttribArray(0);
+		//Should be done for each attribute of the vertexShader, eg each in variable
+		int offset = 0;
+		for (auto attribute : m_Shader->GetAttributes())
+		{
+			glVertexAttribPointer(attribute.first, attribute.second, GL_FLOAT, GL_FALSE, attribute.second * sizeof(float), (void*)offset);
+			offset += attribute.second * sizeof(float);
+			//Argument corresponds to the vertex attribute location
+			glEnableVertexAttribArray(attribute.first);
+		}
 
 		//Unbinding, this is optionnal
 
@@ -105,6 +113,10 @@ namespace ForgeEngine
 		{
 			m_Shader->Use();
 			m_Shader->SetColor(DEFAULT_RENDER_COLOR_NAME, m_renderColor);
+			if (m_Texture != nullptr)
+			{
+				m_Texture->Use();
+			}
 			glBindVertexArray(m_VertexArrayObject);
 			if (m_NumIndices > 0)
 			{

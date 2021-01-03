@@ -2,6 +2,7 @@
 
 #include "engine/misc/Color.h"
 #include "engine/shader/ShaderUtils.h"
+#include "engine/misc/Utils.h"
 
 #include <fstream>
 #include <glad/glad.h>
@@ -41,6 +42,16 @@ namespace ForgeEngine
 			vertexShaderSource = vertexShaderStream.str();
 			fragmentShaderSource = fragmentShaderStream.str();
 
+			std::vector<std::string> extractedLines = Utils::ExtractLines(GLSL_ATTRIBUTE_TOKEN, vertexShaderSource);
+			for (const std::string& str : extractedLines)
+			{
+				std::vector<std::string> splitted = Utils::Split(" ", str);
+				if (splitted.size() == 3)
+				{
+					m_Attributes.push_back(std::pair<unsigned int, unsigned int>{std::stoi(splitted[1]), std::stoi(splitted[2])});
+				}
+			}
+
 			if (!ShaderUtils::TryCompileShader(m_VertexID, vertexShaderSource.c_str(), GL_VERTEX_SHADER) ||
 				!ShaderUtils::TryCompileShader(m_FragmentID, fragmentShaderSource.c_str(), GL_FRAGMENT_SHADER) ||
 				!ShaderUtils::TryLinkShaderProgram(m_ProgramID, true, &m_VertexID, &m_FragmentID))
@@ -63,6 +74,30 @@ namespace ForgeEngine
 	void Shader::Use()
 	{
 		glUseProgram(m_ProgramID);
+	}
+
+	int Shader::GetInputDataSize() const
+	{
+		if (m_InputDataSize == -1)
+		{
+			m_InputDataSize = 0;
+			//Compute data size
+			for (auto attribute : m_Attributes)
+			{
+				m_InputDataSize += attribute.second;
+			}
+		}
+		return m_InputDataSize;
+	}
+
+	bool Shader::TryGetAttribute(int index, std::pair<unsigned int, unsigned int>& attribute) const
+	{
+		if (index < m_Attributes.size())
+		{
+			attribute = m_Attributes[index];
+			return true;
+		}
+		return false;
 	}
 
 	void Shader::SetFloat(const char* which, float value)

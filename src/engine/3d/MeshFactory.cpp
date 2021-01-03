@@ -9,9 +9,10 @@ namespace ForgeEngine
 	{
 		std::vector<std::unique_ptr<Mesh>> m_Meshes{};
 
-		void RegisterMesh(const std::vector<Vector3>& vertices, const std::vector<unsigned int>& indices, Shader* shader, Color renderColor /*= COLOR_RENDER_DEFAULT*/)
+		Mesh* RegisterMesh(const std::vector<Vector3>& vertices, const std::vector<unsigned int>& indices, Shader* shader, const Color& renderColor /*= COLOR_RENDER_DEFAULT*/)
 		{
 			m_Meshes.push_back(std::make_unique<Mesh>(vertices, indices, shader, renderColor));
+			return m_Meshes[m_Meshes.size() - 1].get();
 		}
 
 		void Update()

@@ -10,6 +10,7 @@ namespace ForgeEngine
 {
 	class Shader;
 	class Vector3;
+	class Texture;
 
 	//!!! ALL MESHES SHOULD BE CREATED USING MESH FACTORY !!!
 	//A mesh is built using a collection of Vector3 that represents its vertices
@@ -22,6 +23,7 @@ namespace ForgeEngine
 
 		private:
 			Shader* m_Shader{};
+			Texture* m_Texture{};
 			Color m_renderColor;
 
 			GL_ID m_VertexArrayObject{};
@@ -40,10 +42,12 @@ namespace ForgeEngine
 		/************************************/
 
 		public:
-			Mesh(const std::vector<Vector3>& vertices, const std::vector<unsigned int>& indices, Shader* shader, Color renderColor = COLOR_RENDER_DEFAULT);
+			Mesh(const std::vector<Vector3>& vertices, const std::vector<unsigned int>& indices, Shader* shader, const Color& renderColor = COLOR_RENDER_DEFAULT);
 			//This should probably be done !
 			//Mesh(const Mesh& mesh) = delete;
 			~Mesh();
+
+			void SetTexture(Texture* texture) { m_Texture = texture; }
 
 			void Render();
 

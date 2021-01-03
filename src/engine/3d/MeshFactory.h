@@ -10,11 +10,12 @@
 
 namespace ForgeEngine
 {
+	class Mesh;
 	class Vector3;
-	
+
 	namespace MeshFactory
 	{
-		void RegisterMesh(const std::vector<Vector3>& vertices, const std::vector<unsigned int>& indices, Shader* shader, Color renderColor = COLOR_RENDER_DEFAULT);
+		Mesh* RegisterMesh(const std::vector<Vector3>& vertices, const std::vector<unsigned int>& indices, Shader* shader, const Color& renderColor = COLOR_RENDER_DEFAULT);
 		void Update();
 	}
 }

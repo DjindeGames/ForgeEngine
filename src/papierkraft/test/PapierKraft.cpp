@@ -4,6 +4,7 @@
 #include "engine/core/Game.h"
 #include "engine/math/Vector3.h"
 #include "engine/misc/Color.h"
+#include "engine/misc/Texture.h"
 #include "engine/shader/Shader.h"
 #include "engine/shader/ShaderUtils.h"
 
@@ -15,6 +16,7 @@
 using namespace ForgeEngine;
 
 Shader* defaultShader{};
+Texture* dirtTexture{};
 
 int main()
 {
@@ -43,6 +45,7 @@ namespace PapierKraft
 		game.HandleProcess();
 		
 		delete(defaultShader);
+		delete(dirtTexture);
 
 		return 0;
 	}
@@ -69,25 +72,22 @@ namespace PapierKraft
 	{
 		std::vector<Vector3> vertices1{
 			Vector3{-0.5f, -0.5f, 0.0f},
-			Vector3{ 0.f,  0.5f, 0.0f},
-			Vector3{ 0.5f, -0.5f, 0.0f}
-		};
-
-		std::vector<Vector3> vertices2{
-			Vector3{ 0.5f, 0.5f, 0.0f},
-			Vector3{ 1.f,  1.5f, 0.0f},
-			Vector3{ 1.5f, 0.5f, 0.0f}
+			Vector3{-0.5f,  0.5f, 0.0f},
+			Vector3{ 0.5f, -0.5f, 0.0f},
+			Vector3{ 0.5f,  0.5f, 0.0f},
 		};
 
 		//Coordinate indexes 
 		std::vector<unsigned int> triangleIndices = {
 			//First triangle
-				0, 1, 2
+				0, 1, 2,
+			//Second triangle
+				1, 2, 3
 		};
 
-		defaultShader = new Shader{ DEFAULT_VERTEX_SHADER_PATH, DEFAULT_FRAGMENT_SHADER_PATH };
+		defaultShader = new Shader{ TEXTURED_VERTEX_SHADER_PATH, TEXTURED_FRAGMENT_SHADER_PATH };
+		dirtTexture = new Texture{ TEXTURE_DIRT_SIDE };
 
-		MeshFactory::RegisterMesh(vertices1, triangleIndices, defaultShader);
-		MeshFactory::RegisterMesh(vertices2, triangleIndices, defaultShader, COLOR_ORANGE);
+		MeshFactory::RegisterMesh(vertices1, triangleIndices, defaultShader)->SetTexture(dirtTexture);
 	}
 }
