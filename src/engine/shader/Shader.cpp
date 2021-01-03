@@ -2,6 +2,7 @@
 
 #include "engine/misc/Color.h"
 #include "engine/shader/ShaderUtils.h"
+#include "engine/misc/Texture.h"
 #include "engine/misc/Utils.h"
 
 #include <fstream>
@@ -118,5 +119,14 @@ namespace ForgeEngine
 	void Shader::SetColor(const char* which, const Color& value)
 	{
 		glUniform4f(glGetUniformLocation(m_ProgramID, which), value.GetR(), value.GetG(), value.GetB(), value.GetA());
+	}
+
+	void Shader::SetTexture(unsigned int which, const Texture* value)
+	{
+		if (value != nullptr)
+		{
+			glActiveTexture(which); // activate the texture unit first before binding texture
+			glBindTexture(GL_TEXTURE_2D, value->GetGLTexture());
+		}
 	}
 }

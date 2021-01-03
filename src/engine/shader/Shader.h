@@ -19,6 +19,7 @@ namespace ForgeEngine
 	#define DEFAULT_RENDER_TEXTURE_NAME "renderTexture"
 
 	class Color;
+	class Texture;
 
 	class Shader
 	{
@@ -57,5 +58,6 @@ namespace ForgeEngine
 			void SetBool(const char* which, bool value);
 			void SetInt(const char* which, int value);
 			void SetColor(const char* which, const Color& value);
+			void SetTexture(unsigned int which, const Texture* value);
 	};
 }

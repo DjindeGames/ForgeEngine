@@ -1,6 +1,5 @@
 #include "MeshFactory.h"
 
-#include "engine/math/Vector3.h"
 #include "engine/shader/ShaderUtils.h"
 
 namespace ForgeEngine
@@ -9,7 +8,7 @@ namespace ForgeEngine
 	{
 		std::vector<std::unique_ptr<Mesh>> m_Meshes{};
 
-		Mesh* RegisterMesh(const std::vector<Vector3>& vertices, const std::vector<unsigned int>& indices, Shader* shader, const Color& renderColor /*= COLOR_RENDER_DEFAULT*/)
+		Mesh* RegisterMesh(const std::vector<float>& vertices, const std::vector<unsigned int>& indices, Shader* shader, const Color& renderColor /*= COLOR_RENDER_DEFAULT*/)
 		{
 			m_Meshes.push_back(std::make_unique<Mesh>(vertices, indices, shader, renderColor));
 			return m_Meshes[m_Meshes.size() - 1].get();

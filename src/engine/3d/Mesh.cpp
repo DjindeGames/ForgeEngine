@@ -1,6 +1,5 @@
 #include "Mesh.h"
 
-#include "engine/math/Vector3.h"
 #include "engine/misc/Texture.h"
 #include "engine/shader/ShaderUtils.h"
 
@@ -13,14 +12,13 @@
 namespace ForgeEngine
 {
 	Mesh::Mesh(
-		const std::vector<Vector3>& vertices,
+		const std::vector<float>& vertices,
 		const std::vector<unsigned int>& indices,
 		Shader* shader,
 		const Color& renderColor /*= COLOR_RENDER_DEFAULT*/
 	) :
-		m_NumVertices(static_cast<unsigned int>(vertices.size())),
 		m_NumIndices(static_cast<unsigned int>(indices.size())),
-		m_Vertices(vertices),
+		m_Floats(vertices),
 		m_Indices(indices),
 		m_renderColor(renderColor),
 		m_Shader(shader)
@@ -36,13 +34,18 @@ namespace ForgeEngine
 
 	void Mesh::InitRender()
 	{
-		float* glVertices = new float[(m_NumVertices * 3)];
-
-		for (COUNTER i = 0; i < (m_NumVertices * 3); i++)
+		if (m_Shader == nullptr)
 		{
-			//In opengl, all coordinate x, y, z are packed together into a single float array
-			//thus we need to unpack our vector3 to store all x, y and z values in the same array
-			glVertices[i] = m_Vertices[i / 3][i % 3];
+			return;
+		}
+
+		m_NumVertices = m_Floats.size() / m_Shader->GetInputDataSize();
+
+		float* glFloats = new float[(m_Floats.size())];
+
+		for (COUNTER i = 0; i < (m_Floats.size()); i++)
+		{
+			glFloats[i] = m_Floats[i];
 		} 
 
 		//Generates buffer to store vertices
@@ -56,7 +59,7 @@ namespace ForgeEngine
 
 		//2. Copy our vertices array in a buffer for OpenGL to use
 		glBindBuffer(GL_ARRAY_BUFFER, m_VertexBufferObject);
-		glBufferData(GL_ARRAY_BUFFER, m_NumVertices * sizeof(float) * 3, glVertices, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, m_Floats.size() * sizeof(float), glFloats, GL_STATIC_DRAW);
 
 		//2.5. Use vertex buffer element if necessary
 		if (m_Indices.size() > 0)
@@ -80,7 +83,7 @@ namespace ForgeEngine
 		int offset = 0;
 		for (auto attribute : m_Shader->GetAttributes())
 		{
-			glVertexAttribPointer(attribute.first, attribute.second, GL_FLOAT, GL_FALSE, attribute.second * sizeof(float), (void*)offset);
+			glVertexAttribPointer(attribute.first, attribute.second, GL_FLOAT, GL_FALSE, m_Shader->GetInputDataSize() * sizeof(float), (void*)offset);
 			offset += attribute.second * sizeof(float);
 			//Argument corresponds to the vertex attribute location
 			glEnableVertexAttribArray(attribute.first);
@@ -95,8 +98,8 @@ namespace ForgeEngine
 		glBindVertexArray(0);
 
 		//Clear vertices data
-		delete[](glVertices);
-		m_Vertices.erase(m_Vertices.begin(), m_Vertices.end());
+		delete[](glFloats);
+		m_Floats.erase(m_Floats.begin(), m_Floats.end());
 		m_Indices.erase(m_Indices.begin(), m_Indices.end());
 
 		m_IsInitialized = true;
@@ -113,10 +116,8 @@ namespace ForgeEngine
 		{
 			m_Shader->Use();
 			m_Shader->SetColor(DEFAULT_RENDER_COLOR_NAME, m_renderColor);
-			if (m_Texture != nullptr)
-			{
-				m_Texture->Use();
-			}
+			m_Shader->SetTexture(GL_TEXTURE0, m_Texture);
+			
 			glBindVertexArray(m_VertexArrayObject);
 			if (m_NumIndices > 0)
 			{
@@ -124,7 +125,7 @@ namespace ForgeEngine
 			}
 			else
 			{
-				glDrawArrays(GL_TRIANGLES, 0, m_NumVertices * 3);
+				glDrawArrays(GL_TRIANGLES, 0, m_NumVertices * m_Shader->GetInputDataSize());
 			}
 		}
 	}

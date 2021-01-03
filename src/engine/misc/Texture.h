@@ -2,11 +2,13 @@
 
 #include <engine/core/CoreEngine.h>
 
+#include <glad/glad.h>
+
 namespace ForgeEngine
 {
 	#define TEXTURE_RESOLUTION 16
 
-	#define TEXTURE_DIRT_SIDE "assets\\textures\\blocks\\dirt\\dirt_side.png"
+	#define TEXTURE_DIRT_SIDE "assets\\textures\\blocks\\grass\\grass_side.png"
 
 	class Texture
 	{
@@ -27,9 +29,10 @@ namespace ForgeEngine
 		/************************************/
 
 	public:
-		Texture(const char* texturePath);
+		Texture(const char* texturePath, unsigned int rgbaMode = GL_RGB, bool flip = true);
 		~Texture();
 
+		GL_ID GetGLTexture() const { return m_GLTexture; }
 		void Use();
 	};
 }

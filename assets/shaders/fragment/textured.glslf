@@ -2,11 +2,11 @@
 
 //FRAGMENT SHADER
 
-uniform vec4 renderColor;
 uniform sampler2D renderTexture;
 
-out vec4 FragColor;
 in vec2 TexCoord;
+
+out vec4 FragColor;
 
 void main()
 {

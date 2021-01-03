@@ -2,7 +2,6 @@
 
 #include "engine/3d/MeshFactory.h"
 #include "engine/core/Game.h"
-#include "engine/math/Vector3.h"
 #include "engine/misc/Color.h"
 #include "engine/misc/Texture.h"
 #include "engine/shader/Shader.h"
@@ -70,24 +69,33 @@ namespace PapierKraft
 
 	void BuildMeshes()
 	{
-		std::vector<Vector3> vertices1{
-			Vector3{-0.5f, -0.5f, 0.0f},
-			Vector3{-0.5f,  0.5f, 0.0f},
-			Vector3{ 0.5f, -0.5f, 0.0f},
-			Vector3{ 0.5f,  0.5f, 0.0f},
+		std::vector<float> verticesTexture{
+				// positions       // texture coords
+			 0.5f,  0.5f, 0.0f,   1.0f, 1.0f, // top right
+			 0.5f, -0.5f, 0.0f,   1.0f, 0.0f, // bottom right
+			-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, // bottom left
+			-0.5f,  0.5f, 0.0f,   0.0f, 1.0f  // top left 
+		};
+
+		std::vector<float> verticesDefault{
+			// positions     
+			 0.5f,  0.5f, 0.0f,   
+			 0.5f, -0.5f, 0.0f,  
+			-0.5f, -0.5f, 0.0f,  
+			-0.5f,  0.5f, 0.0f
 		};
 
 		//Coordinate indexes 
 		std::vector<unsigned int> triangleIndices = {
 			//First triangle
-				0, 1, 2,
+				0, 1, 3,
 			//Second triangle
 				1, 2, 3
 		};
 
 		defaultShader = new Shader{ TEXTURED_VERTEX_SHADER_PATH, TEXTURED_FRAGMENT_SHADER_PATH };
-		dirtTexture = new Texture{ TEXTURE_DIRT_SIDE };
+		dirtTexture = new Texture{ TEXTURE_DIRT_SIDE, GL_RGBA };
 
-		MeshFactory::RegisterMesh(vertices1, triangleIndices, defaultShader)->SetTexture(dirtTexture);
+		MeshFactory::RegisterMesh(verticesTexture, triangleIndices, defaultShader)->SetTexture(dirtTexture);
 	}
 }

@@ -9,7 +9,6 @@
 namespace ForgeEngine
 {
 	class Shader;
-	class Vector3;
 	class Texture;
 
 	//!!! ALL MESHES SHOULD BE CREATED USING MESH FACTORY !!!
@@ -31,7 +30,7 @@ namespace ForgeEngine
 			GL_ID m_VertexBufferElement{};
 
 			std::vector<unsigned int> m_Indices{};
-			std::vector<Vector3> m_Vertices{};
+			std::vector<float> m_Floats{};
 			unsigned int m_NumVertices{};
 			unsigned int m_NumIndices{};
 
@@ -42,7 +41,7 @@ namespace ForgeEngine
 		/************************************/
 
 		public:
-			Mesh(const std::vector<Vector3>& vertices, const std::vector<unsigned int>& indices, Shader* shader, const Color& renderColor = COLOR_RENDER_DEFAULT);
+			Mesh(const std::vector<float>& vertices, const std::vector<unsigned int>& indices, Shader* shader, const Color& renderColor = COLOR_RENDER_DEFAULT);
 			//This should probably be done !
 			//Mesh(const Mesh& mesh) = delete;
 			~Mesh();
