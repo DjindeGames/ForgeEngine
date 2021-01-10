@@ -2,10 +2,12 @@
 
 //FRAGMENT SHADER
 
+uniform vec4 RenderColor;
+uniform mat4 Transform;
+
 out vec4 FragColor;
-uniform vec4 renderColor;
 
 void main()
 {
-	FragColor = renderColor;
+	FragColor = RenderColor;
 }

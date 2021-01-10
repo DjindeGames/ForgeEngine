@@ -1,6 +1,7 @@
 #include "PapierKraft.h"
 
-#include "engine/3d/MeshFactory.h"
+#include "engine/3d/Mesh.h"
+#include "engine/core/Entity.h"
 #include "engine/core/Game.h"
 #include "engine/misc/Color.h"
 #include "engine/misc/Texture.h"
@@ -16,6 +17,7 @@ using namespace ForgeEngine;
 
 Shader* defaultShader{};
 Texture* dirtTexture{};
+Entity* cube{};
 
 int main()
 {
@@ -53,6 +55,7 @@ namespace PapierKraft
 	{
 		ProcessInput();
 		ShaderUtils::SetBackgroundColor(COLOR_BLACK);
+		cube->m_Transform->Rotate(1.f, Vector3(0.f, 1.f, 0.f));
 	}
 
 	void ProcessInput()
@@ -96,6 +99,10 @@ namespace PapierKraft
 		defaultShader = new Shader{ TEXTURED_VERTEX_SHADER_PATH, TEXTURED_FRAGMENT_SHADER_PATH };
 		dirtTexture = new Texture{ TEXTURE_DIRT_SIDE, GL_RGBA };
 
-		MeshFactory::RegisterMesh(verticesTexture, triangleIndices, defaultShader)->SetTexture(dirtTexture);
+		Mesh* mesh = new Mesh(verticesTexture, triangleIndices, defaultShader);
+		mesh->SetTexture(dirtTexture);
+
+		cube = Entity::RegisterEntity();
+		cube->SetMesh(mesh);
 	}
 }

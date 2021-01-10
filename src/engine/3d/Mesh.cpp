@@ -81,12 +81,13 @@ namespace ForgeEngine
 		//5th argument corresponds to the size of the stride in bytes, ie the number of bytes between 2 vec3
 		//Should be done for each attribute of the vertexShader, eg each in variable
 		int offset = 0;
-		for (auto attribute : m_Shader->GetAttributes())
+		for (COUNTER i = 0; i < m_Shader->GetNBAttributes() ; i++)
 		{
-			glVertexAttribPointer(attribute.first, attribute.second, GL_FLOAT, GL_FALSE, m_Shader->GetInputDataSize() * sizeof(float), (void*)offset);
-			offset += attribute.second * sizeof(float);
+			unsigned int attributeSize = m_Shader->GetAttributeSize(i);
+			glVertexAttribPointer(i, attributeSize, GL_FLOAT, GL_FALSE, m_Shader->GetInputDataSize() * sizeof(float), (void*)offset);
+			offset += attributeSize * sizeof(float);
 			//Argument corresponds to the vertex attribute location
-			glEnableVertexAttribArray(attribute.first);
+			glEnableVertexAttribArray(i);
 		}
 
 		//Unbinding, this is optionnal
@@ -105,7 +106,7 @@ namespace ForgeEngine
 		m_IsInitialized = true;
 	}
 
-	void Mesh::Render()
+	void Mesh::Render(const Transform* transform)
 	{
 		if (!m_IsInitialized)
 		{
@@ -117,6 +118,7 @@ namespace ForgeEngine
 			m_Shader->Use();
 			m_Shader->SetColor(DEFAULT_RENDER_COLOR_NAME, m_renderColor);
 			m_Shader->SetTexture(GL_TEXTURE0, m_Texture);
+			m_Shader->SetTransform(DEFAULT_TRANSFORM_NAME, transform);
 			
 			glBindVertexArray(m_VertexArrayObject);
 			if (m_NumIndices > 0)

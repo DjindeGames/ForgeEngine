@@ -1,14 +1,17 @@
 #include "Shader.h"
 
+#include "engine/math/Math.h"
+#include "engine/math/Transform.h"
 #include "engine/misc/Color.h"
-#include "engine/shader/ShaderUtils.h"
 #include "engine/misc/Texture.h"
 #include "engine/misc/Utils.h"
+#include "engine/shader/ShaderUtils.h"
 
 #include <fstream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <numeric>
 #include <sstream>
 #include <string>
 
@@ -47,9 +50,9 @@ namespace ForgeEngine
 			for (const std::string& str : extractedLines)
 			{
 				std::vector<std::string> splitted = Utils::Split(" ", str);
-				if (splitted.size() == 3)
+				if (splitted.size() == 2)
 				{
-					m_Attributes.push_back(std::pair<unsigned int, unsigned int>{std::stoi(splitted[1]), std::stoi(splitted[2])});
+					m_AttributesSizes.push_back(std::stoi(splitted[1]));
 				}
 			}
 
@@ -81,24 +84,18 @@ namespace ForgeEngine
 	{
 		if (m_InputDataSize == -1)
 		{
-			m_InputDataSize = 0;
-			//Compute data size
-			for (auto attribute : m_Attributes)
-			{
-				m_InputDataSize += attribute.second;
-			}
+			m_InputDataSize = std::accumulate(m_AttributesSizes.begin(), m_AttributesSizes.end(), 0);
 		}
 		return m_InputDataSize;
 	}
 
-	bool Shader::TryGetAttribute(int index, std::pair<unsigned int, unsigned int>& attribute) const
+	unsigned int Shader::GetAttributeSize(int index) const
 	{
-		if (index < m_Attributes.size())
+		if (index < m_AttributesSizes.size())
 		{
-			attribute = m_Attributes[index];
-			return true;
+			return m_AttributesSizes[index];
 		}
-		return false;
+		return -1;
 	}
 
 	void Shader::SetFloat(const char* which, float value)
@@ -121,12 +118,20 @@ namespace ForgeEngine
 		glUniform4f(glGetUniformLocation(m_ProgramID, which), value.GetR(), value.GetG(), value.GetB(), value.GetA());
 	}
 
-	void Shader::SetTexture(unsigned int which, const Texture* value)
+	void Shader::SetTexture(unsigned int which, const Texture* texture)
 	{
-		if (value != nullptr)
+		if (texture != nullptr)
 		{
 			glActiveTexture(which); // activate the texture unit first before binding texture
-			glBindTexture(GL_TEXTURE_2D, value->GetGLTexture());
+			glBindTexture(GL_TEXTURE_2D, texture->GetGLTexture());
+		}
+	}
+
+	void Shader::SetTransform(const char* which, const Transform* transform)
+	{
+		if (transform != nullptr)
+		{
+			glUniformMatrix4fv(glGetUniformLocation(m_ProgramID, which), 1, GL_FALSE, glm::value_ptr(transform->GetMatrix()));
 		}
 	}
 }

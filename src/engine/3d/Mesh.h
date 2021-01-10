@@ -10,6 +10,7 @@ namespace ForgeEngine
 {
 	class Shader;
 	class Texture;
+	class Transform;
 
 	//!!! ALL MESHES SHOULD BE CREATED USING MESH FACTORY !!!
 	//A mesh is built using a collection of Vector3 that represents its vertices
@@ -48,7 +49,7 @@ namespace ForgeEngine
 
 			void SetTexture(Texture* texture) { m_Texture = texture; }
 
-			void Render();
+			void Render(const Transform* transform);
 
 		private:
 			void InitRender();

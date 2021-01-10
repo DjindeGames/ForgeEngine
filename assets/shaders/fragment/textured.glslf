@@ -2,7 +2,7 @@
 
 //FRAGMENT SHADER
 
-uniform sampler2D renderTexture;
+uniform sampler2D RenderTexture;
 
 in vec2 TexCoord;
 
@@ -10,5 +10,5 @@ out vec4 FragColor;
 
 void main()
 {
-	FragColor = texture(renderTexture, TexCoord);
+	FragColor = texture(RenderTexture, TexCoord);
 }

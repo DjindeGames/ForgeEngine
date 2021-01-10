@@ -1,7 +1,7 @@
 #include "Game.h"
 
-#include "engine/3d/MeshFactory.h"
 #include "engine/core/CoreEngine.h"
+#include "engine/core/Entity.h"
 #include "engine/shader/ShaderUtils.h"
 
 #include <chrono>
@@ -45,7 +45,7 @@ namespace ForgeEngine
 					m_UpdateCallback(dT);
 				}
 
-				MeshFactory::Update();
+				Entity::Update(dT);
 
 				ProcessDebugInput();
 
@@ -81,6 +81,7 @@ namespace ForgeEngine
 
 	void Game::OnTermination()
 	{
+		Entity::ReleaseEntities();
 	}
 
 	bool Game::DefaultTerminationCondition()

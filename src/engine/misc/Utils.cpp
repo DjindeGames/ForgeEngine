@@ -8,16 +8,20 @@ namespace ForgeEngine
 		{
 			std::vector<std::string> extractedLines{};
 
-			size_t pos = 0;
-			size_t eol = 0;
-			std::string token;
+			size_t lineStartIndex = 0;
+			size_t endOfLineIndex = 0;
+			std::string line;
 
-			while ((pos = source.find(pattern)) != std::string::npos) {
-				source.erase(0, pos);
-				eol = source.find("\n");
-				token = source.substr(0, eol);
-				extractedLines.push_back(token);
-				source.erase(0, eol);
+			//For each found line
+			while ((lineStartIndex = source.find(pattern)) != std::string::npos) {
+				//Erase all characters prior to the found line
+				source.erase(0, lineStartIndex);
+				endOfLineIndex = source.find("\n");
+				line = source.substr(0, endOfLineIndex);
+				extractedLines.push_back(line);
+				//Erase the found line
+				source.erase(0, endOfLineIndex);
+				//Proceed till no new line is found
 			}
 
 			return extractedLines;
@@ -25,19 +29,19 @@ namespace ForgeEngine
 
 		std::vector<std::string> Split(const std::string& pattern, std::string source)
 		{
-			std::vector<std::string> extractedLines{};
+			std::vector<std::string> splittedString{};
 
-			size_t pos = 0;
+			size_t patternIndex = 0;
 			std::string token;
 
-			while ((pos = source.find(pattern)) != std::string::npos) {
-				token = source.substr(0, pos);
-				extractedLines.push_back(token);
-				source.erase(0, pos + pattern.length());
+			while ((patternIndex = source.find(pattern)) != std::string::npos) {
+				token = source.substr(0, patternIndex);
+				splittedString.push_back(token);
+				source.erase(0, patternIndex + pattern.length());
 			}
-			extractedLines.push_back(source);
+			splittedString.push_back(source);
 
-			return extractedLines;
+			return splittedString;
 		}
 	}
 }
