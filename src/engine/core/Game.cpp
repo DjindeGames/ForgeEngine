@@ -27,17 +27,24 @@ namespace ForgeEngine
 
 	void Game::HandleProcess()
 	{
+		using ns = std::chrono::nanoseconds;
+
 		std::chrono::time_point<std::chrono::high_resolution_clock> frameStart = std::chrono::high_resolution_clock::now();
 		std::chrono::time_point<std::chrono::high_resolution_clock> frameEnd = std::chrono::high_resolution_clock::now();
 
+		float dT{};
+		float nanoToSecMultiplier = std::pow(10, 9);
+
 		if (m_Window != nullptr)
 		{
+			Entity::PreInit();
+			Entity::Init();
+			Entity::PostInit();
+
 			while (!glfwWindowShouldClose(m_Window))
 			{
-				int elapsedNanoSeconds = std::chrono::duration_cast<std::chrono::nanoseconds>(frameEnd - frameStart).count();
 				//deltaTime is defined using seconds
-				float dT = 1.f / (elapsedNanoSeconds * std::pow(elapsedNanoSeconds, 9));
-
+				dT = std::chrono::duration_cast<ns>(frameEnd - frameStart).count() / nanoToSecMultiplier;
 				frameStart = std::chrono::high_resolution_clock::now();
 
 				if (m_UpdateCallback)
@@ -45,7 +52,9 @@ namespace ForgeEngine
 					m_UpdateCallback(dT);
 				}
 
+				Entity::PreUpdate();
 				Entity::Update(dT);
+				Entity::PostUpdate();
 
 				ProcessDebugInput();
 

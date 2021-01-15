@@ -1,4 +1,4 @@
-#include "Mesh.h"
+#include "MeshComponent.h"
 
 #include "engine/misc/Texture.h"
 #include "engine/shader/ShaderUtils.h"
@@ -11,12 +11,13 @@
 
 namespace ForgeEngine
 {
-	Mesh::Mesh(
+	MeshComponent::MeshComponent(
 		const std::vector<float>& vertices,
 		const std::vector<unsigned int>& indices,
 		Shader* shader,
 		const Color& renderColor /*= COLOR_RENDER_DEFAULT*/
 	) :
+		Mother(),
 		m_NumIndices(static_cast<unsigned int>(indices.size())),
 		m_Floats(vertices),
 		m_Indices(indices),
@@ -25,14 +26,7 @@ namespace ForgeEngine
 	{
 	}
 
-	Mesh::~Mesh()
-	{
-		glDeleteVertexArrays(1, &m_VertexArrayObject);
-		glDeleteBuffers(1, &m_VertexBufferObject);
-		glDeleteBuffers(1, &m_VertexBufferElement);
-	}
-
-	void Mesh::InitRender()
+	void MeshComponent::InitRender()
 	{
 		if (m_Shader == nullptr)
 		{
@@ -106,7 +100,7 @@ namespace ForgeEngine
 		m_IsInitialized = true;
 	}
 
-	void Mesh::Render(const Transform* transform)
+	void MeshComponent::OnUpdate(float dT)
 	{
 		if (!m_IsInitialized)
 		{
@@ -118,7 +112,7 @@ namespace ForgeEngine
 			m_Shader->Use();
 			m_Shader->SetColor(DEFAULT_RENDER_COLOR_NAME, m_renderColor);
 			m_Shader->SetTexture(GL_TEXTURE0, m_Texture);
-			m_Shader->SetTransform(DEFAULT_TRANSFORM_NAME, transform);
+			m_Shader->SetTransform(DEFAULT_TRANSFORM_NAME, m_Owner->m_Transform);
 			
 			glBindVertexArray(m_VertexArrayObject);
 			if (m_NumIndices > 0)
@@ -130,5 +124,13 @@ namespace ForgeEngine
 				glDrawArrays(GL_TRIANGLES, 0, m_NumVertices * m_Shader->GetInputDataSize());
 			}
 		}
+	}
+
+	void MeshComponent::OnDestroy() /*override*/
+	{
+		Mother::OnDestroy();
+		glDeleteVertexArrays(1, &m_VertexArrayObject);
+		glDeleteBuffers(1, &m_VertexBufferObject);
+		glDeleteBuffers(1, &m_VertexBufferElement);
 	}
 }

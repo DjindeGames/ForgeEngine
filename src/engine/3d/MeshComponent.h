@@ -1,5 +1,6 @@
 #pragma once
 
+#include "engine/core/Component.h"
 #include "engine/core/CoreEngine.h"
 #include "engine/misc/Color.h"
 #include "engine/shader/Shader.h"
@@ -15,8 +16,10 @@ namespace ForgeEngine
 	//!!! ALL MESHES SHOULD BE CREATED USING MESH FACTORY !!!
 	//A mesh is built using a collection of Vector3 that represents its vertices
 	//Those vertices are converted into an array of floats to match openGL behaviour
-	class Mesh
+	class MeshComponent : public Component
 	{
+		using Mother = Component;
+
 		/************************************/
 		/************ATTRIBUTES**************/
 		/************************************/
@@ -42,14 +45,14 @@ namespace ForgeEngine
 		/************************************/
 
 		public:
-			Mesh(const std::vector<float>& vertices, const std::vector<unsigned int>& indices, Shader* shader, const Color& renderColor = COLOR_RENDER_DEFAULT);
+			MeshComponent(const std::vector<float>& vertices, const std::vector<unsigned int>& indices, Shader* shader, const Color& renderColor = COLOR_RENDER_DEFAULT);
 			//This should probably be done !
 			//Mesh(const Mesh& mesh) = delete;
-			~Mesh();
 
 			void SetTexture(Texture* texture) { m_Texture = texture; }
 
-			void Render(const Transform* transform);
+			virtual void OnUpdate(float dT) override;
+			virtual void OnDestroy() override;
 
 		private:
 			void InitRender();
