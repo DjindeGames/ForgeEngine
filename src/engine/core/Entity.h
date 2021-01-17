@@ -18,11 +18,9 @@ namespace ForgeEngine
 		/************ATTRIBUTES**************/
 		/************************************/
 
-		public:
+		private:
 			Transform* m_Transform{};
 
-		private:
-			Vector3 m_Position;
 			std::vector<Component*> m_RegisteredComponents;
 
 			static std::vector<Entity*> s_RegisteredEntities;
@@ -35,10 +33,23 @@ namespace ForgeEngine
 			static Entity* RegisterEntity();
 			static void ReleaseEntities();
 
-			void RegisterComponent(Component* component);
+			Transform& GetTransform() const { return *m_Transform; }
+			void SetTransform(const Transform& transform) const { *m_Transform = transform; }
+
+			Component* RegisterComponent(Component* component);
 			void UnregisterComponent(Component* component);
 			template <typename T>
-			T* GetComponent();
+			T* GetComponent()
+			{
+				for (auto component : m_RegisteredComponents)
+				{
+					if (auto tComp = dynamic_cast<T*>(component))
+					{
+						return tComp;
+					}
+				}
+				return nullptr;
+			}
 
 			/* the following are to process the callback on all registered entities at once */
 			static void PreInit();
@@ -62,14 +73,11 @@ namespace ForgeEngine
 
 			void Destroy();
 
-			const Vector3& GetPosition() const { return m_Position; }
-			void SetPosition(const Vector3& position) { m_Position = position; }
-
 		protected:
-			virtual void OnDestroy() override;
-
-		private:
 			//Entities must be registered using RegisterEntity
 			Entity();
+
+			static Entity* RegisterEntity(Entity* entity);
+			virtual void OnDestroy() override;
 	};
 }

@@ -9,7 +9,7 @@ namespace ForgeEngine
 {
 	/*static*/ std::vector<Entity*> Entity::s_RegisteredEntities{};
 
-	Entity::Entity() : m_Position{}
+	Entity::Entity()
 	{
 		m_Transform = new Transform();
 	}
@@ -17,6 +17,12 @@ namespace ForgeEngine
 	/*static*/ Entity* Entity::RegisterEntity()
 	{
 		Entity* entity = new Entity{};
+		s_RegisteredEntities.push_back(entity);
+		return entity;
+	}
+
+	/*static*/ Entity* Entity::RegisterEntity(Entity* entity)
+	{
 		s_RegisteredEntities.push_back(entity);
 		return entity;
 	}
@@ -31,13 +37,14 @@ namespace ForgeEngine
 		s_RegisteredEntities.clear();
 	}
 
-	void Entity::RegisterComponent(Component* component)
+	Component* Entity::RegisterComponent(Component* component)
 	{
 		if (component != nullptr)
 		{
 			m_RegisteredComponents.push_back(component);
 			component->SetOwner(this);
 		}
+		return component;
 	}
 
 	void Entity::UnregisterComponent(Component* component)
@@ -53,20 +60,7 @@ namespace ForgeEngine
 			}
 		}
 	}
-
-	template <typename T>
-	T* Entity::GetComponent()
-	{
-		for (auto component : m_RegisteredComponents)
-		{
-			if (Component* component = dynamic_cast<T*>(component))
-			{
-				return component;
-			}
-		}
-		return nullptr;
-	}
-
+	
 	/*static*/ void Entity::PreInit()
 	{
 		for (auto entity : s_RegisteredEntities)

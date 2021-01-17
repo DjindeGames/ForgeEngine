@@ -13,11 +13,11 @@ namespace ForgeEngine
 		/************************************/
 
 	public:
-		GLFWwindow* m_Window{};
+		static GLFWwindow* m_Window;
 
 	private:
 		void (*m_UpdateCallback)(float) {};
-		bool (*m_TerminationConditionCallback)(GLFWwindow*) {};
+		bool (*m_TerminationConditionCallback)() {};
 
 		int m_CurrentDrawMode;
 
@@ -34,7 +34,7 @@ namespace ForgeEngine
 		//Binds the update callback to the current game
 		void SetUpdateCallback(void (*callback)(float)) { m_UpdateCallback = callback; }
 		//Optional: Sets the termination check condition
-		void SetTerminationConditionCallback(bool (*callback)(GLFWwindow*)) { m_TerminationConditionCallback = callback; }
+		void SetTerminationConditionCallback(bool (*callback)()) { m_TerminationConditionCallback = callback; }
 		//Handles the main loop
 		void HandleProcess();
 

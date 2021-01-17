@@ -14,8 +14,6 @@ namespace ForgeEngine
 
 		if (data)
 		{
-			
-
 			glGenTextures(1, &m_GLTexture);
 			glBindTexture(GL_TEXTURE_2D, m_GLTexture);
 
@@ -38,7 +36,7 @@ namespace ForgeEngine
 
 	Texture::~Texture()
 	{
-		//glDeleteTextures(1, &m_GLTexture);
+		glDeleteTextures(1, &m_GLTexture);
 	}
 
 	void Texture::Use()

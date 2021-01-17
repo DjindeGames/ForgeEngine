@@ -5,7 +5,7 @@
 namespace PapierKraft
 {
 	void Update(float dT);
-	bool ShouldTerminate(GLFWwindow* window);
+	bool ShouldTerminate();
 	int CoreLoop();
 	void BuildMeshes();
 	void ProcessInput();

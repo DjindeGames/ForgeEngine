@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\papierkraft\test\Block.h" />
     <ClInclude Include="src\engine\core\Component.h" />
     <ClInclude Include="src\engine\core\ManagedObject.h" />
     <ClInclude Include="src\engine\core\Entity.h" />
@@ -324,9 +325,10 @@
     <ClInclude Include="src\papierkraft\test\PapierKraft.h" />
     <ClInclude Include="src\engine\misc\Texture.h" />
     <ClInclude Include="src\engine\math\Transform.h" />
-    <ClInclude Include="src\papierkraft\test\TestComponent.h" />
+    <ClInclude Include="src\engine\common\ViewerComponent.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\papierkraft\test\Block.cpp" />
     <ClCompile Include="src\engine\core\Component.cpp" />
     <ClCompile Include="src\engine\core\ManagedObject.cpp" />
     <ClCompile Include="src\engine\core\Entity.cpp" />
@@ -344,7 +346,7 @@
     <ClCompile Include="src\papierkraft\test\PapierKraft.cpp" />
     <ClCompile Include="src\engine\misc\Texture.cpp" />
     <ClCompile Include="src\engine\math\Transform.cpp" />
-    <ClCompile Include="src\papierkraft\test\TestComponent.cpp" />
+    <ClCompile Include="src\engine\common\ViewerComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\shaders\fragment\textured.glslf" />

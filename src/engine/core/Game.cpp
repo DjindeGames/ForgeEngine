@@ -12,6 +12,8 @@
 
 namespace ForgeEngine
 {
+	GLFWwindow* Game::m_Window{};
+
 	Game::Game() : m_CurrentDrawMode(GL_FILL)
 	{
 	}
@@ -79,7 +81,7 @@ namespace ForgeEngine
 		bool shouldTerminate = false;
 		if (m_TerminationConditionCallback)
 		{
-			shouldTerminate = m_TerminationConditionCallback(m_Window);
+			shouldTerminate = m_TerminationConditionCallback();
 		}
 		else
 		{

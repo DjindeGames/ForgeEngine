@@ -11,4 +11,9 @@ namespace ForgeEngine
 	{
 		return glm::rotate(matrix, glm::radians(angle), axis);
 	}
+
+	Matrix4 DoScale(const Matrix4& matrix, const Vector3& scale)
+	{
+		return glm::scale(matrix, scale);
+	}
 }

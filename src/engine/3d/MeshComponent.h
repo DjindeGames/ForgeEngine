@@ -13,7 +13,6 @@ namespace ForgeEngine
 	class Texture;
 	class Transform;
 
-	//!!! ALL MESHES SHOULD BE CREATED USING MESH FACTORY !!!
 	//A mesh is built using a collection of Vector3 that represents its vertices
 	//Those vertices are converted into an array of floats to match openGL behaviour
 	class MeshComponent : public Component

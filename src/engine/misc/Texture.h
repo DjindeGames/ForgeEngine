@@ -8,7 +8,7 @@ namespace ForgeEngine
 {
 	#define TEXTURE_RESOLUTION 16
 
-	#define TEXTURE_DIRT_SIDE "assets\\textures\\blocks\\grass\\grass_side.png"
+	#define MISSING_TEXTURE "assets\\textures\\default\\default.png"
 
 	class Texture
 	{

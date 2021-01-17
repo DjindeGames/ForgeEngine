@@ -109,10 +109,12 @@ namespace ForgeEngine
 		
 		if (m_Shader != nullptr)
 		{
+			glEnable(GL_DEPTH_TEST);
+
 			m_Shader->Use();
 			m_Shader->SetColor(DEFAULT_RENDER_COLOR_NAME, m_renderColor);
 			m_Shader->SetTexture(GL_TEXTURE0, m_Texture);
-			m_Shader->SetTransform(DEFAULT_TRANSFORM_NAME, m_Owner->m_Transform);
+			m_Shader->SetTransform(DEFAULT_TRANSFORM_NAME, &m_Owner->GetTransform());
 			
 			glBindVertexArray(m_VertexArrayObject);
 			if (m_NumIndices > 0)

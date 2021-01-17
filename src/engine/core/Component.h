@@ -9,7 +9,7 @@ namespace ForgeEngine
 	{
 		using Mother = ManagedObject;
 
-		friend void Entity::RegisterComponent(Component* component);
+		friend Component* Entity::RegisterComponent(Component* component);
 		friend void Entity::UnregisterComponent(Component* component);
 
 		/************************************/

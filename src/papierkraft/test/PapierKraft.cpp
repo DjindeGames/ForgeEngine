@@ -8,7 +8,7 @@
 #include "engine/shader/Shader.h"
 #include "engine/shader/ShaderUtils.h"
 
-#include "TestComponent.h"
+#include "Block.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -17,9 +17,12 @@
 
 using namespace ForgeEngine;
 
-Shader* defaultShader{};
-Texture* dirtTexture{};
-Entity* cube{};
+Shader* defaultShader;
+
+Texture* grassTextureSide;
+Texture* grassTextureTop;
+Texture* grassTextureBottom;
+Texture* dirtTextureUniform;
 
 int main()
 {
@@ -47,7 +50,10 @@ namespace PapierKraft
 		game.HandleProcess();
 		
 		delete(defaultShader);
-		delete(dirtTexture);
+		delete(grassTextureSide);
+		delete(grassTextureTop);
+		delete(grassTextureBottom);
+		delete(dirtTextureUniform);
 
 		return 0;
 	}
@@ -62,48 +68,25 @@ namespace PapierKraft
 	{
 	}
 
-	bool ShouldTerminate(GLFWwindow* window)
+	bool ShouldTerminate()
 	{
 		return (
-			glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS ||
-			glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_PRESS
+			glfwGetKey(Game::m_Window, GLFW_KEY_ESCAPE) == GLFW_PRESS ||
+			glfwGetKey(Game::m_Window, GLFW_KEY_ENTER) == GLFW_PRESS
 			);
 	}
 
 	void BuildMeshes()
 	{
-		std::vector<float> verticesTexture{
-				// positions       // texture coords
-			 0.5f,  0.5f, 0.0f,   1.0f, 1.0f, // top right
-			 0.5f, -0.5f, 0.0f,   1.0f, 0.0f, // bottom right
-			-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, // bottom left
-			-0.5f,  0.5f, 0.0f,   0.0f, 1.0f  // top left 
-		};
-
-		std::vector<float> verticesDefault{
-			// positions     
-			 0.5f,  0.5f, 0.0f,   
-			 0.5f, -0.5f, 0.0f,  
-			-0.5f, -0.5f, 0.0f,  
-			-0.5f,  0.5f, 0.0f
-		};
-
-		//Coordinate indexes 
-		std::vector<unsigned int> triangleIndices = {
-			//First triangle
-				0, 1, 3,
-			//Second triangle
-				1, 2, 3
-		};
-
 		defaultShader = new Shader{ TEXTURED_VERTEX_SHADER_PATH, TEXTURED_FRAGMENT_SHADER_PATH };
-		dirtTexture = new Texture{ TEXTURE_DIRT_SIDE, GL_RGBA };
 
-		MeshComponent* mesh = new MeshComponent(verticesTexture, triangleIndices, defaultShader);
-		mesh->SetTexture(dirtTexture);
+		grassTextureSide = new Texture{ TEXTURE_GRASS_SIDE, GL_RGBA };
+		grassTextureTop = new Texture{ TEXTURE_GRASS_TOP, GL_RGBA };
+		grassTextureBottom = new Texture{ TEXTURE_GRASS_BOTTOM, GL_RGBA };
 
-		cube = Entity::RegisterEntity();
-		cube->RegisterComponent(mesh);
-		cube->RegisterComponent(new TestComponent());
+		dirtTextureUniform = new Texture{ TEXTURE_DIRT_UNIFORM, GL_RGBA };
+
+		Block::Create(grassTextureSide, grassTextureTop, grassTextureBottom, defaultShader);
+		//Block::Create(dirtTextureUniform, defaultShader);
 	}
 }

@@ -930,7 +930,10 @@
     <ClInclude Include="src\engine\3d\MeshComponent.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\papierkraft\test\TestComponent.h">
+    <ClInclude Include="src\papierkraft\test\Block.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\common\ViewerComponent.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
@@ -986,7 +989,10 @@
     <ClCompile Include="src\engine\3d\MeshComponent.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\papierkraft\test\TestComponent.cpp">
+    <ClCompile Include="src\papierkraft\test\Block.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\common\ViewerComponent.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
