@@ -19,7 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\papierkraft\test\Block.h" />
+    <ClInclude Include="src\engine\core\ManagerContainer.h" />
+    <ClInclude Include="src\papierkraft\test\BlockTexturesManager.h" />
+    <ClInclude Include="src\engine\core\EntityContainer.h" />
+    <ClInclude Include="src\engine\core\ManagedObjectContainer.h" />
+    <ClInclude Include="src\engine\core\Singleton.h" />
+    <ClInclude Include="src\engine\core\Manager.h" />
+    <ClInclude Include="src\papierkraft\test\BlockComponent.h" />
     <ClInclude Include="src\engine\core\Component.h" />
     <ClInclude Include="src\engine\core\ManagedObject.h" />
     <ClInclude Include="src\engine\core\Entity.h" />
@@ -325,10 +331,16 @@
     <ClInclude Include="src\papierkraft\test\PapierKraft.h" />
     <ClInclude Include="src\engine\misc\Texture.h" />
     <ClInclude Include="src\engine\math\Transform.h" />
-    <ClInclude Include="src\engine\common\ViewerComponent.h" />
+    <ClInclude Include="src\common\components\ViewerComponent.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\papierkraft\test\Block.cpp" />
+    <ClCompile Include="src\engine\core\ManagerContainer.cpp" />
+    <ClCompile Include="src\papierkraft\test\BlockTexturesManager.cpp" />
+    <ClCompile Include="src\engine\core\EntityContainer.cpp" />
+    <ClCompile Include="src\engine\core\ManagedObjectContainer.cpp" />
+    <ClCompile Include="src\engine\core\Singleton.cpp" />
+    <ClCompile Include="src\engine\core\Manager.cpp" />
+    <ClCompile Include="src\papierkraft\test\BlockComponent.cpp" />
     <ClCompile Include="src\engine\core\Component.cpp" />
     <ClCompile Include="src\engine\core\ManagedObject.cpp" />
     <ClCompile Include="src\engine\core\Entity.cpp" />
@@ -346,7 +358,7 @@
     <ClCompile Include="src\papierkraft\test\PapierKraft.cpp" />
     <ClCompile Include="src\engine\misc\Texture.cpp" />
     <ClCompile Include="src\engine\math\Transform.cpp" />
-    <ClCompile Include="src\engine\common\ViewerComponent.cpp" />
+    <ClCompile Include="src\common\components\ViewerComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\shaders\fragment\textured.glslf" />

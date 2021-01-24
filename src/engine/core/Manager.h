@@ -1,31 +1,21 @@
 #pragma once
 
-#include "engine/core/Entity.h"
 #include "engine/core/ManagedObject.h"
+#include "engine/core/Singleton.h"
 
 namespace ForgeEngine
 {
-	class Component : public ManagedObject
+	template<typename T>
+	class Manager : public ManagedObject, public Singleton<T>
 	{
 		using Mother = ManagedObject;
-
-		friend class Entity;
 
 		/************************************/
 		/************ATTRIBUTES**************/
 		/************************************/
 
-		protected:
-			Entity* m_Owner{};
-
 		/************************************/
 		/**************METHODS***************/
 		/************************************/
-
-		public:
-			Entity* GetOwner() const { return m_Owner; }
-
-		private:
-			void SetOwner(Entity* owner) { m_Owner = owner; }
 	};
 }

@@ -2,6 +2,7 @@
 
 #include "engine/math/Math.h"
 #include "engine/math/Transform.h"
+#include "engine/core/EntityContainer.h"
 #include "engine/core/ManagedObject.h"
 
 #include <vector>
@@ -14,27 +15,28 @@ namespace ForgeEngine
 	{
 		using Mother = ManagedObject;
 
+		friend Entity* EntityContainer::RegisterEntity();
+		friend Entity* EntityContainer::RegisterEntity(Entity* entity);
+
 		/************************************/
 		/************ATTRIBUTES**************/
 		/************************************/
 
 		private:
-			Transform* m_Transform{};
+			Transform m_Transform{};
 
 			std::vector<Component*> m_RegisteredComponents;
-
-			static std::vector<Entity*> s_RegisteredEntities;
 
 		/************************************/
 		/**************METHODS***************/
 		/************************************/
 
 		public:
-			static Entity* RegisterEntity();
-			static void ReleaseEntities();
+			Transform& GetTransform() { return m_Transform; }
+			void SetTransform(const Transform& transform) { m_Transform = transform; }
 
-			Transform& GetTransform() const { return *m_Transform; }
-			void SetTransform(const Transform& transform) const { *m_Transform = transform; }
+			Vector3 GetPosition() const;
+			void SetPosition(const Vector3& position);
 
 			Component* RegisterComponent(Component* component);
 			void UnregisterComponent(Component* component);
@@ -51,18 +53,7 @@ namespace ForgeEngine
 				return nullptr;
 			}
 
-			/* the following are to process the callback on all registered entities at once */
-			static void PreInit();
-			static void Init();
-			static void PostInit();
-
-			static void PreUpdate();
-			static void Update(float dT);
-			static void PostUpdate();
-
-			static void DestroyEntity(ObjectID id);
-
-			/* individual entities managed callbacks */
+		protected:
 			virtual void OnPreInit() override;
 			virtual void OnInit() override;
 			virtual void OnPostInit() override;
@@ -71,13 +62,6 @@ namespace ForgeEngine
 			virtual void OnUpdate(float dT) override;
 			virtual void OnPostUpdate() override;
 
-			void Destroy();
-
-		protected:
-			//Entities must be registered using RegisterEntity
-			Entity();
-
-			static Entity* RegisterEntity(Entity* entity);
 			virtual void OnDestroy() override;
 	};
 }

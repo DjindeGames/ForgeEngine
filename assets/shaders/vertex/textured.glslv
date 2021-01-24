@@ -13,6 +13,6 @@ out vec2 TexCoord;
 
 void main()
 {
-	gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0) * Transform;
+	gl_Position = Transform * vec4(aPos.x, aPos.y, aPos.z, 1.0);
 	TexCoord = vec2(aTexCoord.x, aTexCoord.y);
 }

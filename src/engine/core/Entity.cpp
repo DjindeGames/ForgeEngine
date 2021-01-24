@@ -7,36 +7,6 @@
 
 namespace ForgeEngine
 {
-	/*static*/ std::vector<Entity*> Entity::s_RegisteredEntities{};
-
-	Entity::Entity()
-	{
-		m_Transform = new Transform();
-	}
-
-	/*static*/ Entity* Entity::RegisterEntity()
-	{
-		Entity* entity = new Entity{};
-		s_RegisteredEntities.push_back(entity);
-		return entity;
-	}
-
-	/*static*/ Entity* Entity::RegisterEntity(Entity* entity)
-	{
-		s_RegisteredEntities.push_back(entity);
-		return entity;
-	}
-
-	/*static*/ void Entity::ReleaseEntities()
-	{
-		for (auto entity : s_RegisteredEntities)
-		{
-			entity->Destroy();
-			delete(entity);
-		}
-		s_RegisteredEntities.clear();
-	}
-
 	Component* Entity::RegisterComponent(Component* component)
 	{
 		if (component != nullptr)
@@ -61,82 +31,6 @@ namespace ForgeEngine
 		}
 	}
 	
-	/*static*/ void Entity::PreInit()
-	{
-		for (auto entity : s_RegisteredEntities)
-		{
-			if (entity != nullptr)
-			{
-				entity->OnPreInit();
-			}
-		}
-	}
-
-	/*static*/ void Entity::Init()
-	{
-		for (auto entity : s_RegisteredEntities)
-		{
-			if (entity != nullptr)
-			{
-				entity->OnInit();
-			}
-		}
-	}
-
-	/*static*/ void Entity::PostInit()
-	{
-		for (auto entity : s_RegisteredEntities)
-		{
-			if (entity != nullptr)
-			{
-				entity->OnPostInit();
-			}
-		}
-	}
-
-	/*static*/ void Entity::PreUpdate()
-	{
-		for (auto entity : s_RegisteredEntities)
-		{
-			if (entity != nullptr)
-			{
-				entity->OnPreUpdate();
-			}
-		}
-	}
-
-	/*static*/ void Entity::Update(float dT)
-	{
-		for (auto entity : s_RegisteredEntities)
-		{
-			if (entity != nullptr)
-			{
-				entity->OnUpdate(dT);
-			}
-		}
-	}
-
-	/*static*/ void Entity::PostUpdate()
-	{
-		for (auto entity : s_RegisteredEntities)
-		{
-			if (entity != nullptr)
-			{
-				entity->OnPostUpdate();
-			}
-		}
-	}
-
-	/*static*/ void Entity::DestroyEntity(ObjectID id)
-	{
-		auto it = std::find_if(s_RegisteredEntities.begin(), s_RegisteredEntities.end(), [&](const Entity * e) {if (e != nullptr && e->GetID() == id) return true; else return false; });
-		if (it != s_RegisteredEntities.end() && (*it) != nullptr)
-		{
-			(*it)->Destroy();
-			s_RegisteredEntities.erase(it);
-		}
-	}
-
 	void Entity::OnPreInit() /*override*/
 	{
 		Mother::OnPreInit();
@@ -176,6 +70,7 @@ namespace ForgeEngine
 	void Entity::OnPreUpdate() /*override*/
 	{
 		Mother::OnPreUpdate();
+		//m_Transform.ResetMatrix();
 		for (auto component : m_RegisteredComponents)
 		{
 			if (component != nullptr)
@@ -209,11 +104,6 @@ namespace ForgeEngine
 		}
 	}
 
-	void Entity::Destroy()
-	{
-		OnDestroy();
-	}
-
 	void Entity::OnDestroy() /*override*/
 	{
 		Mother::OnDestroy();
@@ -222,6 +112,5 @@ namespace ForgeEngine
 			//TODO: Too much complexity
 			UnregisterComponent(component);
 		}
-		delete m_Transform;
 	}
 }

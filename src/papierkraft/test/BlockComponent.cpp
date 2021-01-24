@@ -1,7 +1,7 @@
-#include "Block.h"
+#include "BlockComponent.h"
 
+#include "common/components/ViewerComponent.h"
 #include "engine/3d/MeshComponent.h"
-#include "engine/common/ViewerComponent.h"
 #include "engine/misc/Texture.h"
 
 #include <vector>
@@ -10,9 +10,29 @@ using namespace ForgeEngine;
 
 namespace PapierKraft
 {
-	Block::Block(Texture* sideTexture, Texture* topTexture, Texture* bottomTexture, Shader* shader) :
-		Mother()
+	BlockComponent::BlockComponent(Texture* sideTexture, Texture* topTexture, Texture* bottomTexture, Shader* shader) :
+		Mother(),
+		m_SideTexture(sideTexture),
+		m_TopTexture(topTexture),
+		m_BottomTexture(bottomTexture),
+		m_Shader(shader)
 	{
+	}
+
+	BlockComponent::BlockComponent(Texture* sideTexture, Texture* restTexture, Shader* shader) :
+		BlockComponent(sideTexture, restTexture, restTexture, shader)
+	{
+	}
+
+	BlockComponent::BlockComponent(Texture* uniformTexture, Shader* shader) :
+		BlockComponent(uniformTexture, uniformTexture, uniformTexture, shader)
+	{
+	}
+
+	void BlockComponent::OnInit() /*override*/
+	{
+		Mother::OnInit();
+
 		std::vector<float> sideVerticesTexturesCoordinates{
 			/******************SIDE FRONT*******************/
 				// positions       // texture coords
@@ -88,28 +108,17 @@ namespace PapierKraft
 					1, 2, 3
 		};
 
-		MeshComponent* sideMesh = new MeshComponent(sideVerticesTexturesCoordinates, sideCoordinates, shader);
-		sideMesh->SetTexture(sideTexture);
-		MeshComponent* topMesh = new MeshComponent(topVerticesTexturesCoordinates, topCoordinates, shader);
-		topMesh->SetTexture(topTexture);
-		MeshComponent* bottomMesh = new MeshComponent(bottomVerticesTexturesCoordinates, bottomCoordinates, shader);
-		bottomMesh->SetTexture(bottomTexture);
+		MeshComponent* sideMesh = new MeshComponent(sideVerticesTexturesCoordinates, sideCoordinates, m_Shader);
+		sideMesh->SetTexture(m_SideTexture);
+		MeshComponent* topMesh = new MeshComponent(topVerticesTexturesCoordinates, topCoordinates, m_Shader);
+		topMesh->SetTexture(m_TopTexture);
+		MeshComponent* bottomMesh = new MeshComponent(bottomVerticesTexturesCoordinates, bottomCoordinates, m_Shader);
+		bottomMesh->SetTexture(m_BottomTexture);
 
-		this->RegisterComponent(sideMesh);
-		this->RegisterComponent(topMesh);
-		this->RegisterComponent(bottomMesh);
+		GetOwner()->RegisterComponent(sideMesh);
+		GetOwner()->RegisterComponent(topMesh);
+		GetOwner()->RegisterComponent(bottomMesh);
 
-		this->RegisterComponent(new ViewerComponent(360.f));
-	}
-
-	/*static*/ Block* Block::Create(Texture* sideTexture, Texture* topTexture, Texture* bottomTexture, Shader* shader)
-	{
-		Block* block = new Block(sideTexture, topTexture, bottomTexture, shader);
-		return static_cast<Block*>(Mother::RegisterEntity(block));
-	}
-
-	/*static*/ Block* Block::Create(Texture* uniformTexture, Shader* shader)
-	{
-		return Create(uniformTexture, uniformTexture, uniformTexture, shader);
+		GetOwner()->RegisterComponent(new ViewerComponent(1.f, 360.f, 1.01f));
 	}
 }

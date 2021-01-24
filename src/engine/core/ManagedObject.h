@@ -1,11 +1,15 @@
 #pragma once
 
+#include "engine/core/ManagedObjectContainer.h"
+
 namespace ForgeEngine
 {
 	typedef unsigned long long int ObjectID;
 
 	class ManagedObject
 	{
+		friend class ManagedObjectContainer;
+
 		/************************************/
 		/************ATTRIBUTES**************/
 		/************************************/
@@ -18,22 +22,23 @@ namespace ForgeEngine
 		/************************************/
 		/**************METHODS***************/
 		/************************************/
-
 		public:
+			ObjectID GetID() const { return m_ID; }
+		protected:
 			ManagedObject();
 			~ManagedObject() {}
 
-			ObjectID GetID() const { return m_ID; }
+			virtual void OnPreInit() {}
+			virtual void OnInit() {}
+			virtual void OnPostInit() {}
 
-			virtual void OnPreInit() {};
-			virtual void OnInit() {};
-			virtual void OnPostInit() {};
+			virtual void OnPreUpdate() {}
+			virtual void OnUpdate(float dT) {}
+			virtual void OnPostUpdate() {}
 
-			virtual void OnPreUpdate() {};
-			virtual void OnUpdate(float dT) {};
-			virtual void OnPostUpdate() {};
+			virtual void OnDestroy() {}
 
-		protected:
-			virtual void OnDestroy() {};
+			void Destroy() { OnDestroy(); }
+			
 	};
 }

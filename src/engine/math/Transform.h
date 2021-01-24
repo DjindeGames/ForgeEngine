@@ -13,6 +13,10 @@ namespace ForgeEngine
 		private:
 			Matrix4 m_Matrix;
 
+			Vector3 m_Position{0.f};
+			Vector3 m_Rotation{0.f};
+			Vector3 m_Scale{1.f};
+
 		/************************************/
 		/**************METHODS***************/
 		/************************************/
@@ -22,9 +26,9 @@ namespace ForgeEngine
 
 			const Matrix4& GetMatrix() const { return m_Matrix; }
 
-			inline Vector3 GetPosition() const;
-			inline Vector3 GetRotation() const;
-			inline Vector3 GetScale() const;
+			Vector3 GetPosition() const { return m_Position; }
+			Vector3 GetRotation() const { return m_Rotation; }
+			Vector3 GetScale() const { return m_Scale; }
 
 			void SetPosition(const Vector3& position);
 			void SetRotation(const Vector3& rotation);
@@ -34,5 +38,10 @@ namespace ForgeEngine
 			void Rotate(float angle, const Vector3& axis);
 			void Rotate(const Vector3& euleurAngles);
 			void Scale(const Vector3& scale);
+
+			void Reset();
+
+		private:
+			void Refresh();
 	};
 }

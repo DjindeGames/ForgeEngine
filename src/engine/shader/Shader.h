@@ -52,7 +52,7 @@ namespace ForgeEngine
 
 			int GetInputDataSize() const;
 
-			unsigned int GetNBAttributes() const { return m_AttributesSizes.size(); }
+			size_t GetNBAttributes() const { return m_AttributesSizes.size(); }
 			unsigned int GetAttributeSize(int index) const;
 			const auto& GetAttributesSizes() const { return m_AttributesSizes; }
 

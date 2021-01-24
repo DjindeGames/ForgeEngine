@@ -2,7 +2,7 @@
 
 namespace ForgeEngine
 {
-	Color::Color(float r, float g, float b, float a /*= 1.f*/) :
+	Color::Color(unsigned int r, unsigned int g, unsigned int b, float a /*= 1.f*/) :
 		m_R(r),
 		m_G(g),
 		m_B(b),
@@ -12,8 +12,8 @@ namespace ForgeEngine
 
 	Color Color::GetGrayScale() const
 	{
-		float sumValues = m_R + m_G + m_B;
-		return Color{ sumValues / 3.f, sumValues / 3.f, sumValues / 3.f, m_A };
+		unsigned int sumValues = m_R + m_G + m_B;
+		return Color{ sumValues / 3, sumValues / 3, sumValues / 3, m_A };
 	}
 
 	/*static*/ Color Color::GetGrayScale(Color c)

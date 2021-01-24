@@ -1,0 +1,11 @@
+#include "ManagerContainer.h"
+
+#include "engine/core/Manager.h"
+
+namespace ForgeEngine
+{
+	void ManagerContainer::ReleaseManagers()
+	{
+		Mother::ReleaseObjects();
+	}
+}

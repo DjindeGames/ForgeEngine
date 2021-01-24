@@ -44,7 +44,7 @@ namespace ForgeEngine
 		/************************************/
 
 		public:
-			MeshComponent(const std::vector<float>& vertices, const std::vector<unsigned int>& indices, Shader* shader, const Color& renderColor = COLOR_RENDER_DEFAULT);
+			MeshComponent(const std::vector<float>& vertices, const std::vector<unsigned int>& indices, Shader* shader, const Color& renderColor = COLOR_MAGENTA);
 			//This should probably be done !
 			//Mesh(const Mesh& mesh) = delete;
 

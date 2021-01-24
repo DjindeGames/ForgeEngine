@@ -39,9 +39,9 @@ namespace ForgeEngine
 
 		if (m_Window != nullptr)
 		{
-			Entity::PreInit();
-			Entity::Init();
-			Entity::PostInit();
+			EntityContainer::Get().PreInit();
+			EntityContainer::Get().Init();
+			EntityContainer::Get().PostInit();
 
 			while (!glfwWindowShouldClose(m_Window))
 			{
@@ -54,9 +54,9 @@ namespace ForgeEngine
 					m_UpdateCallback(dT);
 				}
 
-				Entity::PreUpdate();
-				Entity::Update(dT);
-				Entity::PostUpdate();
+				EntityContainer::Get().PreUpdate();
+				EntityContainer::Get().Update(dT);
+				EntityContainer::Get().PostUpdate();
 
 				ProcessDebugInput();
 
@@ -92,7 +92,7 @@ namespace ForgeEngine
 
 	void Game::OnTermination()
 	{
-		Entity::ReleaseEntities();
+		EntityContainer::Get().ReleaseEntities();
 	}
 
 	bool Game::DefaultTerminationCondition()

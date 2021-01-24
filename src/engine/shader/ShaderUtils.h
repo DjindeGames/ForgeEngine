@@ -14,6 +14,6 @@ namespace ForgeEngine
 		void DeleteShaders(const GL_ID* shaders, ...);
 		void DeletePrograms(const GL_ID* programs, ...);
 
-		void SetBackgroundColor(Color backgroundColor);
+		void ClearScreen(Color backgroundColor);
 	}
 }

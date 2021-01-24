@@ -95,10 +95,10 @@ namespace ForgeEngine
 			va_end(args);
 		}
 
-		void SetBackgroundColor(Color backgroundColor)
+		void ClearScreen(Color backgroundColor)
 		{
 			// set state color
-			glClearColor(backgroundColor.GetR(), backgroundColor.GetG(), backgroundColor.GetB(), backgroundColor.GetA());
+			glClearColor(backgroundColor.GetRRatio(), backgroundColor.GetGRatio(), backgroundColor.GetBRatio(), backgroundColor.GetA());
 			// applies state
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		}

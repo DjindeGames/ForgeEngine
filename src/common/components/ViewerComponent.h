@@ -11,14 +11,17 @@ namespace ForgeEngine
 		/************************************/
 
 		private:
+			float m_TranslationSpeed;
 			float m_RotationSpeed;
+			float m_ScaleSpeed;
+			
 			Transform m_InitialTransform;
 
 		/************************************/
 		/**************METHODS***************/
 		/************************************/
 		public:
-			ViewerComponent(float rotationSpeed);
+			ViewerComponent(float translationSpeed, float rotationSpeed, float scaleSpeed);
 
 			virtual void OnInit() override;
 			virtual void OnUpdate(float dT) override;
@@ -27,6 +30,6 @@ namespace ForgeEngine
 			void SetRotationSpeed(float rotationSpeed) { m_RotationSpeed = rotationSpeed; }
 
 		private:
-			void ResetRotation();
+			void ResetTransform();
 	};
 }
