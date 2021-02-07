@@ -1,5 +1,9 @@
 #pragma once
 
+#include "engine/core/ManagedObject.h"
+#include "engine/core/Object.h"
+
+#include <memory>
 #include <vector>
 
 namespace ForgeEngine
@@ -9,7 +13,7 @@ namespace ForgeEngine
 	class Game;
 	class ManagedObject;
 
-	class ManagedObjectContainer
+	class ManagedObjectContainer : Object
 	{
 		friend class Game;
 
@@ -17,20 +21,18 @@ namespace ForgeEngine
 		/************ATTRIBUTES**************/
 		/************************************/
 
-		private:
-			std::vector<ManagedObject*> s_RegisteredObjects;
+		protected:
+			std::vector<std::unique_ptr<ManagedObject>> m_RegisteredObjects{};
 
 		/************************************/
 		/**************METHODS***************/
 		/************************************/
+
 		public:
-			ManagedObjectContainer() {};
-			ManagedObjectContainer(const ManagedObjectContainer&) = default;
+			~ManagedObjectContainer();
 
 		protected:
-			ManagedObject* RegisterObject(ManagedObject*);
-			void DestroyObject(ObjectID id);
-			void ReleaseObjects();
+			ManagedObject* RegisterObject(ManagedObject* object);
 
 			void PreInit();
 			void Init();
@@ -39,5 +41,8 @@ namespace ForgeEngine
 			void PreUpdate();
 			void Update(float dT);
 			void PostUpdate();
+
+		private:
+			void OnDestroy();
 	};
 }

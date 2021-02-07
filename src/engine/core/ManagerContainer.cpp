@@ -4,8 +4,4 @@
 
 namespace ForgeEngine
 {
-	void ManagerContainer::ReleaseManagers()
-	{
-		Mother::ReleaseObjects();
-	}
 }

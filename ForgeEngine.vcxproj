@@ -19,8 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\engine\core\Object.h" />
+    <ClInclude Include="src\engine\core\NonCopyable.h" />
+    <ClInclude Include="src\common\managers\ShaderManager.h" />
+    <ClInclude Include="src\papierkraft\test\BlockTextureData.h" />
     <ClInclude Include="src\engine\core\ManagerContainer.h" />
-    <ClInclude Include="src\papierkraft\test\BlockTexturesManager.h" />
+    <ClInclude Include="src\papierkraft\test\BlockTextureManager.h" />
     <ClInclude Include="src\engine\core\EntityContainer.h" />
     <ClInclude Include="src\engine\core\ManagedObjectContainer.h" />
     <ClInclude Include="src\engine\core\Singleton.h" />
@@ -33,7 +37,7 @@
     <ClInclude Include="src\engine\misc\Utils.h" />
     <ClInclude Include="src\engine\shader\Shader.h" />
     <ClInclude Include="src\engine\misc\Color.h" />
-    <ClInclude Include="src\engine\3d\MeshComponent.h" />
+    <ClInclude Include="src\common\components\MeshComponent.h" />
     <ClInclude Include="src\engine\core\Game.h" />
     <ClInclude Include="includes\glad\glad.h" />
     <ClInclude Include="includes\GLFW\glfw3.h" />
@@ -334,8 +338,12 @@
     <ClInclude Include="src\common\components\ViewerComponent.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\engine\core\Object.cpp" />
+    <ClCompile Include="src\engine\core\NonCopyable.cpp" />
+    <ClCompile Include="src\common\managers\ShaderManager.cpp" />
+    <ClCompile Include="src\papierkraft\test\BlockTextureData.cpp" />
     <ClCompile Include="src\engine\core\ManagerContainer.cpp" />
-    <ClCompile Include="src\papierkraft\test\BlockTexturesManager.cpp" />
+    <ClCompile Include="src\papierkraft\test\BlockTextureManager.cpp" />
     <ClCompile Include="src\engine\core\EntityContainer.cpp" />
     <ClCompile Include="src\engine\core\ManagedObjectContainer.cpp" />
     <ClCompile Include="src\engine\core\Singleton.cpp" />
@@ -348,7 +356,7 @@
     <ClCompile Include="src\engine\misc\Utils.cpp" />
     <ClCompile Include="src\engine\shader\Shader.cpp" />
     <ClCompile Include="src\engine\misc\Color.cpp" />
-    <ClCompile Include="src\engine\3d\MeshComponent.cpp" />
+    <ClCompile Include="src\common\components\MeshComponent.cpp" />
     <ClCompile Include="src\engine\core\Game.cpp" />
     <ClCompile Include="src\engine\shader\ShaderUtils.cpp" />
     <ClCompile Include="src\extern\opengl\includes\glad\glad.c" />

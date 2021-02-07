@@ -39,9 +39,7 @@ namespace ForgeEngine
 			void Rotate(const Vector3& euleurAngles);
 			void Scale(const Vector3& scale);
 
-			void Reset();
-
-		private:
 			void Refresh();
+			void Reset();
 	};
 }

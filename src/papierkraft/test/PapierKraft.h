@@ -7,7 +7,7 @@ namespace PapierKraft
 	void Update(float dT);
 	bool ShouldTerminate();
 	int CoreLoop();
-	void BuildBlocks();
+	void Init();
 	void ProcessInput();
 	void PerformTests();
 	void ReleaseResources();

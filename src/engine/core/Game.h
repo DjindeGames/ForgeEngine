@@ -1,12 +1,14 @@
 #pragma once
 
+#include "engine/core/Object.h"
+
 #include <string>
 
 struct GLFWwindow;
 
 namespace ForgeEngine
 {
-	class Game
+	class Game : Object
 	{
 		/************************************/
 		/************ATTRIBUTES**************/

@@ -1,5 +1,6 @@
 #include "ViewerComponent.h"
 
+#include "engine/core/Entity.h"
 #include "engine/core/Game.h"
 #include "engine/math/Math.h"
 

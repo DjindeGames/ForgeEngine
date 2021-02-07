@@ -19,11 +19,22 @@ namespace ForgeEngine
 		/************************************/
 
 		public:
-			template<typename T>
-			void RegisterManager(Manager<T> manager)
+			void RegisterManager(Manager* manager)
 			{
 				Mother::RegisterObject(manager);
 			}
-			void ReleaseManagers();
+
+			template <typename T>
+			T* GetManagerByType()
+			{
+				for (auto& manager : m_RegisteredObjects)
+				{
+					if (auto ptr = dynamic_cast<T*>(manager.get()))
+					{
+						return ptr;
+					}
+				}
+				return nullptr;
+			}
 	};
 }

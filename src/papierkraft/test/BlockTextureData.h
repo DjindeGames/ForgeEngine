@@ -1,15 +1,11 @@
 #pragma once
 
-#include "engine/core/Manager.h"
+#include "engine/core/Object.h"
+#include "engine/misc/Texture.h"
 
-#include <vector>
+#include <memory>
 
 using namespace ForgeEngine;
-
-namespace ForgeEngine
-{
-	class Texture;
-}
 
 namespace PapierKraft
 {
@@ -24,23 +20,29 @@ namespace PapierKraft
 	#define TEXTURE_LOG_SIDE		"assets\\textures\\blocks\\log\\log_side.png"
 	#define TEXTURE_LOG_REST		"assets\\textures\\blocks\\log\\log_top.png"
 
-	template<typename T>
-	class BlockTextureManager : public Manager<T>
+	class BlockTextureData : Object
 	{
-		using Mother = Manager<T>;
-
 		/************************************/
 		/************ATTRIBUTES**************/
 		/************************************/
 
 		private:
-			std::vector<Texture*> m_RegisteredTextures{};
+			std::shared_ptr<Texture> m_SideTexture{};
+			std::shared_ptr<Texture> m_TopTexture{};
+			std::shared_ptr<Texture> m_BottomTexture{};
 
 		/************************************/
 		/**************METHODS***************/
 		/************************************/
 
-		protected:
-			virtual void OnDestroy() override;
+		public:
+			BlockTextureData(std::string sideTexture, std::string topTexture, std::string bottomTexture);
+			BlockTextureData(std::string sideTexture, std::string topBottomTexture);
+			BlockTextureData(std::string uniformTexture);
+			~BlockTextureData() {}
+
+			Texture* GetSideTexture() const { return m_SideTexture.get(); }
+			Texture* GetTopTexture() const { return m_TopTexture.get(); }
+			Texture* GetBottomTexture() const { return m_BottomTexture.get(); }
 	};
 }

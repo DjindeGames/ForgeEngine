@@ -1,7 +1,9 @@
 #include "Game.h"
 
+#include "common/managers/ShaderManager.h"
 #include "engine/core/CoreEngine.h"
 #include "engine/core/Entity.h"
+#include "engine/core/ManagerContainer.h"
 #include "engine/shader/ShaderUtils.h"
 
 #include <chrono>
@@ -39,9 +41,12 @@ namespace ForgeEngine
 
 		if (m_Window != nullptr)
 		{
-			EntityContainer::Get().PreInit();
-			EntityContainer::Get().Init();
-			EntityContainer::Get().PostInit();
+			ManagerContainer::Get()->PreInit();
+			EntityContainer::Get()->PreInit();
+			ManagerContainer::Get()->Init();
+			EntityContainer::Get()->Init();
+			ManagerContainer::Get()->PostInit();
+			EntityContainer::Get()->PostInit();
 
 			while (!glfwWindowShouldClose(m_Window))
 			{
@@ -54,9 +59,12 @@ namespace ForgeEngine
 					m_UpdateCallback(dT);
 				}
 
-				EntityContainer::Get().PreUpdate();
-				EntityContainer::Get().Update(dT);
-				EntityContainer::Get().PostUpdate();
+				ManagerContainer::Get()->PreUpdate();
+				EntityContainer::Get()->PreUpdate();
+				ManagerContainer::Get()->Update(dT);
+				EntityContainer::Get()->Update(dT);
+				ManagerContainer::Get()->PostUpdate();
+				EntityContainer::Get()->PostUpdate();
 
 				ProcessDebugInput();
 
@@ -92,7 +100,6 @@ namespace ForgeEngine
 
 	void Game::OnTermination()
 	{
-		EntityContainer::Get().ReleaseEntities();
 	}
 
 	bool Game::DefaultTerminationCondition()

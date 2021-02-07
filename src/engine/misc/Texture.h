@@ -1,6 +1,7 @@
 #pragma once
 
-#include <engine/core/CoreEngine.h>
+#include "engine/core/CoreEngine.h"
+#include "engine/core/Object.h""
 
 #include <glad/glad.h>
 
@@ -10,7 +11,7 @@ namespace ForgeEngine
 
 	#define MISSING_TEXTURE "assets\\textures\\default\\default.png"
 
-	class Texture
+	class Texture : Object
 	{
 		/************************************/
 		/************ATTRIBUTES**************/
@@ -29,7 +30,7 @@ namespace ForgeEngine
 		/************************************/
 
 	public:
-		Texture(const char* texturePath, unsigned int rgbaMode = GL_RGB, bool flip = true);
+		Texture(const char* texturePath, unsigned int rgbaMode = GL_RGBA, bool flip = true);
 		~Texture();
 
 		GL_ID GetGLTexture() const { return m_GLTexture; }

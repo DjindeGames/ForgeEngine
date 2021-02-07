@@ -1,13 +1,9 @@
 #pragma once
 
-#include "engine/core/ManagedObject.h"
-
 namespace ForgeEngine
 {
-	class Manager : public ManagedObject
+	class NonCopyable
 	{
-		using Mother = ManagedObject;
-
 		/************************************/
 		/************ATTRIBUTES**************/
 		/************************************/
@@ -15,5 +11,13 @@ namespace ForgeEngine
 		/************************************/
 		/**************METHODS***************/
 		/************************************/
+
+		public:
+			NonCopyable() {}
+			virtual ~NonCopyable() {}
+			NonCopyable(const NonCopyable& other) = delete;
+			NonCopyable& operator=(const NonCopyable& other) = delete;
+			NonCopyable(NonCopyable&&) = delete;
+			NonCopyable& operator=(NonCopyable&&) = delete;
 	};
 }

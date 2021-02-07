@@ -1,6 +1,7 @@
 #pragma once
 
 #include "engine/core/Component.h"
+#include "engine/math/Transform.h"
 
 namespace ForgeEngine
 {

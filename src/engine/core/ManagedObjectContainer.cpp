@@ -1,40 +1,34 @@
 #include "ManagedObjectContainer.h"
 
-#include "engine/core/ManagedObject.h"
-
 #include <algorithm>
 
 namespace ForgeEngine
 {
 	ManagedObject* ManagedObjectContainer::RegisterObject(ManagedObject* object)
 	{
-		s_RegisteredObjects.push_back(object);
+		m_RegisteredObjects.push_back(std::unique_ptr<ManagedObject>(object));
 		return object;
 	}
 
-	void ManagedObjectContainer::DestroyObject(ObjectID id)
+	ManagedObjectContainer::~ManagedObjectContainer()
 	{
-		auto it = std::find_if(s_RegisteredObjects.begin(), s_RegisteredObjects.end(), [&](const ManagedObject* e) {if (e != nullptr && e->GetID() == id) return true; else return false; });
-		if (it != s_RegisteredObjects.end() && (*it) != nullptr)
-		{
-			(*it)->Destroy();
-			s_RegisteredObjects.erase(it);
-		}
+		OnDestroy();
 	}
 
-	void ManagedObjectContainer::ReleaseObjects()
+	void ManagedObjectContainer::OnDestroy()
 	{
-		for (auto object : s_RegisteredObjects)
+		for (auto& object : m_RegisteredObjects)
 		{
-			object->Destroy();
-			delete(object);
+			if (object != nullptr)
+			{
+				object->Destroy();
+			}
 		}
-		s_RegisteredObjects.clear();
 	}
 
 	void ManagedObjectContainer::PreInit()
 	{
-		for (auto object : s_RegisteredObjects)
+		for (auto& object : m_RegisteredObjects)
 		{
 			if (object != nullptr)
 			{
@@ -45,7 +39,7 @@ namespace ForgeEngine
 
 	void ManagedObjectContainer::Init()
 	{
-		for (auto object : s_RegisteredObjects)
+		for (auto& object : m_RegisteredObjects)
 		{
 			if (object != nullptr)
 			{
@@ -56,7 +50,7 @@ namespace ForgeEngine
 
 	void ManagedObjectContainer::PostInit()
 	{
-		for (auto object : s_RegisteredObjects)
+		for (auto& object : m_RegisteredObjects)
 		{
 			if (object != nullptr)
 			{
@@ -67,7 +61,7 @@ namespace ForgeEngine
 
 	void ManagedObjectContainer::PreUpdate()
 	{
-		for (auto object : s_RegisteredObjects)
+		for (auto& object : m_RegisteredObjects)
 		{
 			if (object != nullptr)
 			{
@@ -78,7 +72,7 @@ namespace ForgeEngine
 
 	void ManagedObjectContainer::Update(float dT)
 	{
-		for (auto object : s_RegisteredObjects)
+		for (auto& object : m_RegisteredObjects)
 		{
 			if (object != nullptr)
 			{
@@ -89,7 +83,7 @@ namespace ForgeEngine
 
 	void ManagedObjectContainer::PostUpdate()
 	{
-		for (auto object : s_RegisteredObjects)
+		for (auto& object : m_RegisteredObjects)
 		{
 			if (object != nullptr)
 			{

@@ -21,8 +21,5 @@ namespace ForgeEngine
 
 		public:
 			Entity* RegisterEntity();
-			Entity* RegisterEntity(Entity* entity);
-
-			void ReleaseEntities();
 	};
 }

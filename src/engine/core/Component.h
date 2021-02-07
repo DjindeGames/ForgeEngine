@@ -1,7 +1,7 @@
 #pragma once
 
-#include "engine/core/Entity.h"
 #include "engine/core/ManagedObject.h"
+#include "engine/core/Entity.h"
 
 namespace ForgeEngine
 {
@@ -25,7 +25,7 @@ namespace ForgeEngine
 		public:
 			Entity* GetOwner() const { return m_Owner; }
 
-		private:
+		protected:
 			void SetOwner(Entity* owner) { m_Owner = owner; }
 	};
 }

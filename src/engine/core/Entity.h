@@ -2,9 +2,11 @@
 
 #include "engine/math/Math.h"
 #include "engine/math/Transform.h"
+#include "engine/Core/Component.h"
 #include "engine/core/EntityContainer.h"
 #include "engine/core/ManagedObject.h"
 
+#include <memory>
 #include <vector>
 
 namespace ForgeEngine
@@ -16,7 +18,6 @@ namespace ForgeEngine
 		using Mother = ManagedObject;
 
 		friend Entity* EntityContainer::RegisterEntity();
-		friend Entity* EntityContainer::RegisterEntity(Entity* entity);
 
 		/************************************/
 		/************ATTRIBUTES**************/
@@ -25,7 +26,7 @@ namespace ForgeEngine
 		private:
 			Transform m_Transform{};
 
-			std::vector<Component*> m_RegisteredComponents;
+			std::vector<std::unique_ptr<Component>> m_RegisteredComponents;
 
 		/************************************/
 		/**************METHODS***************/
@@ -35,19 +36,18 @@ namespace ForgeEngine
 			Transform& GetTransform() { return m_Transform; }
 			void SetTransform(const Transform& transform) { m_Transform = transform; }
 
-			Vector3 GetPosition() const;
-			void SetPosition(const Vector3& position);
+			Vector3 GetPosition() const { return m_Transform.GetPosition(); }
+			void SetPosition(const Vector3& position) { m_Transform.SetPosition(position); }
 
 			Component* RegisterComponent(Component* component);
-			void UnregisterComponent(Component* component);
 			template <typename T>
 			T* GetComponent()
 			{
 				for (auto component : m_RegisteredComponents)
 				{
-					if (auto tComp = dynamic_cast<T*>(component))
+					if (auto tComp = dynamic_cast<T*>(component.get()))
 					{
-						return tComp;
+						return tComp.get();
 					}
 				}
 				return nullptr;

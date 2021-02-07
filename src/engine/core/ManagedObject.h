@@ -1,13 +1,14 @@
 #pragma once
 
 #include "engine/core/ManagedObjectContainer.h"
+#include "engine/core/Object.h"
 
 namespace ForgeEngine
 {
-	typedef unsigned long long int ObjectID;
-
-	class ManagedObject
+	class ManagedObject : Object
 	{
+		using Mother = Object;
+
 		friend class ManagedObjectContainer;
 
 		/************************************/
@@ -15,18 +16,17 @@ namespace ForgeEngine
 		/************************************/
 
 		private:
-			ObjectID m_ID{};
-
-			static ObjectID s_LastGivenID;
+			bool m_IsActive{ true };
 
 		/************************************/
 		/**************METHODS***************/
 		/************************************/
+
 		public:
-			ObjectID GetID() const { return m_ID; }
-		protected:
 			ManagedObject();
-			~ManagedObject() {}
+
+			void SetActive(bool active) { m_IsActive = active; }
+			bool IsActive() const { return m_IsActive; }
 
 			virtual void OnPreInit() {}
 			virtual void OnInit() {}
@@ -36,9 +36,9 @@ namespace ForgeEngine
 			virtual void OnUpdate(float dT) {}
 			virtual void OnPostUpdate() {}
 
-			virtual void OnDestroy() {}
-
 			void Destroy() { OnDestroy(); }
-			
+		
+		protected:
+			virtual void OnDestroy() {}
 	};
 }

@@ -1,7 +1,8 @@
 #include "MeshComponent.h"
 
+#include "engine/core/Entity.h"
 #include "engine/misc/Texture.h"
-#include "engine/shader/ShaderUtils.h"
+#include "engine/shader/Shader.h"
 
 #include <algorithm>
 #include <glad/glad.h>
@@ -23,6 +24,17 @@ namespace ForgeEngine
 		m_Indices(indices),
 		m_renderColor(renderColor),
 		m_Shader(shader)
+	{
+	}
+
+	MeshComponent::MeshComponent(const std::vector<float>& vertices, const std::vector<unsigned int>& indices, Shader* shader, Texture* texture) :
+		Mother(),
+		m_NumIndices(static_cast<unsigned int>(indices.size())),
+		m_Floats(vertices),
+		m_Indices(indices),
+		m_renderColor(COLOR_MAGENTA),
+		m_Shader(shader),
+		m_Texture(texture)
 	{
 	}
 
@@ -94,8 +106,8 @@ namespace ForgeEngine
 
 		//Clear vertices data
 		delete[](glFloats);
-		m_Floats.erase(m_Floats.begin(), m_Floats.end());
-		m_Indices.erase(m_Indices.begin(), m_Indices.end());
+		m_Floats.clear();
+		m_Indices.clear();
 
 		m_IsInitialized = true;
 	}

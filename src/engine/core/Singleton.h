@@ -1,27 +1,27 @@
 #pragma once
 
+#include "engine/core/NonCopyable.h"
+
+#include <memory>
+
 namespace ForgeEngine
 {
 	template <typename T>
-	class Singleton {
-
+	class Singleton : NonCopyable
+	{
 		/************************************/
 		/**************METHODS***************/
 		/************************************/
 		
 		public:
-			static T& Get() 
+			//Not thread safe!
+			static T* Get() 
 			{
-			    static T instance;
-				return instance;
+				static std::unique_ptr<T> m_Instance{ new T };
+				return m_Instance.get();
 			}
 
 		protected:
 			Singleton() {};
-
-			Singleton(const Singleton&) = delete;
-			Singleton& operator=(const Singleton&) = delete;
-			Singleton(Singleton&&) = delete;
-			Singleton& operator=(Singleton&&) = delete;
 	};
 }

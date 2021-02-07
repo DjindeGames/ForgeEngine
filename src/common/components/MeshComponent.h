@@ -3,7 +3,6 @@
 #include "engine/core/Component.h"
 #include "engine/core/CoreEngine.h"
 #include "engine/misc/Color.h"
-#include "engine/shader/Shader.h"
 
 #include <vector>
 
@@ -11,7 +10,6 @@ namespace ForgeEngine
 {
 	class Shader;
 	class Texture;
-	class Transform;
 
 	//A mesh is built using a collection of Vector3 that represents its vertices
 	//Those vertices are converted into an array of floats to match openGL behaviour
@@ -45,8 +43,7 @@ namespace ForgeEngine
 
 		public:
 			MeshComponent(const std::vector<float>& vertices, const std::vector<unsigned int>& indices, Shader* shader, const Color& renderColor = COLOR_MAGENTA);
-			//This should probably be done !
-			//Mesh(const Mesh& mesh) = delete;
+			MeshComponent(const std::vector<float>& vertices, const std::vector<unsigned int>& indices, Shader* shader, Texture* texture);
 
 			void SetTexture(Texture* texture) { m_Texture = texture; }
 
@@ -54,6 +51,7 @@ namespace ForgeEngine
 			virtual void OnDestroy() override;
 
 		private:
+			//CHANGE FOR ONINIT
 			void InitRender();
 	};
 }

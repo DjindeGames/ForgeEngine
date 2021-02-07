@@ -2,6 +2,7 @@
 
 #include "engine/core/CoreEngine.h"
 #include "engine/math/Math.h"
+#include "engine/core/Object.h"
 
 #include <utility>
 #include <vector>
@@ -24,7 +25,7 @@ namespace ForgeEngine
 	class Texture;
 	class Transform;
 
-	class Shader
+	class Shader : Object
 	{
 		/************************************/
 		/************ATTRIBUTES**************/

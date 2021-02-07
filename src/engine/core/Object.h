@@ -1,19 +1,30 @@
 #pragma once
 
-#include "engine/core/ManagedObject.h"
+#include "engine/core/NonCopyable.h"
 
 namespace ForgeEngine
 {
-	class Manager : public ManagedObject
-	{
-		using Mother = ManagedObject;
+	typedef unsigned long long int ObjectID;
 
+	class Object : public NonCopyable
+	{
 		/************************************/
 		/************ATTRIBUTES**************/
 		/************************************/
 
+		private:
+			ObjectID m_ID{};
+
+			static ObjectID s_LastGivenID;
+
 		/************************************/
 		/**************METHODS***************/
 		/************************************/
+
+		public:
+			Object();
+			virtual ~Object() {}
+
+			ObjectID GetID() const { return m_ID; }
 	};
 }
