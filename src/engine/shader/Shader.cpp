@@ -1,6 +1,5 @@
 #include "Shader.h"
 
-#include "engine/math/Math.h"
 #include "engine/math/Transform.h"
 #include "engine/misc/Color.h"
 #include "engine/misc/Texture.h"

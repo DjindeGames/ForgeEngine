@@ -19,39 +19,41 @@ namespace ForgeEngine
 		const Color& renderColor /*= COLOR_RENDER_DEFAULT*/
 	) :
 		Mother(),
-		m_NumIndices(static_cast<unsigned int>(indices.size())),
-		m_Floats(vertices),
-		m_Indices(indices),
 		m_renderColor(renderColor),
 		m_Shader(shader)
 	{
+		InitRender(vertices, indices);
 	}
 
-	MeshComponent::MeshComponent(const std::vector<float>& vertices, const std::vector<unsigned int>& indices, Shader* shader, Texture* texture) :
+	MeshComponent::MeshComponent(
+		const std::vector<float>& vertices, 
+		const std::vector<unsigned int>& indices, 
+		Shader* shader, 
+		Texture* texture
+	) :
 		Mother(),
-		m_NumIndices(static_cast<unsigned int>(indices.size())),
-		m_Floats(vertices),
-		m_Indices(indices),
 		m_renderColor(COLOR_MAGENTA),
 		m_Shader(shader),
 		m_Texture(texture)
 	{
+		InitRender(vertices, indices);
 	}
 
-	void MeshComponent::InitRender()
+	void MeshComponent::InitRender(const std::vector<float>& vertices, const std::vector<unsigned int>& indices)
 	{
 		if (m_Shader == nullptr)
 		{
 			return;
 		}
 
-		m_NumVertices = m_Floats.size() / m_Shader->GetInputDataSize();
+		m_NumIndices = static_cast<unsigned int>(indices.size());
+		m_NumVertices = vertices.size() / m_Shader->GetInputDataSize();
 
-		float* glFloats = new float[(m_Floats.size())];
+		float* glFloats = new float[(vertices.size())];
 
-		for (COUNTER i = 0; i < (m_Floats.size()); i++)
+		for (COUNTER i = 0; i < (vertices.size()); i++)
 		{
-			glFloats[i] = m_Floats[i];
+			glFloats[i] = vertices[i];
 		} 
 
 		//Generates buffer to store vertices
@@ -65,18 +67,18 @@ namespace ForgeEngine
 
 		//2. Copy our vertices array in a buffer for OpenGL to use
 		glBindBuffer(GL_ARRAY_BUFFER, m_VertexBufferObject);
-		glBufferData(GL_ARRAY_BUFFER, m_Floats.size() * sizeof(float), glFloats, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), glFloats, GL_STATIC_DRAW);
 
 		//2.5. Use vertex buffer element if necessary
-		if (m_Indices.size() > 0)
+		if (indices.size() > 0)
 		{
 			glGenBuffers(1, &m_VertexBufferElement);
 
-			unsigned int* glIndices = new unsigned int[m_Indices.size()];
-			std::copy(m_Indices.begin(), m_Indices.end(), glIndices);
+			unsigned int* glIndices = new unsigned int[indices.size()];
+			std::copy(indices.begin(), indices.end(), glIndices);
 
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_VertexBufferElement);
-			glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_Indices.size() * sizeof(unsigned int), glIndices, GL_STATIC_DRAW);
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), glIndices, GL_STATIC_DRAW);
 
 			delete[](glIndices);
 		}
@@ -106,19 +108,10 @@ namespace ForgeEngine
 
 		//Clear vertices data
 		delete[](glFloats);
-		m_Floats.clear();
-		m_Indices.clear();
-
-		m_IsInitialized = true;
 	}
 
 	void MeshComponent::OnUpdate(float dT)
 	{
-		if (!m_IsInitialized)
-		{
-			InitRender();
-		}
-		
 		if (m_Shader != nullptr)
 		{
 			glEnable(GL_DEPTH_TEST);

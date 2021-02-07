@@ -2,6 +2,7 @@
 
 #include "common/components/MeshComponent.h"
 #include "common/managers/ShaderManager.h"
+
 #include "engine/core/Entity.h"
 #include "engine/core/Game.h"
 #include "engine/core/ManagerContainer.h"
@@ -14,7 +15,6 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
-#include <vector>
 
 using namespace ForgeEngine;
 

@@ -1,7 +1,6 @@
 #pragma once
 
-#include "engine/core/CoreEngine.h"
-#include "engine/math/Math.h"
+#include "engine/core/Defines.h"
 #include "engine/core/Object.h"
 
 #include <utility>

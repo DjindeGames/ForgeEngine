@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/core/CoreEngine.h"
+#include "engine/core/Defines.h"
 #include "engine/core/Object.h""
 
 #include <glad/glad.h>

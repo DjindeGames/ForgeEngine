@@ -1,6 +1,5 @@
 #pragma once
 
-#include "engine/math/Math.h"
 #include "engine/math/Transform.h"
 #include "engine/Core/Component.h"
 #include "engine/core/EntityContainer.h"
@@ -12,6 +11,7 @@
 namespace ForgeEngine
 {
 	class Component;
+	class Transform;
 
 	class Entity : public ManagedObject
 	{
@@ -36,8 +36,8 @@ namespace ForgeEngine
 			Transform& GetTransform() { return m_Transform; }
 			void SetTransform(const Transform& transform) { m_Transform = transform; }
 
-			Vector3 GetPosition() const { return m_Transform.GetPosition(); }
-			void SetPosition(const Vector3& position) { m_Transform.SetPosition(position); }
+			Vector4 GetPosition() const { return m_Transform.GetPosition(); }
+			void SetPosition(const Vector4& position) { m_Transform.SetPosition(position); }
 
 			Component* RegisterComponent(Component* component);
 			template <typename T>

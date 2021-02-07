@@ -1,6 +1,7 @@
 #pragma once
 
-#include "engine/math/Math.h"
+#include "engine/math/Matrix4.h"
+#include "engine/math/Vector4.h"
 
 namespace ForgeEngine
 {
@@ -13,9 +14,9 @@ namespace ForgeEngine
 		private:
 			Matrix4 m_Matrix;
 
-			Vector3 m_Position{0.f};
-			Vector3 m_Rotation{0.f};
-			Vector3 m_Scale{1.f};
+			Vector4 m_Position{0.f};
+			Vector4 m_Rotation{0.f};
+			Vector4 m_Scale{1.f};
 
 		/************************************/
 		/**************METHODS***************/
@@ -26,18 +27,18 @@ namespace ForgeEngine
 
 			const Matrix4& GetMatrix() const { return m_Matrix; }
 
-			Vector3 GetPosition() const { return m_Position; }
-			Vector3 GetRotation() const { return m_Rotation; }
-			Vector3 GetScale() const { return m_Scale; }
+			Vector4 GetPosition() const { return m_Position; }
+			Vector4 GetRotation() const { return m_Rotation; }
+			Vector4 GetScale() const { return m_Scale; }
 
-			void SetPosition(const Vector3& position);
-			void SetRotation(const Vector3& rotation);
-			void SetScale(const Vector3& scale);
+			void SetPosition(const Vector4& position);
+			void SetRotation(const Vector4& rotation);
+			void SetScale(const Vector4& scale);
 
-			void Translate(const Vector3& vector);
-			void Rotate(float angle, const Vector3& axis);
-			void Rotate(const Vector3& euleurAngles);
-			void Scale(const Vector3& scale);
+			void Translate(const Vector4& vector);
+			void Rotate(float angle, const Vector4& axis);
+			void Rotate(const Vector4& euleurAngles);
+			void Scale(const Vector4& scale);
 
 			void Refresh();
 			void Reset();

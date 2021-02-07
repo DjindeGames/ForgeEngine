@@ -4,6 +4,7 @@
 #include "engine/misc/Texture.h"
 
 #include <memory>
+#include <string>
 
 using namespace ForgeEngine;
 

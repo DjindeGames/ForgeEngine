@@ -19,9 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\engine\core\Defines.h" />
     <ClInclude Include="src\engine\core\Object.h" />
     <ClInclude Include="src\engine\core\NonCopyable.h" />
     <ClInclude Include="src\common\managers\ShaderManager.h" />
+    <ClInclude Include="src\engine\math\Matrix4.h" />
+    <ClInclude Include="src\engine\math\Vector3.h" />
+    <ClInclude Include="src\engine\math\Vector4.h" />
     <ClInclude Include="src\papierkraft\test\BlockTextureData.h" />
     <ClInclude Include="src\engine\core\ManagerContainer.h" />
     <ClInclude Include="src\papierkraft\test\BlockTextureManager.h" />
@@ -33,7 +37,6 @@
     <ClInclude Include="src\engine\core\Component.h" />
     <ClInclude Include="src\engine\core\ManagedObject.h" />
     <ClInclude Include="src\engine\core\Entity.h" />
-    <ClInclude Include="src\engine\math\Math.h" />
     <ClInclude Include="src\engine\misc\Utils.h" />
     <ClInclude Include="src\engine\shader\Shader.h" />
     <ClInclude Include="src\engine\misc\Color.h" />
@@ -341,6 +344,7 @@
     <ClCompile Include="src\engine\core\Object.cpp" />
     <ClCompile Include="src\engine\core\NonCopyable.cpp" />
     <ClCompile Include="src\common\managers\ShaderManager.cpp" />
+    <ClCompile Include="src\engine\math\Matrix4.cpp" />
     <ClCompile Include="src\papierkraft\test\BlockTextureData.cpp" />
     <ClCompile Include="src\engine\core\ManagerContainer.cpp" />
     <ClCompile Include="src\papierkraft\test\BlockTextureManager.cpp" />
@@ -352,7 +356,6 @@
     <ClCompile Include="src\engine\core\Component.cpp" />
     <ClCompile Include="src\engine\core\ManagedObject.cpp" />
     <ClCompile Include="src\engine\core\Entity.cpp" />
-    <ClCompile Include="src\engine\math\Math.cpp" />
     <ClCompile Include="src\engine\misc\Utils.cpp" />
     <ClCompile Include="src\engine\shader\Shader.cpp" />
     <ClCompile Include="src\engine\misc\Color.cpp" />
