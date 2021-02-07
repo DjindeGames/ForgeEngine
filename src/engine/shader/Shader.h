@@ -2,23 +2,26 @@
 
 #include "engine/core/Defines.h"
 #include "engine/core/Object.h"
+#include "engine/math/Matrix4.h"
 
 #include <utility>
 #include <vector>
 
 namespace ForgeEngine
 {
-	#define GLSL_ATTRIBUTE_TOKEN "//ATTRIBUTE"
+	#define GLSL_ATTRIBUTE_TOKEN			"//ATTRIBUTE"
 
-	#define DEFAULT_VERTEX_SHADER_PATH   "assets\\shaders\\vertex\\default.glslv"
-	#define DEFAULT_FRAGMENT_SHADER_PATH "assets\\shaders\\fragment\\default.glslf"
+	#define DEFAULT_VERTEX_SHADER_PATH		"assets\\shaders\\vertex\\default.glslv"
+	#define DEFAULT_FRAGMENT_SHADER_PATH	"assets\\shaders\\fragment\\default.glslf"
 
-	#define TEXTURED_VERTEX_SHADER_PATH   "assets\\shaders\\vertex\\textured.glslv"
-	#define TEXTURED_FRAGMENT_SHADER_PATH "assets\\shaders\\fragment\\textured.glslf"
+	#define TEXTURED_VERTEX_SHADER_PATH		"assets\\shaders\\vertex\\textured.glslv"
+	#define TEXTURED_FRAGMENT_SHADER_PATH	"assets\\shaders\\fragment\\textured.glslf"
 
-	#define DEFAULT_RENDER_COLOR_NAME "RenderColor"
-	#define DEFAULT_RENDER_TEXTURE_NAME "RenderTexture"
-	#define DEFAULT_TRANSFORM_NAME "Transform"
+	#define DEFAULT_RENDER_COLOR_NAME		"RenderColor"
+	#define DEFAULT_RENDER_TEXTURE_NAME		"RenderTexture"
+	#define DEFAULT_TRANSFORM_NAME			"Transform"
+	#define DEFAULT_PROJECTION_NAME			"Projection"
+	#define DEFAULT_VIEW_NAME				"View"
 
 	class Color;
 	class Texture;
@@ -63,5 +66,7 @@ namespace ForgeEngine
 			void SetColor(const char* which, const Color& value);
 			void SetTexture(unsigned int which, const Texture* texture);
 			void SetTransform(const char* which, const Transform* transform);
+			void SetProjection(const char* which, const Matrix4& projection);
+			void SetView(const char* which, const Matrix4& view);
 	};
 }

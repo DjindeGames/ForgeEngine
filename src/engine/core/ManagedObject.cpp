@@ -6,4 +6,17 @@ namespace ForgeEngine
 		Mother()
 	{
 	}
+
+	void ManagedObject::SetActive(bool active)
+	{
+		m_IsActive = active;
+		if (m_IsActive)
+		{
+			OnActivate();
+		}
+		else
+		{
+			OnDeactivate();
+		}
+	}
 }

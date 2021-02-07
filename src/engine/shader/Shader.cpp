@@ -134,4 +134,14 @@ namespace ForgeEngine
 			glUniformMatrix4fv(glGetUniformLocation(m_ProgramID, which), 1, GL_FALSE, glm::value_ptr(transform->GetMatrix()));
 		}
 	}
+
+	void Shader::SetProjection(const char* which, const Matrix4& projection)
+	{
+		glUniformMatrix4fv(glGetUniformLocation(m_ProgramID, which), 1, GL_FALSE, glm::value_ptr(projection));
+	}
+
+	void Shader::SetView(const char* which, const Matrix4& view)
+	{
+		glUniformMatrix4fv(glGetUniformLocation(m_ProgramID, which), 1, GL_FALSE, glm::value_ptr(view));
+	}
 }

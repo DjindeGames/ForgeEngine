@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\common\components\CameraComponent.h" />
     <ClInclude Include="src\engine\core\Defines.h" />
     <ClInclude Include="src\engine\core\Object.h" />
     <ClInclude Include="src\engine\core\NonCopyable.h" />
@@ -341,6 +342,7 @@
     <ClInclude Include="src\common\components\ViewerComponent.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\common\components\CameraComponent.cpp" />
     <ClCompile Include="src\engine\core\Object.cpp" />
     <ClCompile Include="src\engine\core\NonCopyable.cpp" />
     <ClCompile Include="src\common\managers\ShaderManager.cpp" />

@@ -25,8 +25,11 @@ namespace ForgeEngine
 		public:
 			ManagedObject();
 
-			void SetActive(bool active) { m_IsActive = active; }
+			void SetActive(bool active); 
 			bool IsActive() const { return m_IsActive; }
+
+			virtual void OnActivate() {}
+			virtual void OnDeactivate() {}
 
 			virtual void OnPreInit() {}
 			virtual void OnInit() {}

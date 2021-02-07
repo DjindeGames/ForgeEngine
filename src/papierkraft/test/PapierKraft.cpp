@@ -1,5 +1,6 @@
 #include "PapierKraft.h"
 
+#include "common/components/CameraComponent.h"
 #include "common/components/MeshComponent.h"
 #include "common/managers/ShaderManager.h"
 
@@ -33,7 +34,7 @@ namespace PapierKraft
 	int CoreLoop()
 	{
 		Game game;
-		game.Init("PapierKraft", 800, 600);
+		game.Init("PapierKraft", 800, 450);
 		game.SetUpdateCallback(Update);
 		game.SetTerminationConditionCallback(ShouldTerminate);
 
@@ -75,7 +76,10 @@ namespace PapierKraft
 		ManagerContainer::Get()->RegisterManager(new BlockTextureManager());
 		ManagerContainer::Get()->RegisterManager(new ShaderManager());
 
-		Entity* entity = EntityContainer::Get()->RegisterEntity();
-		entity->RegisterComponent(new BlockComponent(EBlockType::Woodlog));
+		Entity* block = EntityContainer::Get()->RegisterEntity();
+		block->RegisterComponent(new BlockComponent(EBlockType::Woodlog));
+		block->GetTransform().Translate(VECTOR4_Z);
+		Entity* camera = EntityContainer::Get()->RegisterEntity();
+		camera->RegisterComponent(new CameraComponent());
 	}
 }

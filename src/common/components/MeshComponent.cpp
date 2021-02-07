@@ -1,5 +1,7 @@
 #include "MeshComponent.h"
 
+#include "common/components/CameraComponent.h"
+
 #include "engine/core/Entity.h"
 #include "engine/misc/Texture.h"
 #include "engine/shader/Shader.h"
@@ -112,7 +114,7 @@ namespace ForgeEngine
 
 	void MeshComponent::OnUpdate(float dT)
 	{
-		if (m_Shader != nullptr)
+		if (m_Shader != nullptr && CameraComponent::GetActiveCamera() != nullptr)
 		{
 			glEnable(GL_DEPTH_TEST);
 
@@ -120,6 +122,8 @@ namespace ForgeEngine
 			m_Shader->SetColor(DEFAULT_RENDER_COLOR_NAME, m_renderColor);
 			m_Shader->SetTexture(GL_TEXTURE0, m_Texture);
 			m_Shader->SetTransform(DEFAULT_TRANSFORM_NAME, &m_Owner->GetTransform());
+			m_Shader->SetProjection(DEFAULT_PROJECTION_NAME, CameraComponent::GetActiveCamera()->GetProjection());
+			m_Shader->SetView(DEFAULT_VIEW_NAME, CameraComponent::GetActiveCamera()->GetView());
 			
 			glBindVertexArray(m_VertexArrayObject);
 			if (m_NumIndices > 0)
