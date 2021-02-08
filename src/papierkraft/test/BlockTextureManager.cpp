@@ -31,5 +31,10 @@ namespace PapierKraft
 			TEXTURE_LOG_SIDE, 
 			TEXTURE_LOG_REST
 		);
+
+		//LEAVES
+		m_RegisteredTextures[EBlockType::Leaves] = std::make_unique<BlockTextureData>(
+			TEXTURE_LEAVES_UNIFORM
+		);
 	}
 }

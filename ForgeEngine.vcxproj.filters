@@ -978,6 +978,9 @@
     <ClInclude Include="src\common\components\CameraComponent.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="src\common\components\FirstPersonControllerComponent.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\extern\opengl\includes\glad\glad.c">
@@ -1068,6 +1071,9 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="src\common\components\CameraComponent.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\components\FirstPersonControllerComponent.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>

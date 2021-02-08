@@ -28,12 +28,12 @@ namespace ForgeEngine
 
 	void Transform::Translate(const Vector4& vector)
 	{
-		m_Matrix = DoTranslate(m_Matrix, vector);
+		ForgeMaths::Translate(m_Matrix, vector);
 	}
 
 	void Transform::Rotate(float angle, const Vector4& axis)
 	{
-		m_Matrix = DoRotate(m_Matrix, angle, axis);
+		ForgeMaths::Rotate(m_Matrix, angle, axis);
 	}
 
 	void Transform::Rotate(const Vector4& euleurAngles)
@@ -45,11 +45,11 @@ namespace ForgeEngine
 
 	void Transform::Scale(const Vector4& scale)
 	{
-		m_Matrix = DoScale(m_Matrix, scale);
+		ForgeMaths::Scale(m_Matrix, scale);
 	}
 
 	void Transform::Refresh()
 	{
-		Decompose(m_Matrix, m_Position, m_Rotation, m_Scale);
+		ForgeMaths::Decompose(m_Matrix, m_Position, m_Rotation, m_Scale);
 	}
 }

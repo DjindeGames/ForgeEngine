@@ -7,6 +7,8 @@ namespace ForgeEngine
 {
 	class ViewerComponent : public Component
 	{
+		using Mother = Component;
+
 		/************************************/
 		/************ATTRIBUTES**************/
 		/************************************/

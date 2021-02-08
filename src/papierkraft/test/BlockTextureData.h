@@ -18,6 +18,8 @@ namespace PapierKraft
 
 	#define TEXTURE_STONE_UNIFORM	"assets\\textures\\blocks\\stone\\stone_uniform.png"
 
+	#define TEXTURE_LEAVES_UNIFORM	"assets\\textures\\blocks\\leaves\\leaves_uniform.png"
+
 	#define TEXTURE_LOG_SIDE		"assets\\textures\\blocks\\log\\log_side.png"
 	#define TEXTURE_LOG_REST		"assets\\textures\\blocks\\log\\log_top.png"
 

@@ -10,6 +10,7 @@
 namespace ForgeEngine
 {
 	ViewerComponent::ViewerComponent(float translationSpeed, float rotationSpeed, float scaleSpeed) :
+		Mother(),
 		m_TranslationSpeed(translationSpeed),
 		m_RotationSpeed(rotationSpeed),
 		m_ScaleSpeed(scaleSpeed)
@@ -18,11 +19,14 @@ namespace ForgeEngine
 
 	void ViewerComponent::OnInit()
 	{
+		Mother::OnInit();
 		m_InitialTransform = GetOwner()->GetTransform();
 	}
 
 	void ViewerComponent::OnUpdate(float dT) /*override*/
 	{
+		Mother::OnUpdate(dT);
+
 		//Reset
 		if (glfwGetKey(Game::m_Window, GLFW_KEY_SPACE) == GLFW_PRESS)
 		{

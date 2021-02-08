@@ -11,4 +11,5 @@ namespace PapierKraft
 	void ProcessInput();
 	void PerformTests();
 	void ReleaseResources();
+	void BuildChunk();
 }

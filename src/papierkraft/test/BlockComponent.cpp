@@ -106,6 +106,6 @@ namespace PapierKraft
 		GetOwner()->RegisterComponent(new MeshComponent(topVerticesTexturesCoordinates, topCoordinates, m_Shader, m_TextureData->GetTopTexture()));
 		GetOwner()->RegisterComponent(new MeshComponent(bottomVerticesTexturesCoordinates, bottomCoordinates, m_Shader, m_TextureData->GetBottomTexture()));
 
-		GetOwner()->RegisterComponent(new ViewerComponent(1.f, 360.f, 1.01f));
+		//GetOwner()->RegisterComponent(new ViewerComponent(1.f, 360.f, 1.01f));
 	}
 }

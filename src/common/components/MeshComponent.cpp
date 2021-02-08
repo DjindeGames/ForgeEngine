@@ -114,9 +114,13 @@ namespace ForgeEngine
 
 	void MeshComponent::OnUpdate(float dT)
 	{
+		Mother::OnUpdate(dT);
+
 		if (m_Shader != nullptr && CameraComponent::GetActiveCamera() != nullptr)
 		{
 			glEnable(GL_DEPTH_TEST);
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 			m_Shader->Use();
 			m_Shader->SetColor(DEFAULT_RENDER_COLOR_NAME, m_renderColor);
