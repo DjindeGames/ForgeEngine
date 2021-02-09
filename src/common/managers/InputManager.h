@@ -1,20 +1,24 @@
 #pragma once
 
+#include "engine/core/Defines.h"
 #include "engine/core/Manager.h"
-#include "engine/shader/Shader.h"
 
 #include <unordered_map>
 
 namespace ForgeEngine
 {
-	enum class EShaderType
+	enum class EInputAction
 	{
-		Default = 0,
-		Textured,
+		MoveForward,
+		MoveBackward,
+		MoveRight,
+		MoveLeft,
+		FlyUp,
+		FlyDown,
 		Count
 	};
 
-	class ShaderManager : public Manager
+	class InputManager : public Manager
 	{
 		using Mother = Manager;
 
@@ -23,15 +27,15 @@ namespace ForgeEngine
 		/************************************/
 
 		private:
-			std::unordered_map<EShaderType, std::unique_ptr<Shader>> m_RegisteredShaders{};
+			std::unordered_map<EInputAction, GL_ID> m_InputActionMappings{};
 
 		/************************************/
 		/**************METHODS***************/
 		/************************************/
 
 		public:
-			ShaderManager();
+			InputManager();
 
-			Shader* GetShaderByType(EShaderType shaderType) { return m_RegisteredShaders[shaderType].get(); }
+			bool IsInputActive(EInputAction actionType);
 	};
 }

@@ -3,6 +3,7 @@
 #include "common/components/CameraComponent.h"
 #include "common/components/FirstPersonControllerComponent.h"
 #include "common/components/MeshComponent.h"
+#include "common/managers/InputManager.h"
 #include "common/managers/ShaderManager.h"
 
 #include "engine/core/Entity.h"
@@ -76,6 +77,7 @@ namespace PapierKraft
 	{
 		ManagerContainer::Get()->RegisterManager(new BlockTextureManager());
 		ManagerContainer::Get()->RegisterManager(new ShaderManager());
+		ManagerContainer::Get()->RegisterManager(new InputManager());
 
 		BuildChunk();
 

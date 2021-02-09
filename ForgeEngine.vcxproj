@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\common\managers\InputManager.h" />
     <ClInclude Include="src\common\components\FirstPersonControllerComponent.h" />
     <ClInclude Include="src\common\components\CameraComponent.h" />
     <ClInclude Include="src\engine\core\Defines.h" />
@@ -343,6 +344,7 @@
     <ClInclude Include="src\common\components\ViewerComponent.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\common\managers\InputManager.cpp" />
     <ClCompile Include="src\common\components\FirstPersonControllerComponent.cpp" />
     <ClCompile Include="src\common\components\CameraComponent.cpp" />
     <ClCompile Include="src\engine\core\Object.cpp" />

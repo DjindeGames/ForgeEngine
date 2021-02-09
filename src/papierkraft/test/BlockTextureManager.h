@@ -28,7 +28,6 @@ namespace PapierKraft
 
 		public:
 			BlockTextureManager();
-			~BlockTextureManager() {}
 
 			BlockTextureData* GetTextureDataByBlockType(EBlockType blockType) { return m_RegisteredTextures[blockType].get(); }
 	};

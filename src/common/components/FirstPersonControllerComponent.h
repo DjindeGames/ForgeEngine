@@ -4,6 +4,8 @@
 
 namespace ForgeEngine
 {
+	class InputManager;
+
 	class FirstPersonControllerComponent : public Component
 	{
 		using Mother = Component;
@@ -16,6 +18,8 @@ namespace ForgeEngine
 			float m_MoveSpeed{};
 			float m_RotationSpeed{};
 
+			InputManager* m_InputManager{};
+
 		/************************************/
 		/**************METHODS***************/
 		/************************************/
@@ -23,6 +27,7 @@ namespace ForgeEngine
 		public:
 			FirstPersonControllerComponent(float moveSpeed = 5.f, float rotationSpeed = 30.f);
 
+			virtual void OnInit() override;
 			virtual void OnUpdate(float dT) override;
 	};
 }
