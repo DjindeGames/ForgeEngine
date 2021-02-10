@@ -26,7 +26,7 @@ namespace ForgeEngine
 		public:
 			ViewerComponent(float translationSpeed, float rotationSpeed, float scaleSpeed);
 
-			virtual void OnInit() override;
+			virtual bool OnInit() override;
 			virtual void OnUpdate(float dT) override;
 
 			float GetRotationSpeed() const { return m_RotationSpeed; }

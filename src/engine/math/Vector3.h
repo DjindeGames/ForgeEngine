@@ -12,4 +12,9 @@ namespace ForgeEngine
 	#define VECTOR3_NULL Vector3(0.f, 0.f, 0.f)
 
 	typedef glm::vec3 Vector3;
+
+	namespace ForgeMaths
+	{
+		Vector3 Cross(const Vector3& v1, const Vector3& v2);
+	}
 }

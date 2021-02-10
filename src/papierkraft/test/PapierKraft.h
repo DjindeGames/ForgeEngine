@@ -2,6 +2,12 @@
 
 #include "engine/core/CoreEngine.h"
 
+namespace ForgeEngine
+{
+	class Entity;
+}
+
+
 namespace PapierKraft
 {
 	void Update(float dT);
@@ -11,5 +17,5 @@ namespace PapierKraft
 	void ProcessInput();
 	void PerformTests();
 	void ReleaseResources();
-	void BuildChunk();
+	ForgeEngine::Entity* BuildChunk();
 }

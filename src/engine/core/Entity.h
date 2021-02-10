@@ -36,27 +36,51 @@ namespace ForgeEngine
 			Transform& GetTransform() { return m_Transform; }
 			void SetTransform(const Transform& transform) { m_Transform = transform; }
 
-			Vector4 GetPosition() const { return m_Transform.GetPosition(); }
-			void SetPosition(const Vector4& position) { m_Transform.SetPosition(position); }
+			Vector3 GetPosition() const { return m_Transform.GetPosition(); }
+			void SetPosition(const Vector3& position) { m_Transform.SetPosition(position); }
 
-			Component* RegisterComponent(Component* component);
 			template <typename T>
-			T* GetComponent()
+			T* RegisterComponent(T* component)
 			{
-				for (auto component : m_RegisteredComponents)
+				if (component != nullptr)
 				{
-					if (auto tComp = dynamic_cast<T*>(component.get()))
+					m_RegisteredComponents.push_back(std::unique_ptr<Component>(component));
+					component->SetOwner(this);
+				}
+				return component;
+			}
+
+			template <typename T>
+			T* GetComponentByType()
+			{
+				for (auto& registeredComponent : m_RegisteredComponents)
+				{
+					if (auto tComponent = dynamic_cast<T*>(registeredComponent.get()))
 					{
-						return tComp.get();
+						return tComponent;
 					}
 				}
 				return nullptr;
 			}
+			template <typename T>
+			bool GetComponent(T* component)
+			{
+				component = nullptr;
+				for (auto& registeredComponent : m_RegisteredComponents)
+				{
+					if (T* tComponent = dynamic_cast<T*>(registeredComponent.get()))
+					{
+						component = tComponent;
+						return true;
+					}
+				}
+				return false;
+			}
 
 		protected:
-			virtual void OnPreInit() override;
-			virtual void OnInit() override;
-			virtual void OnPostInit() override;
+			virtual bool OnPreInit() override;
+			virtual bool OnInit() override;
+			virtual bool OnPostInit() override;
 
 			virtual void OnPreUpdate() override;
 			virtual void OnUpdate(float dT) override;

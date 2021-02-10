@@ -2,7 +2,7 @@
 
 #include "engine/core/Entity.h"
 #include "engine/core/Game.h"
-#include "engine/math/Vector4.h"
+#include "engine/math/Vector3.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -17,10 +17,11 @@ namespace ForgeEngine
 	{
 	}
 
-	void ViewerComponent::OnInit()
+	bool ViewerComponent::OnInit() /*override*/
 	{
-		Mother::OnInit();
+		bool success = Mother::OnInit();
 		m_InitialTransform = GetOwner()->GetTransform();
+		return success;
 	}
 
 	void ViewerComponent::OnUpdate(float dT) /*override*/
@@ -34,9 +35,9 @@ namespace ForgeEngine
 			return;
 		}
 
-		Vector4 eulerRotation{};
-		Vector4 translation{};
-		Vector4 scale{ 1.f };
+		Vector3 eulerRotation{};
+		Vector3 translation{};
+		Vector3 scale{ 1.f };
 
 		//Translation
 		if (glfwGetKey(Game::m_Window, GLFW_KEY_W) == GLFW_PRESS)

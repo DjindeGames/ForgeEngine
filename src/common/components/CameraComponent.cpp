@@ -1,6 +1,6 @@
 #include "CameraComponent.h"
 
-#include "glm/ext/matrix_clip_space.hpp" 
+#include <glm/gtc/matrix_transform.hpp>
 
 namespace ForgeEngine
 {
@@ -18,6 +18,23 @@ namespace ForgeEngine
 		Mother::OnUpdate(dT);
 		m_View = Matrix4{1.f};
 		ForgeMaths::Translate(m_View, -GetOwner()->GetPosition());
+
+		Vector3 sight{};
+		if (m_IsFocusActive && m_FocusedEntity != nullptr)
+		{
+			sight = m_FocusedEntity->GetPosition() - GetOwner()->GetPosition();
+		}
+		else
+		{
+			sight.x = cos(glm::radians(m_Yaw)) * cos(glm::radians(m_Pitch));
+			sight.y = sin(glm::radians(m_Pitch));
+			sight.z = sin(glm::radians(m_Yaw)) * cos(glm::radians(m_Pitch));
+		}
+
+		m_Sight = glm::normalize(sight);
+		m_Right = ForgeMaths::Cross(VECTOR3_Y, m_Sight);
+		m_Up = ForgeMaths::Cross(m_Sight, m_Right);
+		ForgeMaths::LookAt(m_View, GetOwner()->GetPosition(), GetOwner()->GetPosition() + m_Sight, VECTOR3_Y);
 	}
 
 	void CameraComponent::OnActivate() /*override*/

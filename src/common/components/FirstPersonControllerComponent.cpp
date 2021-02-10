@@ -1,11 +1,12 @@
 #include "FirstPersonControllerComponent.h"
 
+#include "common/components/CameraComponent.h"
 #include "common/managers/InputManager.h"
 
 #include "engine/core/Entity.h"
 #include "engine/core/Game.h"
 #include "engine/core/ManagerContainer.h"
-#include "engine/math/Vector4.h"
+#include "engine/math/Vector3.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -18,43 +19,54 @@ namespace ForgeEngine
 	{
 	}
 
-	void FirstPersonControllerComponent::OnInit() /*override*/
+	bool FirstPersonControllerComponent::OnInit() /*override*/
 	{
-		Mother::OnInit();
+		bool success = Mother::OnInit();
+		//ManagerContainer::Get()->GetManager(m_InputManager);
 		m_InputManager = ManagerContainer::Get()->GetManagerByType<InputManager>();
+		m_CameraComponent = GetOwner()->GetComponentByType<CameraComponent>();
+		//GetOwner()->GetComponent(m_CameraComponent);
+		glfwSetInputMode(Game::m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		return success
+			&& m_InputManager != nullptr
+			&& m_CameraComponent != nullptr;
 	}
 
 	void FirstPersonControllerComponent::OnUpdate(float dT) /*override*/
 	{
 		Mother::OnUpdate(dT);
 
-		Vector4 translation = VECTOR4_NULL;
+		Vector3 translation = VECTOR3_NULL;
 
 		if (m_InputManager->IsInputActive(EInputAction::MoveForward))
 		{
-			translation.z -= m_MoveSpeed;
+			translation += m_MoveSpeed * m_CameraComponent->GetSight();
 		}
 		if (m_InputManager->IsInputActive(EInputAction::MoveBackward))
 		{
-			translation.z += m_MoveSpeed;
+			translation -= m_MoveSpeed * m_CameraComponent->GetSight();
 		}
 		if (m_InputManager->IsInputActive(EInputAction::MoveLeft))
 		{
-			translation.x -= m_MoveSpeed;
+			translation += m_MoveSpeed * m_CameraComponent->GetRight();
 		}
 		if (m_InputManager->IsInputActive(EInputAction::MoveRight))
 		{
-			translation.x += m_MoveSpeed;
+			translation -= m_MoveSpeed * m_CameraComponent->GetRight();
 		}
 
 		if (m_InputManager->IsInputActive(EInputAction::FlyUp))
 		{
-			translation.y += m_MoveSpeed;
+			translation += m_MoveSpeed * VECTOR3_Y;
 		}
 		if (m_InputManager->IsInputActive(EInputAction::FlyDown))
 		{
-			translation.y -= m_MoveSpeed;
+			translation -= m_MoveSpeed * VECTOR3_Y;
 		}
+
+		Vector2 mouseVelocity = m_InputManager->GetMouseVelocity();
+		m_CameraComponent->SetYaw(m_CameraComponent->GetYaw() - (mouseVelocity.x * m_RotationSpeed * dT));
+		m_CameraComponent->SetPitch(m_CameraComponent->GetPitch() + (mouseVelocity.y * m_RotationSpeed * dT));
 
 		//TODO: Normalize translation
 		GetOwner()->GetTransform().Translate(translation * dT);

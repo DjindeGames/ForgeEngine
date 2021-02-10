@@ -2,6 +2,7 @@
 
 #include "engine/core/Defines.h"
 #include "engine/core/Manager.h"
+#include "engine/math/Vector2.h"
 
 #include <unordered_map>
 
@@ -28,6 +29,8 @@ namespace ForgeEngine
 
 		private:
 			std::unordered_map<EInputAction, GL_ID> m_InputActionMappings{};
+			Vector2 m_MousePosition{};
+			Vector2 m_PreviousMousePosition{};
 
 		/************************************/
 		/**************METHODS***************/
@@ -36,6 +39,13 @@ namespace ForgeEngine
 		public:
 			InputManager();
 
-			bool IsInputActive(EInputAction actionType);
+			virtual void OnPreUpdate() override;
+
+			bool IsInputActive(EInputAction actionType) const;
+			Vector2 GetMousePosition() const { return m_MousePosition; };
+			Vector2 GetMouseVelocity() const { return (m_PreviousMousePosition - m_MousePosition); };
+
+		private:
+			void UpdateMousePosition();
 	};
 }

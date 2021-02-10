@@ -4,6 +4,7 @@
 
 namespace ForgeEngine
 {
+	class CameraComponent;
 	class InputManager;
 
 	class FirstPersonControllerComponent : public Component
@@ -19,15 +20,16 @@ namespace ForgeEngine
 			float m_RotationSpeed{};
 
 			InputManager* m_InputManager{};
+			CameraComponent* m_CameraComponent{};
 
 		/************************************/
 		/**************METHODS***************/
 		/************************************/
 
 		public:
-			FirstPersonControllerComponent(float moveSpeed = 5.f, float rotationSpeed = 30.f);
+			FirstPersonControllerComponent(float moveSpeed = 10.f, float rotationSpeed = 10.f);
 
-			virtual void OnInit() override;
+			virtual bool OnInit() override;
 			virtual void OnUpdate(float dT) override;
 	};
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Vector4.h"
+#include "Vector3.h"
 
 #include "glm/mat4x4.hpp"
 
@@ -10,11 +10,12 @@ namespace ForgeEngine
 
 	namespace ForgeMaths
 	{
-		void Translate(Matrix4& matrix, const Vector4& direction);
-		void Rotate(Matrix4& matrix, float angle, const Vector4& axis);
-		void Rotate(Matrix4& matrix, const Vector4& eulerAngles);
-		void Scale(Matrix4& matrix, const Vector4& scale);
+		void Translate(Matrix4& matrix, const Vector3& direction);
+		void Rotate(Matrix4& matrix, float angle, const Vector3& axis);
+		void Rotate(Matrix4& matrix, const Vector3& eulerAngles);
+		void Scale(Matrix4& matrix, const Vector3& scale);
 
-		void Decompose(const Matrix4& matrix, Vector4& position, Vector4& rotation, Vector4& scale);
+		void Decompose(const Matrix4& matrix, Vector3& position, Vector3& rotation, Vector3& scale);
+		void LookAt(Matrix4& matrix, const Vector3& from, const Vector3& to, const Vector3& upDirection);
 	}
 }

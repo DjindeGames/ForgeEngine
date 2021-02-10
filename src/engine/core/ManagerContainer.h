@@ -25,13 +25,28 @@ namespace ForgeEngine
 			}
 
 			template <typename T>
+			bool GetManager(T* manager)
+			{
+				manager = nullptr;
+				for (auto& registeredManager : m_RegisteredObjects)
+				{
+					if (T* tManager = dynamic_cast<T*>(registeredManager.get()))
+					{
+						manager = tManager;
+						return true;
+					}
+				}
+				return false;
+			}
+
+			template <typename T>
 			T* GetManagerByType()
 			{
-				for (auto& manager : m_RegisteredObjects)
+				for (auto& registeredManager : m_RegisteredObjects)
 				{
-					if (auto ptr = dynamic_cast<T*>(manager.get()))
+					if (T* tManager = dynamic_cast<T*>(registeredManager.get()))
 					{
-						return ptr;
+						return tManager;
 					}
 				}
 				return nullptr;

@@ -34,9 +34,9 @@ namespace ForgeEngine
 		protected:
 			ManagedObject* RegisterObject(ManagedObject* object);
 
-			void PreInit();
-			void Init();
-			void PostInit();
+			bool PreInit();
+			bool Init();
+			bool PostInit();
 
 			void PreUpdate();
 			void Update(float dT);

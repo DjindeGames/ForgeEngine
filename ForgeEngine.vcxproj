@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\common\components\FirstPersonCameraComponent.h" />
     <ClInclude Include="src\common\managers\InputManager.h" />
     <ClInclude Include="src\common\components\FirstPersonControllerComponent.h" />
     <ClInclude Include="src\common\components\CameraComponent.h" />
@@ -27,6 +28,7 @@
     <ClInclude Include="src\engine\core\NonCopyable.h" />
     <ClInclude Include="src\common\managers\ShaderManager.h" />
     <ClInclude Include="src\engine\math\Matrix4.h" />
+    <ClInclude Include="src\engine\math\Vector2.h" />
     <ClInclude Include="src\engine\math\Vector3.h" />
     <ClInclude Include="src\engine\math\Vector4.h" />
     <ClInclude Include="src\papierkraft\test\BlockTextureData.h" />
@@ -344,6 +346,7 @@
     <ClInclude Include="src\common\components\ViewerComponent.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\common\components\FirstPersonCameraComponent.cpp" />
     <ClCompile Include="src\common\managers\InputManager.cpp" />
     <ClCompile Include="src\common\components\FirstPersonControllerComponent.cpp" />
     <ClCompile Include="src\common\components\CameraComponent.cpp" />
@@ -351,6 +354,7 @@
     <ClCompile Include="src\engine\core\NonCopyable.cpp" />
     <ClCompile Include="src\common\managers\ShaderManager.cpp" />
     <ClCompile Include="src\engine\math\Matrix4.cpp" />
+    <ClCompile Include="src\engine\math\Vector3.cpp" />
     <ClCompile Include="src\papierkraft\test\BlockTextureData.cpp" />
     <ClCompile Include="src\engine\core\ManagerContainer.cpp" />
     <ClCompile Include="src\papierkraft\test\BlockTextureManager.cpp" />

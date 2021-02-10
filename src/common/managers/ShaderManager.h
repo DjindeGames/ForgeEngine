@@ -32,6 +32,6 @@ namespace ForgeEngine
 		public:
 			ShaderManager();
 
-			Shader* GetShaderByType(EShaderType shaderType) { return m_RegisteredShaders[shaderType].get(); }
+			Shader* GetShaderByType(EShaderType shaderType) const;
 	};
 }

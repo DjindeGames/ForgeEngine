@@ -26,7 +26,7 @@ namespace ForgeEngine
 		}
 	}
 
-	void ManagedObjectContainer::PreInit()
+	bool ManagedObjectContainer::PreInit()
 	{
 		for (auto& object : m_RegisteredObjects)
 		{
@@ -35,9 +35,10 @@ namespace ForgeEngine
 				object->OnPreInit();
 			}
 		}
+		return true;
 	}
 
-	void ManagedObjectContainer::Init()
+	bool ManagedObjectContainer::Init()
 	{
 		for (auto& object : m_RegisteredObjects)
 		{
@@ -46,9 +47,10 @@ namespace ForgeEngine
 				object->OnInit();
 			}
 		}
+		return true;
 	}
 
-	void ManagedObjectContainer::PostInit()
+	bool ManagedObjectContainer::PostInit()
 	{
 		for (auto& object : m_RegisteredObjects)
 		{
@@ -57,6 +59,7 @@ namespace ForgeEngine
 				object->OnPostInit();
 			}
 		}
+		return true;
 	}
 
 	void ManagedObjectContainer::PreUpdate()

@@ -4,50 +4,55 @@
 
 namespace ForgeEngine
 {
-	Component* Entity::RegisterComponent(Component* component)
+	bool Entity::OnPreInit() /*override*/
 	{
-		if (component != nullptr)
-		{
-			m_RegisteredComponents.push_back(std::unique_ptr<Component>(component));
-			component->SetOwner(this);
-		}
-		return component;
-	}
-
-	void Entity::OnPreInit() /*override*/
-	{
-		Mother::OnPreInit();
+		bool success = Mother::OnPreInit();
 		for (auto& component : m_RegisteredComponents)
 		{
 			if (component != nullptr)
 			{
-				component->OnPreInit();
+				if (!component->OnPreInit())
+				{
+					//Should display warning here!
+					component->SetActive(false);
+				}
 			}
 		}
+		return success;
 	}
 
-	void Entity::OnInit() /*override*/
+	bool Entity::OnInit() /*override*/
 	{
-		Mother::OnInit();
+		bool success = Mother::OnInit();
 		for (auto& component : m_RegisteredComponents)
 		{
-			if (component != nullptr)
+			if (component != nullptr && component->IsActive())
 			{
-				component->OnInit();
+				if (!component->OnInit())
+				{
+					//Should display warning here!
+					component->SetActive(false);
+				}
 			}
 		}
+		return success;
 	}
 
-	void Entity::OnPostInit() /*override*/
+	bool Entity::OnPostInit() /*override*/
 	{
-		Mother::OnPostInit();
+		bool success = Mother::OnPostInit();
 		for (auto& component : m_RegisteredComponents)
 		{
-			if (component != nullptr)
+			if (component != nullptr && component->IsActive())
 			{
-				component->OnPostInit();
+				if (!component->OnPostInit())
+				{
+					//Should display warning here!
+					component->SetActive(false);
+				}
 			}
 		}
+		return success;
 	}
 
 	void Entity::OnPreUpdate() /*override*/

@@ -37,4 +37,10 @@ namespace PapierKraft
 			TEXTURE_LEAVES_UNIFORM
 		);
 	}
+
+	BlockTextureData* BlockTextureManager::GetTextureDataByBlockType(EBlockType blockType) const
+	{
+		auto it = m_RegisteredTextures.find(blockType);
+		return (it != m_RegisteredTextures.end()) ? (*it).second.get() : nullptr;
+	}
 }

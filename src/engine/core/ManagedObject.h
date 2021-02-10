@@ -31,9 +31,9 @@ namespace ForgeEngine
 			virtual void OnActivate() {}
 			virtual void OnDeactivate() {}
 
-			virtual void OnPreInit() {}
-			virtual void OnInit() {}
-			virtual void OnPostInit() {}
+			virtual bool OnPreInit() { return true; }
+			virtual bool OnInit() { return true; }
+			virtual bool OnPostInit() { return true; }
 
 			virtual void OnPreUpdate() {}
 			virtual void OnUpdate(float dT) {}
