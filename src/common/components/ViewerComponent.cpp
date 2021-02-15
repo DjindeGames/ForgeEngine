@@ -2,7 +2,7 @@
 
 #include "engine/core/Entity.h"
 #include "engine/core/Game.h"
-#include "engine/math/Vector3.h"
+#include "system/math/Vector3.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>

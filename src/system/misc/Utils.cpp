@@ -2,7 +2,7 @@
 
 namespace ForgeEngine
 {
-	namespace Utils
+	namespace ForgeUtils
 	{
 		std::vector<std::string> ExtractLines(const std::string& pattern, std::string source)
 		{

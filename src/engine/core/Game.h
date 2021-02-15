@@ -49,5 +49,7 @@ namespace ForgeEngine
 		//Checks debug related input
 		void ProcessDebugInput();
 		void ToggleWireframeMode();
+		void InitDebug();
+		void UpdateDebug();
 	};
 }

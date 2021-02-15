@@ -1,6 +1,6 @@
 #include "ShaderUtils.h"
 
-#include "engine/misc/Color.h"
+#include "system/misc/Color.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>

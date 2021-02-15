@@ -10,6 +10,8 @@
 #include <cmath>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <imgui/imgui_impl_glfw.h>
+#include <imgui/imgui_impl_opengl3.h>
 #include <iostream>
 
 namespace ForgeEngine
@@ -24,6 +26,7 @@ namespace ForgeEngine
 	{
 		if (m_Window = InitWindow(name, width, height))
 		{
+			InitDebug();
 			return true;
 		}
 		return false;
@@ -67,6 +70,8 @@ namespace ForgeEngine
 				EntityContainer::Get()->PostUpdate();
 
 				ProcessDebugInput();
+
+				UpdateDebug();
 
 				CheckTermination();
 
@@ -120,5 +125,37 @@ namespace ForgeEngine
 		int newDrawMode = ((m_CurrentDrawMode == GL_LINE) ? GL_FILL : GL_LINE);
 		glPolygonMode(GL_FRONT_AND_BACK, newDrawMode);
 		m_CurrentDrawMode = newDrawMode;
+	}
+
+	void Game::InitDebug()
+	{
+		// Setup Dear ImGui context
+		IMGUI_CHECKVERSION();
+		ImGui::CreateContext();
+		ImGuiIO& io = ImGui::GetIO(); (void)io;
+		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+
+		// Setup Dear ImGui style
+		ImGui::StyleColorsDark();
+		ImGui_ImplGlfw_InitForOpenGL(m_Window, true);
+		ImGui_ImplOpenGL3_Init("#version 150");
+	}
+
+	void Game::UpdateDebug()
+	{
+		// feed inputs to dear imgui, start new frame
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
+
+		// render your GUI
+		ImGui::Begin("Demo window");
+		ImGui::Button("Hello!");
+		ImGui::End();
+
+		// Render dear imgui into screen
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	}
 }

@@ -19,7 +19,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\common\components\FirstPersonCameraComponent.h" />
+    <ClInclude Include="src\extern\imgui\imconfig.h" />
+    <ClInclude Include="src\extern\imgui\imgui.h" />
+    <ClInclude Include="src\extern\imgui\imgui_impl_glfw.h" />
+    <ClInclude Include="src\extern\imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="src\extern\imgui\imgui_internal.h" />
+    <ClInclude Include="src\extern\imgui\imstb_rectpack.h" />
+    <ClInclude Include="src\extern\imgui\imstb_textedit.h" />
+    <ClInclude Include="src\extern\imgui\imstb_truetype.h" />
+    <ClInclude Include="src\papierkraft\test\Chunk.h" />
     <ClInclude Include="src\common\managers\InputManager.h" />
     <ClInclude Include="src\common\components\FirstPersonControllerComponent.h" />
     <ClInclude Include="src\common\components\CameraComponent.h" />
@@ -27,10 +35,10 @@
     <ClInclude Include="src\engine\core\Object.h" />
     <ClInclude Include="src\engine\core\NonCopyable.h" />
     <ClInclude Include="src\common\managers\ShaderManager.h" />
-    <ClInclude Include="src\engine\math\Matrix4.h" />
-    <ClInclude Include="src\engine\math\Vector2.h" />
-    <ClInclude Include="src\engine\math\Vector3.h" />
-    <ClInclude Include="src\engine\math\Vector4.h" />
+    <ClInclude Include="src\system\math\Matrix4.h" />
+    <ClInclude Include="src\system\math\Vector2.h" />
+    <ClInclude Include="src\system\math\Vector3.h" />
+    <ClInclude Include="src\system\math\Vector4.h" />
     <ClInclude Include="src\papierkraft\test\BlockTextureData.h" />
     <ClInclude Include="src\engine\core\ManagerContainer.h" />
     <ClInclude Include="src\papierkraft\test\BlockTextureManager.h" />
@@ -42,9 +50,9 @@
     <ClInclude Include="src\engine\core\Component.h" />
     <ClInclude Include="src\engine\core\ManagedObject.h" />
     <ClInclude Include="src\engine\core\Entity.h" />
-    <ClInclude Include="src\engine\misc\Utils.h" />
+    <ClInclude Include="src\system\misc\Utils.h" />
     <ClInclude Include="src\engine\shader\Shader.h" />
-    <ClInclude Include="src\engine\misc\Color.h" />
+    <ClInclude Include="src\system\misc\Color.h" />
     <ClInclude Include="src\common\components\MeshComponent.h" />
     <ClInclude Include="src\engine\core\Game.h" />
     <ClInclude Include="includes\glad\glad.h" />
@@ -342,19 +350,27 @@
     <ClInclude Include="src\extern\stb_image\stb_image.h" />
     <ClInclude Include="src\papierkraft\test\PapierKraft.h" />
     <ClInclude Include="src\engine\misc\Texture.h" />
-    <ClInclude Include="src\engine\math\Transform.h" />
+    <ClInclude Include="src\system\math\Transform.h" />
     <ClInclude Include="src\common\components\ViewerComponent.h" />
+    <ClInclude Include="src\system\math\MathUtils.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\common\components\FirstPersonCameraComponent.cpp" />
+    <ClCompile Include="src\extern\imgui\imgui.cpp" />
+    <ClCompile Include="src\extern\imgui\imgui_demo.cpp" />
+    <ClCompile Include="src\extern\imgui\imgui_draw.cpp" />
+    <ClCompile Include="src\extern\imgui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="src\extern\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="src\extern\imgui\imgui_tables.cpp" />
+    <ClCompile Include="src\extern\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="src\papierkraft\test\Chunk.cpp" />
     <ClCompile Include="src\common\managers\InputManager.cpp" />
     <ClCompile Include="src\common\components\FirstPersonControllerComponent.cpp" />
     <ClCompile Include="src\common\components\CameraComponent.cpp" />
     <ClCompile Include="src\engine\core\Object.cpp" />
     <ClCompile Include="src\engine\core\NonCopyable.cpp" />
     <ClCompile Include="src\common\managers\ShaderManager.cpp" />
-    <ClCompile Include="src\engine\math\Matrix4.cpp" />
-    <ClCompile Include="src\engine\math\Vector3.cpp" />
+    <ClCompile Include="src\system\math\Matrix4.cpp" />
+    <ClCompile Include="src\system\math\Vector3.cpp" />
     <ClCompile Include="src\papierkraft\test\BlockTextureData.cpp" />
     <ClCompile Include="src\engine\core\ManagerContainer.cpp" />
     <ClCompile Include="src\papierkraft\test\BlockTextureManager.cpp" />
@@ -366,9 +382,9 @@
     <ClCompile Include="src\engine\core\Component.cpp" />
     <ClCompile Include="src\engine\core\ManagedObject.cpp" />
     <ClCompile Include="src\engine\core\Entity.cpp" />
-    <ClCompile Include="src\engine\misc\Utils.cpp" />
+    <ClCompile Include="src\system\misc\Utils.cpp" />
     <ClCompile Include="src\engine\shader\Shader.cpp" />
-    <ClCompile Include="src\engine\misc\Color.cpp" />
+    <ClCompile Include="src\system\misc\Color.cpp" />
     <ClCompile Include="src\common\components\MeshComponent.cpp" />
     <ClCompile Include="src\engine\core\Game.cpp" />
     <ClCompile Include="src\engine\shader\ShaderUtils.cpp" />
@@ -378,8 +394,9 @@
     <ClCompile Include="src\extern\stb_image\stb_image.cpp" />
     <ClCompile Include="src\papierkraft\test\PapierKraft.cpp" />
     <ClCompile Include="src\engine\misc\Texture.cpp" />
-    <ClCompile Include="src\engine\math\Transform.cpp" />
+    <ClCompile Include="src\system\math\Transform.cpp" />
     <ClCompile Include="src\common\components\ViewerComponent.cpp" />
+    <ClCompile Include="src\system\math\MathUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\shaders\fragment\textured.glslf" />

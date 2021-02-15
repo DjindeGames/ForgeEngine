@@ -2,7 +2,7 @@
 
 #include "engine/core/Component.h"
 #include "engine/core/Defines.h"
-#include "engine/misc/Color.h"
+#include "system/misc/Color.h"
 
 namespace ForgeEngine
 {

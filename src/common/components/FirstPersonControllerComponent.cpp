@@ -6,7 +6,8 @@
 #include "engine/core/Entity.h"
 #include "engine/core/Game.h"
 #include "engine/core/ManagerContainer.h"
-#include "engine/math/Vector3.h"
+#include "system/math/MathUtils.h"
+#include "system/math/Vector3.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -22,11 +23,11 @@ namespace ForgeEngine
 	bool FirstPersonControllerComponent::OnInit() /*override*/
 	{
 		bool success = Mother::OnInit();
-		//ManagerContainer::Get()->GetManager(m_InputManager);
+
 		m_InputManager = ManagerContainer::Get()->GetManagerByType<InputManager>();
 		m_CameraComponent = GetOwner()->GetComponentByType<CameraComponent>();
-		//GetOwner()->GetComponent(m_CameraComponent);
 		glfwSetInputMode(Game::m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
 		return success
 			&& m_InputManager != nullptr
 			&& m_CameraComponent != nullptr;
@@ -37,6 +38,9 @@ namespace ForgeEngine
 		Mother::OnUpdate(dT);
 
 		Vector3 translation = VECTOR3_NULL;
+		Vector2 mouseVelocity = m_InputManager->GetMouseVelocity();
+		float yaw = m_CameraComponent->GetYaw() - (mouseVelocity.x * m_RotationSpeed * dT);
+		float pitch = ForgeMaths::Clamp(m_CameraComponent->GetPitch() + (mouseVelocity.y * m_RotationSpeed * dT), -89.f, 89.f);
 
 		if (m_InputManager->IsInputActive(EInputAction::MoveForward))
 		{
@@ -64,12 +68,17 @@ namespace ForgeEngine
 			translation -= m_MoveSpeed * VECTOR3_Y;
 		}
 
-		Vector2 mouseVelocity = m_InputManager->GetMouseVelocity();
-		m_CameraComponent->SetYaw(m_CameraComponent->GetYaw() - (mouseVelocity.x * m_RotationSpeed * dT));
-		m_CameraComponent->SetPitch(m_CameraComponent->GetPitch() + (mouseVelocity.y * m_RotationSpeed * dT));
+		m_CameraComponent->SetYaw(yaw);
+		m_CameraComponent->SetPitch(pitch);
 
 		//TODO: Normalize translation
 		GetOwner()->GetTransform().Translate(translation * dT);
+	}
+
+	void FirstPersonControllerComponent::OnDestroy() /*override*/
+	{
+		Mother::OnDestroy();
+		glfwSetInputMode(Game::m_Window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 	}
 }
 

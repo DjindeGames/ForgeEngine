@@ -1,10 +1,10 @@
 #include "Shader.h"
 
-#include "engine/math/Transform.h"
-#include "engine/misc/Color.h"
 #include "engine/misc/Texture.h"
-#include "engine/misc/Utils.h"
 #include "engine/shader/ShaderUtils.h"
+#include "system/math/Transform.h"
+#include "system/misc/Color.h"
+#include "system/misc/Utils.h"
 
 #include <fstream>
 #include <glad/glad.h>
@@ -46,10 +46,10 @@ namespace ForgeEngine
 			vertexShaderSource = vertexShaderStream.str();
 			fragmentShaderSource = fragmentShaderStream.str();
 
-			std::vector<std::string> extractedLines = Utils::ExtractLines(GLSL_ATTRIBUTE_TOKEN, vertexShaderSource);
+			std::vector<std::string> extractedLines = ForgeUtils::ExtractLines(GLSL_ATTRIBUTE_TOKEN, vertexShaderSource);
 			for (const std::string& str : extractedLines)
 			{
-				std::vector<std::string> splitted = Utils::Split(" ", str);
+				std::vector<std::string> splitted = ForgeUtils::Split(" ", str);
 				if (splitted.size() == 2)
 				{
 					m_AttributesSizes.push_back(std::stoi(splitted[1]));

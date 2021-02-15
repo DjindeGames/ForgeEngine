@@ -21,6 +21,11 @@ namespace PapierKraft
 			TEXTURE_DIRT_UNIFORM
 		);
 
+		//SAND
+		m_RegisteredTextures[EBlockType::Sand] = std::make_unique<BlockTextureData>(
+			TEXTURE_SAND_UNIFORM
+			);
+
 		//STONE
 		m_RegisteredTextures[EBlockType::Stone] = std::make_unique<BlockTextureData>(
 			TEXTURE_STONE_UNIFORM

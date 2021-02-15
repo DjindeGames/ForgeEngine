@@ -31,5 +31,6 @@ namespace ForgeEngine
 
 			virtual bool OnInit() override;
 			virtual void OnUpdate(float dT) override;
+			virtual void OnDestroy() override;
 	};
 }

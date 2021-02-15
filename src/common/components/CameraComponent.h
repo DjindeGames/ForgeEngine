@@ -1,7 +1,7 @@
 #pragma once
 
 #include "engine/core/Component.h"
-#include "engine/math/Matrix4.h"
+#include "system/math/Matrix4.h"
 
 namespace ForgeEngine
 {
@@ -58,5 +58,6 @@ namespace ForgeEngine
 
 		private:
 			void ClearActiveCameraIfNeeded();
+			void RefreshView();
 	};
 }

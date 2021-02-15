@@ -1,7 +1,7 @@
 #pragma once
 
-#include "engine/math/Matrix4.h"
-#include "engine/math/Vector3.h"
+#include "system/math/Matrix4.h"
+#include "system/math/Vector3.h"
 
 namespace ForgeEngine
 {

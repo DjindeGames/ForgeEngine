@@ -48,9 +48,6 @@
     <ClInclude Include="src\engine\shader\ShaderUtils.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\engine\misc\Color.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="src\papierkraft\test\PapierKraft.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
@@ -61,9 +58,6 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="src\extern\stb_image\stb_image.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="src\engine\misc\Utils.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="src\extern\opengl\includes\glm\common.hpp">
@@ -912,9 +906,6 @@
     <ClInclude Include="src\extern\opengl\includes\glm\vector_relational.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\engine\math\Transform.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="src\engine\core\Entity.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
@@ -966,15 +957,6 @@
     <ClInclude Include="src\engine\core\Defines.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\engine\math\Vector3.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="src\engine\math\Vector4.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="src\engine\math\Matrix4.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="src\common\components\CameraComponent.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
@@ -984,10 +966,55 @@
     <ClInclude Include="src\common\managers\InputManager.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\engine\math\Vector2.h">
+    <ClInclude Include="src\system\math\Matrix4.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\common\components\FirstPersonCameraComponent.h">
+    <ClInclude Include="src\system\math\Transform.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\system\math\Vector2.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\system\math\Vector3.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\system\math\Vector4.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\system\misc\Color.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\system\misc\Utils.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\system\math\MathUtils.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\papierkraft\test\Chunk.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\extern\imgui\imconfig.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\extern\imgui\imgui.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\extern\imgui\imgui_impl_glfw.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\extern\imgui\imgui_impl_opengl3.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\extern\imgui\imgui_internal.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\extern\imgui\imstb_rectpack.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\extern\imgui\imstb_textedit.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\extern\imgui\imstb_truetype.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1004,9 +1031,6 @@
     <ClCompile Include="src\engine\shader\ShaderUtils.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\misc\Color.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="src\papierkraft\test\PapierKraft.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
@@ -1019,13 +1043,7 @@
     <ClCompile Include="src\extern\stb_image\stb_image.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\misc\Utils.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="src\extern\opengl\includes\glm\detail\glm.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\engine\math\Transform.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="src\engine\core\Entity.cpp">
@@ -1076,9 +1094,6 @@
     <ClCompile Include="src\engine\core\Object.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\math\Matrix4.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="src\common\components\CameraComponent.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
@@ -1088,10 +1103,46 @@
     <ClCompile Include="src\common\managers\InputManager.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\common\components\FirstPersonCameraComponent.cpp">
+    <ClCompile Include="src\system\math\Matrix4.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\math\Vector3.cpp">
+    <ClCompile Include="src\system\math\Transform.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\system\math\Vector3.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\system\misc\Color.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\system\misc\Utils.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\system\math\MathUtils.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\papierkraft\test\Chunk.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\extern\imgui\imgui.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\extern\imgui\imgui_demo.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\extern\imgui\imgui_draw.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\extern\imgui\imgui_impl_glfw.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\extern\imgui\imgui_impl_opengl3.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\extern\imgui\imgui_tables.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\extern\imgui\imgui_widgets.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>

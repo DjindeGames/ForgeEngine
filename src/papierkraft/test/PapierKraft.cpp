@@ -9,11 +9,12 @@
 #include "engine/core/Entity.h"
 #include "engine/core/Game.h"
 #include "engine/core/ManagerContainer.h"
-#include "engine/misc/Color.h"
+#include "system/misc/Color.h"
 #include "engine/shader/ShaderUtils.h"
 
-#include "BlockComponent.h"
-#include "BlockTextureManager.h"
+#include "papierkraft/test/BlockComponent.h"
+#include "papierkraft/test/BlockTextureManager.h"
+#include "papierkraft/test/Chunk.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -31,8 +32,7 @@ namespace PapierKraft
 	//Try anything here
 	void PerformTests()
 	{
-		//CameraComponent comp;
-		//std::cout << typeid(comp).name() << std::endl;
+
 	}
 
 	int CoreLoop()
@@ -81,45 +81,11 @@ namespace PapierKraft
 		ManagerContainer::Get()->RegisterManager(new ShaderManager());
 		ManagerContainer::Get()->RegisterManager(new InputManager());
 
-		Entity* target = BuildChunk();
+		Chunk chunk(EBiomeType::Plain, VECTOR3_NULL);
 
 		Entity* camera = EntityContainer::Get()->RegisterEntity();
-		camera->SetPosition(Vector3{ 0.f, 0.f, 10.f });
+		camera->SetPosition(Vector3{ 0.f, 8.f, 0.f });
 		camera->RegisterComponent(new FirstPersonControllerComponent());
-		CameraComponent* cameraComponant = camera->RegisterComponent(new CameraComponent(45.f));
-
-		//cameraComponant->SetFocusedEntity(target);
-		//cameraComponant->SetFocusActive(true);
-	}
-
-	Entity* BuildChunk()
-	{
-		for (float x = -1.f; x < 2.f; x++)
-		{
-			for (float z = -1.f; z < 2.f; z++)
-			{
-				Entity* block = EntityContainer::Get()->RegisterEntity();
-				block->RegisterComponent(new BlockComponent(EBlockType::Grass));
-				block->SetPosition(Vector3{ x, 0.f, z});
-			}
-		}
-		for (float x = -1.f; x < 2.f; x++)
-		{
-			for (float z = -1.f; z < 2.f; z++)
-			{
-				for (float y = -1.f; y > -3.f; y--)
-				{
-					Entity* block = EntityContainer::Get()->RegisterEntity();
-					block->RegisterComponent(new BlockComponent(EBlockType::Stone));
-					block->SetPosition(Vector3{ x, y, z });
-				}
-			}
-		}
-
-		Entity* block = EntityContainer::Get()->RegisterEntity();
-		block->RegisterComponent(new BlockComponent(EBlockType::Woodlog));
-		block->SetPosition(Vector3{ 0.f, 1.f, 0.f });
-
-		return block;
+		camera->RegisterComponent(new CameraComponent());
 	}
 }

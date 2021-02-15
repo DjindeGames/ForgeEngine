@@ -16,6 +16,8 @@ namespace PapierKraft
 
 	#define TEXTURE_DIRT_UNIFORM	"assets\\textures\\blocks\\dirt\\dirt_uniform.png"
 
+	#define TEXTURE_SAND_UNIFORM	"assets\\textures\\blocks\\sand\\sand_uniform.png"
+
 	#define TEXTURE_STONE_UNIFORM	"assets\\textures\\blocks\\stone\\stone_uniform.png"
 
 	#define TEXTURE_LEAVES_UNIFORM	"assets\\textures\\blocks\\leaves\\leaves_uniform.png"
