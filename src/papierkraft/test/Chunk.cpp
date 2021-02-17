@@ -13,9 +13,9 @@ namespace PapierKraft
 	{
 		for (float x = -(CHUNK_WIDTH / 2) ; x < (CHUNK_WIDTH / 2); x++)
 		{
-			for (float y = -(CHUNK_WIDTH / 2); y < (CHUNK_WIDTH / 2); y++)
+			for (float y = -(CHUNK_HEIGHT / 2); y < (CHUNK_HEIGHT / 2); y++)
 			{
-				for (float z = -(CHUNK_HEIGHT / 2); z < (CHUNK_HEIGHT / 2); z++)
+				for (float z = -(CHUNK_WIDTH / 2); z < (CHUNK_WIDTH / 2); z++)
 				{
 					Entity* block = EntityContainer::Get()->RegisterEntity();
 					block->RegisterComponent(new BlockComponent(ComputeBlockType(y)));

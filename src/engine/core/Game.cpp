@@ -10,23 +10,16 @@
 #include <cmath>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <imgui/imgui_impl_glfw.h>
-#include <imgui/imgui_impl_opengl3.h>
 #include <iostream>
 
 namespace ForgeEngine
 {
 	GLFWwindow* Game::m_Window{};
 
-	Game::Game() : m_CurrentDrawMode(GL_FILL)
-	{
-	}
-
 	bool Game::Init(std::string name, unsigned int width, unsigned int height)
 	{
 		if (m_Window = InitWindow(name, width, height))
 		{
-			InitDebug();
 			return true;
 		}
 		return false;
@@ -40,10 +33,12 @@ namespace ForgeEngine
 		std::chrono::time_point<std::chrono::high_resolution_clock> frameEnd = std::chrono::high_resolution_clock::now();
 
 		float dT{};
-		float nanoToSecMultiplier = std::pow(10, 9);
+		const float nanoToSecMultiplier = std::pow(10, 9);
 
 		if (m_Window != nullptr)
 		{
+			OnInit();
+
 			ManagerContainer::Get()->PreInit();
 			EntityContainer::Get()->PreInit();
 			ManagerContainer::Get()->Init();
@@ -51,16 +46,13 @@ namespace ForgeEngine
 			ManagerContainer::Get()->PostInit();
 			EntityContainer::Get()->PostInit();
 
-			while (!glfwWindowShouldClose(m_Window))
+			while (!ShouldTerminate())
 			{
 				//deltaTime is defined using seconds
 				dT = std::chrono::duration_cast<ns>(frameEnd - frameStart).count() / nanoToSecMultiplier;
 				frameStart = std::chrono::high_resolution_clock::now();
 
-				if (m_UpdateCallback)
-				{
-					m_UpdateCallback(dT);
-				}
+				OnUpdate(dT);
 
 				ManagerContainer::Get()->PreUpdate();
 				EntityContainer::Get()->PreUpdate();
@@ -68,12 +60,6 @@ namespace ForgeEngine
 				EntityContainer::Get()->Update(dT);
 				ManagerContainer::Get()->PostUpdate();
 				EntityContainer::Get()->PostUpdate();
-
-				ProcessDebugInput();
-
-				UpdateDebug();
-
-				CheckTermination();
 
 				// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 				glfwSwapBuffers(m_Window);
@@ -83,79 +69,21 @@ namespace ForgeEngine
 			}
 
 			OnTermination();
-
-			// glfw: terminate, clearing all previously allocated GLFW resources.
-			glfwTerminate();
 		}
 	}
 
-	void Game::CheckTermination()
+	void Game::OnInit()
 	{
-		bool shouldTerminate = false;
-		if (m_TerminationConditionCallback)
-		{
-			shouldTerminate = m_TerminationConditionCallback();
-		}
-		else
-		{
-			shouldTerminate = DefaultTerminationCondition();
-		}
-		glfwSetWindowShouldClose(m_Window, shouldTerminate);
 	}
 
 	void Game::OnTermination()
 	{
+		// glfw: terminate, clearing all previously allocated GLFW resources.
+		glfwTerminate();
 	}
 
-	bool Game::DefaultTerminationCondition()
+	bool Game::ShouldTerminate()
 	{
 		return (glfwGetKey(m_Window, GLFW_KEY_ESCAPE) == GLFW_PRESS);
-	}
-
-	void Game::ProcessDebugInput()
-	{
-		if (glfwGetKey(m_Window, TOGGLE_WIREFRAME) == GLFW_PRESS)
-		{
-			ToggleWireframeMode();
-		}
-	}
-
-	void Game::ToggleWireframeMode()
-	{
-		int newDrawMode = ((m_CurrentDrawMode == GL_LINE) ? GL_FILL : GL_LINE);
-		glPolygonMode(GL_FRONT_AND_BACK, newDrawMode);
-		m_CurrentDrawMode = newDrawMode;
-	}
-
-	void Game::InitDebug()
-	{
-		// Setup Dear ImGui context
-		IMGUI_CHECKVERSION();
-		ImGui::CreateContext();
-		ImGuiIO& io = ImGui::GetIO(); (void)io;
-		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-
-		// Setup Dear ImGui style
-		ImGui::StyleColorsDark();
-		ImGui_ImplGlfw_InitForOpenGL(m_Window, true);
-		ImGui_ImplOpenGL3_Init("#version 150");
-	}
-
-	void Game::UpdateDebug()
-	{
-		// feed inputs to dear imgui, start new frame
-		ImGui_ImplOpenGL3_NewFrame();
-		ImGui_ImplGlfw_NewFrame();
-		ImGui::NewFrame();
-
-		// render your GUI
-		ImGui::Begin("Demo window");
-		ImGui::Button("Hello!");
-		ImGui::End();
-
-		// Render dear imgui into screen
-		ImGui::Render();
-		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	}
 }

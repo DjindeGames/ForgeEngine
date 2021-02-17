@@ -10,12 +10,15 @@ namespace ForgeEngine
 {
 	enum class EInputAction
 	{
+		ToggleWireframe,
+
 		MoveForward,
 		MoveBackward,
 		MoveRight,
 		MoveLeft,
 		FlyUp,
 		FlyDown,
+		Exit,
 		Count
 	};
 

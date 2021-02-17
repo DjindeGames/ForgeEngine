@@ -2,12 +2,11 @@
 
 #include "common/components/CameraComponent.h"
 #include "common/components/FirstPersonControllerComponent.h"
-#include "common/components/MeshComponent.h"
 #include "common/managers/InputManager.h"
 #include "common/managers/ShaderManager.h"
+#include "common/managers/DebugManager.h"
 
 #include "engine/core/Entity.h"
-#include "engine/core/Game.h"
 #include "engine/core/ManagerContainer.h"
 #include "system/misc/Color.h"
 #include "engine/shader/ShaderUtils.h"
@@ -16,70 +15,23 @@
 #include "papierkraft/test/BlockTextureManager.h"
 #include "papierkraft/test/Chunk.h"
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-#include <iostream>
-
-using namespace ForgeEngine;
-
 int main()
 {
-	return PapierKraft::CoreLoop();
+	PapierKraft::PapierKraft instance{};
+	instance.Init("PapierKraft", 1280, 720);
+	instance.HandleProcess();
 }
 
 namespace PapierKraft
 {
-	//Try anything here
-	void PerformTests()
+	void PapierKraft::OnInit() /*override*/
 	{
+		Mother::OnInit();
 
-	}
-
-	int CoreLoop()
-	{
-		Game game;
-		game.Init("PapierKraft", 1280, 720);
-		game.SetUpdateCallback(Update);
-		game.SetTerminationConditionCallback(ShouldTerminate);
-
-		PerformTests();
-
-		Init();
-
-		game.HandleProcess();
-		
-		ReleaseResources();
-
-		return 0;
-	}
-
-	void ReleaseResources()
-	{
-	}
-
-	void Update(float dT)
-	{
-		ProcessInput();
-		ShaderUtils::ClearScreen(COLOR_SKY_BLUE);
-	}
-
-	void ProcessInput()
-	{
-	}
-
-	bool ShouldTerminate()
-	{
-		return (
-			glfwGetKey(Game::m_Window, GLFW_KEY_ESCAPE) == GLFW_PRESS ||
-			glfwGetKey(Game::m_Window, GLFW_KEY_ENTER) == GLFW_PRESS
-			);
-	}
-
-	void Init()
-	{
 		ManagerContainer::Get()->RegisterManager(new BlockTextureManager());
 		ManagerContainer::Get()->RegisterManager(new ShaderManager());
 		ManagerContainer::Get()->RegisterManager(new InputManager());
+		ManagerContainer::Get()->RegisterManager(new DebugManager());
 
 		Chunk chunk(EBiomeType::Plain, VECTOR3_NULL);
 
@@ -87,5 +39,22 @@ namespace PapierKraft
 		camera->SetPosition(Vector3{ 0.f, 8.f, 0.f });
 		camera->RegisterComponent(new FirstPersonControllerComponent());
 		camera->RegisterComponent(new CameraComponent());
+	}
+
+	void PapierKraft::OnUpdate(float dT) /*override*/
+	{
+		Mother::OnUpdate(dT);
+		ShaderUtils::ClearScreen(COLOR_SKY_BLUE);
+	}
+
+	void PapierKraft::OnTermination() /*override*/
+	{
+		Mother::OnTermination();
+	}
+
+	bool PapierKraft::ShouldTerminate() /*override*/
+	{
+		return Mother::ShouldTerminate()
+			|| ManagerContainer::Get()->GetManagerByType<InputManager>()->IsInputActive(EInputAction::Exit);
 	}
 }
