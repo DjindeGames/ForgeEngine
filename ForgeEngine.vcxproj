@@ -22,7 +22,7 @@
     <ClInclude Include="src\common\managers\DebugManager.h" />
     <ClInclude Include="src\engine\core\OpenGL.h" />
     <ClInclude Include="src\engine\ui\ImGUI.h" />
-    <ClInclude Include="src\papierkraft\test\PapierKraft.h" />
+    <ClInclude Include="src\papierkraft\core\PapierKraft.h" />
     <ClInclude Include="src\extern\imgui\imconfig.h" />
     <ClInclude Include="src\extern\imgui\imgui.h" />
     <ClInclude Include="src\extern\imgui\imgui_impl_glfw.h" />
@@ -31,7 +31,7 @@
     <ClInclude Include="src\extern\imgui\imstb_rectpack.h" />
     <ClInclude Include="src\extern\imgui\imstb_textedit.h" />
     <ClInclude Include="src\extern\imgui\imstb_truetype.h" />
-    <ClInclude Include="src\papierkraft\test\Chunk.h" />
+    <ClInclude Include="src\papierkraft\components\Chunk.h" />
     <ClInclude Include="src\common\managers\InputManager.h" />
     <ClInclude Include="src\common\components\FirstPersonControllerComponent.h" />
     <ClInclude Include="src\common\components\CameraComponent.h" />
@@ -43,14 +43,14 @@
     <ClInclude Include="src\system\math\Vector2.h" />
     <ClInclude Include="src\system\math\Vector3.h" />
     <ClInclude Include="src\system\math\Vector4.h" />
-    <ClInclude Include="src\papierkraft\test\BlockTextureData.h" />
+    <ClInclude Include="src\papierkraft\data\BlockTextureData.h" />
     <ClInclude Include="src\engine\core\ManagerContainer.h" />
-    <ClInclude Include="src\papierkraft\test\BlockTextureManager.h" />
+    <ClInclude Include="src\papierkraft\managers\BlockTextureManager.h" />
     <ClInclude Include="src\engine\core\EntityContainer.h" />
     <ClInclude Include="src\engine\core\ManagedObjectContainer.h" />
     <ClInclude Include="src\engine\core\Singleton.h" />
     <ClInclude Include="src\engine\core\Manager.h" />
-    <ClInclude Include="src\papierkraft\test\BlockComponent.h" />
+    <ClInclude Include="src\papierkraft\components\BlockComponent.h" />
     <ClInclude Include="src\engine\core\Component.h" />
     <ClInclude Include="src\engine\core\ManagedObject.h" />
     <ClInclude Include="src\engine\core\Entity.h" />
@@ -359,7 +359,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\common\managers\DebugManager.cpp" />
-    <ClCompile Include="src\papierkraft\test\PapierKraft.cpp" />
+    <ClCompile Include="src\papierkraft\core\PapierKraft.cpp" />
     <ClCompile Include="src\extern\imgui\imgui.cpp" />
     <ClCompile Include="src\extern\imgui\imgui_demo.cpp" />
     <ClCompile Include="src\extern\imgui\imgui_draw.cpp" />
@@ -367,7 +367,7 @@
     <ClCompile Include="src\extern\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="src\extern\imgui\imgui_tables.cpp" />
     <ClCompile Include="src\extern\imgui\imgui_widgets.cpp" />
-    <ClCompile Include="src\papierkraft\test\Chunk.cpp" />
+    <ClCompile Include="src\papierkraft\components\Chunk.cpp" />
     <ClCompile Include="src\common\managers\InputManager.cpp" />
     <ClCompile Include="src\common\components\FirstPersonControllerComponent.cpp" />
     <ClCompile Include="src\common\components\CameraComponent.cpp" />
@@ -376,14 +376,14 @@
     <ClCompile Include="src\common\managers\ShaderManager.cpp" />
     <ClCompile Include="src\system\math\Matrix4.cpp" />
     <ClCompile Include="src\system\math\Vector3.cpp" />
-    <ClCompile Include="src\papierkraft\test\BlockTextureData.cpp" />
+    <ClCompile Include="src\papierkraft\data\BlockTextureData.cpp" />
     <ClCompile Include="src\engine\core\ManagerContainer.cpp" />
-    <ClCompile Include="src\papierkraft\test\BlockTextureManager.cpp" />
+    <ClCompile Include="src\papierkraft\managers\BlockTextureManager.cpp" />
     <ClCompile Include="src\engine\core\EntityContainer.cpp" />
     <ClCompile Include="src\engine\core\ManagedObjectContainer.cpp" />
     <ClCompile Include="src\engine\core\Singleton.cpp" />
     <ClCompile Include="src\engine\core\Manager.cpp" />
-    <ClCompile Include="src\papierkraft\test\BlockComponent.cpp" />
+    <ClCompile Include="src\papierkraft\components\BlockComponent.cpp" />
     <ClCompile Include="src\engine\core\Component.cpp" />
     <ClCompile Include="src\engine\core\ManagedObject.cpp" />
     <ClCompile Include="src\engine\core\Entity.cpp" />

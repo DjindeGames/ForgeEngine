@@ -26,7 +26,7 @@ namespace ForgeEngine
 			DebugManager();
 
 			virtual bool OnInit() override;
-			virtual void OnUpdate(float dT) override;
+			virtual void OnPostUpdate(float dT) override;
 
 		private:
 			void InitImgui();

@@ -1,14 +1,12 @@
 #include "MeshComponent.h"
 
 #include "common/components/CameraComponent.h"
-
 #include "engine/core/Entity.h"
+#include "engine/core/OpenGL.h"
 #include "engine/misc/Texture.h"
 #include "engine/shader/Shader.h"
 
 #include <algorithm>
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
 #include <iterator>
 #include <utility>
 

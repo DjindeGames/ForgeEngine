@@ -2,8 +2,7 @@
 
 #include "engine/core/Defines.h"
 #include "engine/core/Object.h""
-
-#include <glad/glad.h>
+#include "engine/core/OpenGL.h"
 
 namespace ForgeEngine
 {

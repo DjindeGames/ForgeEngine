@@ -1,8 +1,7 @@
 #include "Chunk.h"
 
-#include "papierkraft/test/BlockComponent.h"
-
 #include "engine/core/Entity.h"
+#include "papierkraft/components/BlockComponent.h"
 #include "system/math/MathUtils.h"
 
 namespace PapierKraft
@@ -13,13 +12,13 @@ namespace PapierKraft
 	{
 		for (float x = -(CHUNK_WIDTH / 2) ; x < (CHUNK_WIDTH / 2); x++)
 		{
-			for (float y = -(CHUNK_HEIGHT / 2); y < (CHUNK_HEIGHT / 2); y++)
+			for (float y = 0 ; y < CHUNK_HEIGHT ; y++)
 			{
 				for (float z = -(CHUNK_WIDTH / 2); z < (CHUNK_WIDTH / 2); z++)
 				{
 					Entity* block = EntityContainer::Get()->RegisterEntity();
 					block->RegisterComponent(new BlockComponent(ComputeBlockType(y)));
-					block->SetPosition(Vector3{ position.x + x,  position.y + y, position.z + z});
+					block->SetPosition(Vector3{ position.x + x, position.y + y, position.z + z});
 				}
 			}
 		}
@@ -29,9 +28,9 @@ namespace PapierKraft
 	{
 		EBlockType blockType;
 
-		if (ForgeMaths::IsBetween(yCoordinate, CHUNK_WIDTH / 2.f - DIRT_LAYER_HEIGHT, CHUNK_WIDTH / 2.f - 1))
+		if (ForgeMaths::IsBetween(yCoordinate, static_cast<float>(CHUNK_HEIGHT - DIRT_LAYER_HEIGHT), static_cast<float>(CHUNK_HEIGHT - 1)))
 		{
-			if (yCoordinate == CHUNK_WIDTH / 2 - 1)
+			if (yCoordinate == CHUNK_HEIGHT - 1)
 			{
 				blockType = EBlockType::Grass;
 			}

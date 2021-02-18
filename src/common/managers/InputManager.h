@@ -42,7 +42,7 @@ namespace ForgeEngine
 		public:
 			InputManager();
 
-			virtual void OnPreUpdate() override;
+			virtual void OnPreUpdate(float dT) override;
 
 			bool IsInputActive(EInputAction actionType) const;
 			Vector2 GetMousePosition() const { return m_MousePosition; };

@@ -4,12 +4,11 @@
 #include "engine/core/CoreEngine.h"
 #include "engine/core/Entity.h"
 #include "engine/core/ManagerContainer.h"
+#include "engine/core/OpenGL.h"
 #include "engine/shader/ShaderUtils.h"
 
 #include <chrono>
 #include <cmath>
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
 #include <iostream>
 
 namespace ForgeEngine
@@ -54,12 +53,12 @@ namespace ForgeEngine
 
 				OnUpdate(dT);
 
-				ManagerContainer::Get()->PreUpdate();
-				EntityContainer::Get()->PreUpdate();
+				ManagerContainer::Get()->PreUpdate(dT);
+				EntityContainer::Get()->PreUpdate(dT);
 				ManagerContainer::Get()->Update(dT);
 				EntityContainer::Get()->Update(dT);
-				ManagerContainer::Get()->PostUpdate();
-				EntityContainer::Get()->PostUpdate();
+				ManagerContainer::Get()->PostUpdate(dT);
+				EntityContainer::Get()->PostUpdate(dT);
 
 				// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 				glfwSwapBuffers(m_Window);

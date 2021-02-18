@@ -38,9 +38,9 @@ namespace ForgeEngine
 			bool Init();
 			bool PostInit();
 
-			void PreUpdate();
+			void PreUpdate(float dT);
 			void Update(float dT);
-			void PostUpdate();
+			void PostUpdate(float dT);
 
 		private:
 			void OnDestroy();

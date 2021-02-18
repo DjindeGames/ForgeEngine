@@ -62,13 +62,13 @@ namespace ForgeEngine
 		return true;
 	}
 
-	void ManagedObjectContainer::PreUpdate()
+	void ManagedObjectContainer::PreUpdate(float dT)
 	{
 		for (auto& object : m_RegisteredObjects)
 		{
 			if (object != nullptr)
 			{
-				object->OnPreUpdate();
+				object->OnPreUpdate(dT);
 			}
 		}
 	}
@@ -84,13 +84,13 @@ namespace ForgeEngine
 		}
 	}
 
-	void ManagedObjectContainer::PostUpdate()
+	void ManagedObjectContainer::PostUpdate(float dT)
 	{
 		for (auto& object : m_RegisteredObjects)
 		{
 			if (object != nullptr)
 			{
-				object->OnPostUpdate();
+				object->OnPostUpdate(dT);
 			}
 		}
 	}

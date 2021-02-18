@@ -1,14 +1,11 @@
 #include "DebugManager.h"
 
 #include "common/managers/InputManager.h"
-#include "engine/core/ManagerContainer.h"
-
 #include "engine/core/Game.h"
+#include "engine/core/ManagerContainer.h"
+#include "engine/core/OpenGL.h"
 #include "engine/ui/ImGUI.h"
 
-
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
 #include <list>
 
 namespace ForgeEngine
@@ -42,7 +39,7 @@ namespace ForgeEngine
 		ImGui_ImplOpenGL3_Init("#version 150");
 	}
 
-	void DebugManager::OnUpdate(float dT) /*override*/
+	void DebugManager::OnPostUpdate(float dT) /*override*/
 	{
 		// feed inputs to dear imgui, start new frame
 		ImGui_ImplOpenGL3_NewFrame();

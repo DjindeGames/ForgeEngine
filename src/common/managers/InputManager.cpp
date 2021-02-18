@@ -1,9 +1,7 @@
 #include "InputManager.h"
 
 #include "engine/core/Game.h"
-
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+#include "engine/core/OpenGL.h"
 
 namespace ForgeEngine
 {
@@ -21,9 +19,9 @@ namespace ForgeEngine
 		m_InputActionMappings[EInputAction::Exit]				= GLFW_KEY_ENTER;
 	}
 
-	void InputManager::OnPreUpdate() /*override*/
+	void InputManager::OnPreUpdate(float dT) /*override*/
 	{
-		Mother::OnPreUpdate();
+		Mother::OnPreUpdate(dT);
 		UpdateMousePosition();
 	}
 

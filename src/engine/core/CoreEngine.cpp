@@ -1,7 +1,7 @@
 #include "CoreEngine.h"
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+#include "engine/core/OpenGL.h"
+
 #include <iostream>
 
 namespace ForgeEngine

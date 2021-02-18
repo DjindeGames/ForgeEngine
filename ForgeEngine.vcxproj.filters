@@ -927,16 +927,7 @@
     <ClInclude Include="src\common\components\ViewerComponent.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\papierkraft\test\BlockComponent.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="src\engine\core\ManagerContainer.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="src\papierkraft\test\BlockTextureData.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="src\papierkraft\test\BlockTextureManager.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="src\common\managers\ShaderManager.h">
@@ -987,9 +978,6 @@
     <ClInclude Include="src\system\math\MathUtils.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\papierkraft\test\Chunk.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="src\extern\imgui\imconfig.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
@@ -1014,9 +1002,6 @@
     <ClInclude Include="src\extern\imgui\imstb_truetype.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\papierkraft\test\PapierKraft.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="src\common\managers\DebugManager.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
@@ -1024,6 +1009,21 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="src\engine\core\OpenGL.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\papierkraft\components\BlockComponent.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\papierkraft\managers\BlockTextureManager.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\papierkraft\core\PapierKraft.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\papierkraft\data\BlockTextureData.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\papierkraft\components\Chunk.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1076,16 +1076,7 @@
     <ClCompile Include="src\common\components\ViewerComponent.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\papierkraft\test\BlockComponent.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="src\engine\core\ManagerContainer.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\papierkraft\test\BlockTextureData.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\papierkraft\test\BlockTextureManager.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="src\common\managers\ShaderManager.cpp">
@@ -1127,9 +1118,6 @@
     <ClCompile Include="src\system\math\MathUtils.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\papierkraft\test\Chunk.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="src\extern\imgui\imgui.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
@@ -1151,10 +1139,22 @@
     <ClCompile Include="src\extern\imgui\imgui_widgets.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\papierkraft\test\PapierKraft.cpp">
+    <ClCompile Include="src\common\managers\DebugManager.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\common\managers\DebugManager.cpp">
+    <ClCompile Include="src\papierkraft\components\BlockComponent.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\papierkraft\managers\BlockTextureManager.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\papierkraft\core\PapierKraft.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\papierkraft\data\BlockTextureData.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\papierkraft\components\Chunk.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>

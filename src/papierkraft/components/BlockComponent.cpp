@@ -1,13 +1,12 @@
 #include "BlockComponent.h"
 
-#include "papierkraft/test/BlockTextureData.h"
-#include "papierkraft/test/BlockTextureManager.h"
-
+#include "common/components/MeshComponent.h"
 #include "common/components/ViewerComponent.h"
 #include "common/managers/ShaderManager.h"
-#include "common/components/MeshComponent.h"
 #include "engine/core/ManagerContainer.h"
 #include "engine/misc/Texture.h"
+#include "papierkraft/data/BlockTextureData.h"
+#include "papierkraft/managers/BlockTextureManager.h"
 
 #include <vector>
 

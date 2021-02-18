@@ -5,15 +5,13 @@
 #include "common/managers/InputManager.h"
 #include "common/managers/ShaderManager.h"
 #include "common/managers/DebugManager.h"
-
 #include "engine/core/Entity.h"
 #include "engine/core/ManagerContainer.h"
-#include "system/misc/Color.h"
 #include "engine/shader/ShaderUtils.h"
-
-#include "papierkraft/test/BlockComponent.h"
-#include "papierkraft/test/BlockTextureManager.h"
-#include "papierkraft/test/Chunk.h"
+#include "papierkraft/components/BlockComponent.h"
+#include "papierkraft/components/Chunk.h"
+#include "papierkraft/managers/BlockTextureManager.h"
+#include "system/misc/Color.h"
 
 int main()
 {
@@ -36,7 +34,7 @@ namespace PapierKraft
 		Chunk chunk(EBiomeType::Plain, VECTOR3_NULL);
 
 		Entity* camera = EntityContainer::Get()->RegisterEntity();
-		camera->SetPosition(Vector3{ 0.f, 8.f, 0.f });
+		camera->SetPosition(Vector3{ 0.f, CHUNK_HEIGHT + 2.5f, 0.f });
 		camera->RegisterComponent(new FirstPersonControllerComponent());
 		camera->RegisterComponent(new CameraComponent());
 	}

@@ -35,9 +35,9 @@ namespace ForgeEngine
 			virtual bool OnInit() { return true; }
 			virtual bool OnPostInit() { return true; }
 
-			virtual void OnPreUpdate() {}
+			virtual void OnPreUpdate(float dT) {}
 			virtual void OnUpdate(float dT) {}
-			virtual void OnPostUpdate() {}
+			virtual void OnPostUpdate(float dT) {}
 
 			void Destroy() { OnDestroy(); }
 		

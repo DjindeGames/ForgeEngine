@@ -1,5 +1,6 @@
 #include "Shader.h"
 
+#include "engine/core/OpenGL.h"
 #include "engine/misc/Texture.h"
 #include "engine/shader/ShaderUtils.h"
 #include "system/math/Transform.h"
@@ -7,8 +8,6 @@
 #include "system/misc/Utils.h"
 
 #include <fstream>
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
 #include <glm/gtc/type_ptr.hpp>
 #include <iostream>
 #include <numeric>

@@ -55,20 +55,20 @@ namespace ForgeEngine
 		return success;
 	}
 
-	void Entity::OnPreUpdate() /*override*/
+	void Entity::OnPreUpdate(float dT) /*override*/
 	{
 		if (!IsActive())
 		{
 			return;
 		}
 
-		Mother::OnPreUpdate();
+		Mother::OnPreUpdate(dT);
 
 		for (auto& component : m_RegisteredComponents)
 		{
 			if (component != nullptr && component->IsActive())
 			{
-				component->OnPreUpdate();
+				component->OnPreUpdate(dT);
 			}
 		}
 	}
@@ -91,14 +91,14 @@ namespace ForgeEngine
 		}
 	}
 
-	void Entity::OnPostUpdate() /*override*/
+	void Entity::OnPostUpdate(float dT) /*override*/
 	{
 		if (!IsActive())
 		{
 			return;
 		}
 
-		Mother::OnPostUpdate();
+		Mother::OnPostUpdate(dT);
 
 		m_Transform.Refresh();
 
@@ -106,7 +106,7 @@ namespace ForgeEngine
 		{
 			if (component != nullptr && component->IsActive())
 			{
-				component->OnPostUpdate();
+				component->OnPostUpdate(dT);
 			}
 		}
 	}

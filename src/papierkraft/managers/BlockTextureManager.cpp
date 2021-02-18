@@ -1,8 +1,7 @@
 #include "BlockTextureManager.h"
 
-#include "papierkraft/test/BlockComponent.h"
-
 #include "engine/misc/Texture.h"
+#include "papierkraft/components/BlockComponent.h"
 
 namespace PapierKraft
 {

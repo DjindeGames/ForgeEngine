@@ -1,9 +1,8 @@
 #include "ShaderUtils.h"
 
+#include "engine/core/OpenGL.h"
 #include "system/misc/Color.h"
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
 #include <iostream>
 #include <stdarg.h>
 
