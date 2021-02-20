@@ -17,7 +17,7 @@ namespace PapierKraft
 	enum class EBlockType;
 
 	#define TEXTURE_ATLAS_PATH	"assets\\textures\\blocks\\texture_atlas.png"
-	#define TEXTURE_RESOLUTION	16.f
+	#define BLOCK_TEXTURE_RESOLUTION	16.f
 
 	class BlockTextureManager : public Manager
 	{

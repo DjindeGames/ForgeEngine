@@ -1,14 +1,14 @@
 #pragma once
 
-#include "engine/core/Game.h"
+#include "engine/core/GameHandler.h"
 
 using namespace ForgeEngine;
 
 namespace PapierKraft
 {
-	class PapierKraft : public Game
+	class PapierKraft : public GameHandler
 	{
-		using Mother = Game;
+		using Mother = GameHandler;
 
 		/************************************/
 		/************ATTRIBUTES**************/

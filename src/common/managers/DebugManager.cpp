@@ -1,7 +1,7 @@
 #include "DebugManager.h"
 
-#include "common/managers/InputManager.h"
-#include "engine/core/Game.h"
+#include "common/helpers/InputHelper.h"
+#include "engine/core/GameHandler.h"
 #include "engine/core/ManagerContainer.h"
 #include "engine/core/OpenGL.h"
 #include "engine/ui/ImGUI.h"
@@ -21,8 +21,6 @@ namespace ForgeEngine
 
 		InitImgui();
 
-		m_InputManager = ManagerContainer::Get()->GetManagerByType<InputManager>();
-
 		return true;
 	}
 
@@ -35,7 +33,7 @@ namespace ForgeEngine
 
 		// Setup Dear ImGui style
 		ImGui::StyleColorsDark();
-		ImGui_ImplGlfw_InitForOpenGL(Game::m_Window, true);
+		ImGui_ImplGlfw_InitForOpenGL(GameHandler::m_Window, true);
 		ImGui_ImplOpenGL3_Init("#version 150");
 	}
 
@@ -79,7 +77,7 @@ namespace ForgeEngine
 
 	void DebugManager::ProcessDebugInput()
 	{
-		if (m_InputManager->IsInputActive(EInputAction::ToggleWireframe))
+		if (InputHelper::IsInputActive(EInputAction::ToggleWireframe))
 		{
 			ToggleWireframeMode();
 		}

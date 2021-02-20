@@ -8,7 +8,7 @@ struct GLFWwindow;
 
 namespace ForgeEngine
 {
-	class Game : Object
+	class GameHandler : Object
 	{
 		/************************************/
 		/************ATTRIBUTES**************/

@@ -1,4 +1,4 @@
-#include "Game.h"
+#include "GameHandler.h"
 
 #include "common/managers/ShaderManager.h"
 #include "engine/core/CoreEngine.h"
@@ -13,9 +13,9 @@
 
 namespace ForgeEngine
 {
-	GLFWwindow* Game::m_Window{};
+	GLFWwindow* GameHandler::m_Window{};
 
-	bool Game::Init(std::string name, unsigned int width, unsigned int height)
+	bool GameHandler::Init(std::string name, unsigned int width, unsigned int height)
 	{
 		if (m_Window = InitWindow(name, width, height))
 		{
@@ -24,7 +24,7 @@ namespace ForgeEngine
 		return false;
 	}
 
-	void Game::HandleProcess()
+	void GameHandler::HandleProcess()
 	{
 		using ns = std::chrono::nanoseconds;
 
@@ -71,17 +71,17 @@ namespace ForgeEngine
 		}
 	}
 
-	void Game::OnInit()
+	void GameHandler::OnInit()
 	{
 	}
 
-	void Game::OnTermination()
+	void GameHandler::OnTermination()
 	{
 		// glfw: terminate, clearing all previously allocated GLFW resources.
 		glfwTerminate();
 	}
 
-	bool Game::ShouldTerminate()
+	bool GameHandler::ShouldTerminate()
 	{
 		return (glfwGetKey(m_Window, GLFW_KEY_ESCAPE) == GLFW_PRESS);
 	}

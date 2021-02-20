@@ -1,9 +1,9 @@
 #include "FirstPersonControllerComponent.h"
 
 #include "common/components/CameraComponent.h"
-#include "common/managers/InputManager.h"
+#include "common/helpers/InputHelper.h"
 #include "engine/core/Entity.h"
-#include "engine/core/Game.h"
+#include "engine/core/GameHandler.h"
 #include "engine/core/ManagerContainer.h"
 #include "engine/core/OpenGL.h"
 #include "system/math/MathUtils.h"
@@ -21,12 +21,10 @@ namespace ForgeEngine
 	{
 		bool success = Mother::OnInit();
 
-		m_InputManager = ManagerContainer::Get()->GetManagerByType<InputManager>();
 		m_CameraComponent = GetOwner()->GetComponentByType<CameraComponent>();
-		glfwSetInputMode(Game::m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		glfwSetInputMode(GameHandler::m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 		return success
-			&& m_InputManager != nullptr
 			&& m_CameraComponent != nullptr;
 	}
 
@@ -35,32 +33,32 @@ namespace ForgeEngine
 		Mother::OnUpdate(dT);
 
 		Vector3 translation = VECTOR3_NULL;
-		Vector2 mouseVelocity = m_InputManager->GetMouseVelocity();
+		Vector2 mouseVelocity = InputHelper::GetMouseVelocity();
 		float yaw = m_CameraComponent->GetYaw() - (mouseVelocity.x * m_RotationSpeed * dT);
 		float pitch = ForgeMaths::Clamp(m_CameraComponent->GetPitch() + (mouseVelocity.y * m_RotationSpeed * dT), -89.f, 89.f);
 
-		if (m_InputManager->IsInputActive(EInputAction::MoveForward))
+		if (InputHelper::IsInputActive(EInputAction::MoveForward))
 		{
 			translation += m_MoveSpeed * m_CameraComponent->GetSight();
 		}
-		if (m_InputManager->IsInputActive(EInputAction::MoveBackward))
+		if (InputHelper::IsInputActive(EInputAction::MoveBackward))
 		{
 			translation -= m_MoveSpeed * m_CameraComponent->GetSight();
 		}
-		if (m_InputManager->IsInputActive(EInputAction::MoveLeft))
+		if (InputHelper::IsInputActive(EInputAction::MoveLeft))
 		{
 			translation += m_MoveSpeed * m_CameraComponent->GetRight();
 		}
-		if (m_InputManager->IsInputActive(EInputAction::MoveRight))
+		if (InputHelper::IsInputActive(EInputAction::MoveRight))
 		{
 			translation -= m_MoveSpeed * m_CameraComponent->GetRight();
 		}
 
-		if (m_InputManager->IsInputActive(EInputAction::FlyUp))
+		if (InputHelper::IsInputActive(EInputAction::FlyUp))
 		{
 			translation += m_MoveSpeed * VECTOR3_Y;
 		}
-		if (m_InputManager->IsInputActive(EInputAction::FlyDown))
+		if (InputHelper::IsInputActive(EInputAction::FlyDown))
 		{
 			translation -= m_MoveSpeed * VECTOR3_Y;
 		}
@@ -75,7 +73,7 @@ namespace ForgeEngine
 	void FirstPersonControllerComponent::OnDestroy() /*override*/
 	{
 		Mother::OnDestroy();
-		glfwSetInputMode(Game::m_Window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		glfwSetInputMode(GameHandler::m_Window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 	}
 }
 

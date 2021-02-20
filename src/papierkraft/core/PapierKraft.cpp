@@ -2,6 +2,7 @@
 
 #include "common/components/CameraComponent.h"
 #include "common/components/FirstPersonControllerComponent.h"
+#include "common/helpers/InputHelper.h"
 #include "common/managers/InputManager.h"
 #include "common/managers/ShaderManager.h"
 #include "common/managers/DebugManager.h"
@@ -53,6 +54,6 @@ namespace PapierKraft
 	bool PapierKraft::ShouldTerminate() /*override*/
 	{
 		return Mother::ShouldTerminate()
-			|| ManagerContainer::Get()->GetManagerByType<InputManager>()->IsInputActive(EInputAction::Exit);
+			|| InputHelper::IsInputActive(EInputAction::Exit);
 	}
 }

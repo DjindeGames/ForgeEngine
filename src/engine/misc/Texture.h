@@ -6,7 +6,7 @@
 
 namespace ForgeEngine
 {
-	#define TEXTURE_RESOLUTION 16
+	#define BLOCK_TEXTURE_RESOLUTION 16
 
 	#define MISSING_TEXTURE "assets\\textures\\default\\default.png"
 

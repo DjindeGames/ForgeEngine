@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\common\helpers\ManagerHelper.h" />
+    <ClInclude Include="src\common\helpers\InputHelper.h" />
+    <ClInclude Include="src\common\Input\InputAction.h" />
     <ClInclude Include="src\common\managers\DebugManager.h" />
     <ClInclude Include="src\engine\core\OpenGL.h" />
     <ClInclude Include="src\engine\ui\ImGUI.h" />
@@ -58,7 +61,7 @@
     <ClInclude Include="src\engine\shader\Shader.h" />
     <ClInclude Include="src\system\misc\Color.h" />
     <ClInclude Include="src\common\components\MeshComponent.h" />
-    <ClInclude Include="src\engine\core\Game.h" />
+    <ClInclude Include="src\engine\core\GameHandler.h" />
     <ClInclude Include="includes\glad\glad.h" />
     <ClInclude Include="includes\GLFW\glfw3.h" />
     <ClInclude Include="includes\GLFW\glfw3native.h" />
@@ -356,8 +359,12 @@
     <ClInclude Include="src\system\math\Transform.h" />
     <ClInclude Include="src\common\components\ViewerComponent.h" />
     <ClInclude Include="src\system\math\MathUtils.h" />
+    <ClInclude Include="src\system\time\Timer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\common\helpers\ManagerHelper.cpp" />
+    <ClCompile Include="src\common\helpers\InputHelper.cpp" />
+    <ClCompile Include="src\common\Input\InputAction.cpp" />
     <ClCompile Include="src\common\managers\DebugManager.cpp" />
     <ClCompile Include="src\papierkraft\core\PapierKraft.cpp" />
     <ClCompile Include="src\extern\imgui\imgui.cpp" />
@@ -391,7 +398,7 @@
     <ClCompile Include="src\engine\shader\Shader.cpp" />
     <ClCompile Include="src\system\misc\Color.cpp" />
     <ClCompile Include="src\common\components\MeshComponent.cpp" />
-    <ClCompile Include="src\engine\core\Game.cpp" />
+    <ClCompile Include="src\engine\core\GameHandler.cpp" />
     <ClCompile Include="src\engine\shader\ShaderUtils.cpp" />
     <ClCompile Include="src\extern\opengl\includes\glad\glad.c" />
     <ClCompile Include="src\engine\core\CoreEngine.cpp" />
@@ -401,6 +408,7 @@
     <ClCompile Include="src\system\math\Transform.cpp" />
     <ClCompile Include="src\common\components\ViewerComponent.cpp" />
     <ClCompile Include="src\system\math\MathUtils.cpp" />
+    <ClCompile Include="src\system\time\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\shaders\fragment\textured.glslf" />

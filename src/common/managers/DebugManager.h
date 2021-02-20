@@ -4,8 +4,6 @@
 
 namespace ForgeEngine
 {
-	class InputManager;
-
 	class DebugManager : public Manager
 	{
 		using Mother = Manager;
@@ -16,7 +14,6 @@ namespace ForgeEngine
 
 		private:
 			int m_CurrentDrawMode;
-			InputManager* m_InputManager{};
 
 		/************************************/
 		/**************METHODS***************/

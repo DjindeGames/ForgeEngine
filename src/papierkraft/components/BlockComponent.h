@@ -44,7 +44,9 @@ namespace PapierKraft
 		public:
 			BlockComponent(EBlockType blockType);
 
-		protected:
 			virtual bool OnPreInit() override;
+
+		private:
+			void BuildBlock();
 	};
 }

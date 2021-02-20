@@ -5,7 +5,6 @@
 namespace ForgeEngine
 {
 	class CameraComponent;
-	class InputManager;
 
 	class FirstPersonControllerComponent : public Component
 	{
@@ -19,7 +18,6 @@ namespace ForgeEngine
 			float m_MoveSpeed{};
 			float m_RotationSpeed{};
 
-			InputManager* m_InputManager{};
 			CameraComponent* m_CameraComponent{};
 
 		/************************************/

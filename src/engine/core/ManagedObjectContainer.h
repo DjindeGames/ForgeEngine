@@ -10,12 +10,12 @@ namespace ForgeEngine
 {
 	typedef unsigned long long int ObjectID;
 
-	class Game;
+	class GameHandler;
 	class ManagedObject;
 
 	class ManagedObjectContainer : Object
 	{
-		friend class Game;
+		friend class GameHandler;
 
 		/************************************/
 		/************ATTRIBUTES**************/

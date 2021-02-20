@@ -2,6 +2,7 @@
 
 #include "common/components/MeshComponent.h"
 #include "common/components/ViewerComponent.h"
+#include "common/helpers/ManagerHelper.h"
 #include "common/managers/ShaderManager.h"
 #include "engine/core/ManagerContainer.h"
 #include "engine/misc/Texture.h"
@@ -18,45 +19,50 @@ namespace PapierKraft
 	BlockComponent::BlockComponent(EBlockType blockType) :
 		Mother(),
 		m_BlockType(blockType),
-		m_TextureData(ManagerContainer::Get()->GetManagerByType<BlockTextureManager>()->GetTextureDataByBlockType(blockType)),
-		m_Shader(ManagerContainer::Get()->GetManagerByType<ShaderManager>()->GetShaderByType(EShaderType::Textured))
+		m_TextureData(ManagerHelper::GetManagerByType<BlockTextureManager>()->GetTextureDataByBlockType(blockType)),
+		m_Shader(ManagerHelper::GetManagerByType<ShaderManager>()->GetShaderByType(EShaderType::Textured))
 	{
 	}
 
 	bool BlockComponent::OnPreInit() /*override*/
 	{
+		bool success = Mother::OnPreInit();
+		BuildBlock();
+		return success;
+	}
+
+	void BlockComponent::BuildBlock()
+	{
 		using FaceTextureCoordinates = std::pair<float, float>;
 
-		bool success = Mother::OnPreInit();
-
-		Texture* textureAtlas = ManagerContainer::Get()->GetManagerByType<BlockTextureManager>()->GetTextureAtlas();
+		Texture* textureAtlas = ManagerHelper::GetManagerByType<BlockTextureManager>()->GetTextureAtlas();
 		TextureCoordinates sideTextureCoordinates = m_TextureData->GetSideTexture();
 		TextureCoordinates topTextureCoordinates = m_TextureData->GetTopTexture();
 		TextureCoordinates bottomTextureCoordinates = m_TextureData->GetBottomTexture();
 
-		float blockTextureLength = TEXTURE_RESOLUTION / textureAtlas->GetWidth();
+		float blockTextureLength = BLOCK_TEXTURE_RESOLUTION / textureAtlas->GetWidth();
 
 		//SIDE TEXTURE COORDINATES
 
 		FaceTextureCoordinates sideTextureTopRight
 		{
-			(sideTextureCoordinates.first + 1) * blockTextureLength, 
-			(sideTextureCoordinates.second + 1) * blockTextureLength 
+			(sideTextureCoordinates.first + 1) * blockTextureLength,
+			(sideTextureCoordinates.second + 1) * blockTextureLength
 		};
 		FaceTextureCoordinates sideTextureBottomRight
 		{
-		(sideTextureCoordinates.first + 1) * blockTextureLength,
-		(sideTextureCoordinates.second) * blockTextureLength
+			(sideTextureCoordinates.first + 1) * blockTextureLength,
+			(sideTextureCoordinates.second) * blockTextureLength
 		};
 		FaceTextureCoordinates sideTextureBottomLeft
 		{
-		(sideTextureCoordinates.first) * blockTextureLength,
-		(sideTextureCoordinates.second) * blockTextureLength
+			(sideTextureCoordinates.first) * blockTextureLength,
+			(sideTextureCoordinates.second) * blockTextureLength
 		};
 		FaceTextureCoordinates sideTextureTopLeft
 		{
-		(sideTextureCoordinates.first) * blockTextureLength,
-		(sideTextureCoordinates.second + 1) * blockTextureLength
+			(sideTextureCoordinates.first) * blockTextureLength,
+			(sideTextureCoordinates.second + 1) * blockTextureLength
 		};
 
 		// TOP TEXTURE COORDINATES
@@ -68,18 +74,18 @@ namespace PapierKraft
 		};
 		FaceTextureCoordinates topTextureBottomRight
 		{
-		(topTextureCoordinates.first + 1) * blockTextureLength,
-		(topTextureCoordinates.second) * blockTextureLength
+			(topTextureCoordinates.first + 1) * blockTextureLength,
+			(topTextureCoordinates.second) * blockTextureLength
 		};
 		FaceTextureCoordinates topTextureBottomLeft
 		{
-		(topTextureCoordinates.first) * blockTextureLength,
-		(topTextureCoordinates.second) * blockTextureLength
+			(topTextureCoordinates.first) * blockTextureLength,
+			(topTextureCoordinates.second) * blockTextureLength
 		};
 		FaceTextureCoordinates topTextureTopLeft
 		{
-		(topTextureCoordinates.first) * blockTextureLength,
-		(topTextureCoordinates.second + 1) * blockTextureLength
+			(topTextureCoordinates.first) * blockTextureLength,
+			(topTextureCoordinates.second + 1) * blockTextureLength
 		};
 
 		// BOTTOM TEXTURE COORDINATES
@@ -91,18 +97,18 @@ namespace PapierKraft
 		};
 		FaceTextureCoordinates bottomTextureBottomRight
 		{
-		(bottomTextureCoordinates.first + 1) * blockTextureLength,
-		(bottomTextureCoordinates.second) * blockTextureLength
+			(bottomTextureCoordinates.first + 1) * blockTextureLength,
+			(bottomTextureCoordinates.second) * blockTextureLength
 		};
 		FaceTextureCoordinates bottomTextureBottomLeft
 		{
-		(bottomTextureCoordinates.first) * blockTextureLength,
-		(bottomTextureCoordinates.second) * blockTextureLength
+			(bottomTextureCoordinates.first) * blockTextureLength,
+			(bottomTextureCoordinates.second) * blockTextureLength
 		};
 		FaceTextureCoordinates bottomTextureTopLeft
 		{
-		(bottomTextureCoordinates.first) * blockTextureLength,
-		(bottomTextureCoordinates.second + 1) * blockTextureLength
+			(bottomTextureCoordinates.first) * blockTextureLength,
+			(bottomTextureCoordinates.second + 1) * blockTextureLength
 		};
 
 		std::vector<float> verticesTexturesCoordinates{
@@ -163,10 +169,9 @@ namespace PapierKraft
 					17, 18, 19,
 			/******************BOTTOM***********************/
 					20, 21, 23,
-					21, 22, 23
+							21, 22, 23
 		};
 
 		GetOwner()->RegisterComponent(new MeshComponent(verticesTexturesCoordinates, coordinates, m_Shader, textureAtlas));
-		return success;
 	}
 }
