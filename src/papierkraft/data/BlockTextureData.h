@@ -5,49 +5,53 @@
 
 #include <memory>
 #include <string>
+#include <utility>
 
 using namespace ForgeEngine;
 
 namespace PapierKraft
 {
-	#define TEXTURE_GRASS_SIDE		"assets\\textures\\blocks\\grass\\grass_side.png"
-	#define TEXTURE_GRASS_TOP		"assets\\textures\\blocks\\grass\\grass_top.png"
-	#define TEXTURE_GRASS_BOTTOM	"assets\\textures\\blocks\\grass\\grass_bottom.png"
+	//COLUMN INDEX - LINE INDEX
+	//ORIGIN IS BOTTOM LEFT 
+	using TextureCoordinates = std::pair<unsigned int, unsigned int>;
 
-	#define TEXTURE_DIRT_UNIFORM	"assets\\textures\\blocks\\dirt\\dirt_uniform.png"
+	#define TEXTURE_GRASS_SIDE			TextureCoordinates{1, 15}
+	#define TEXTURE_GRASS_TOP			TextureCoordinates{2, 15}
+	#define TEXTURE_GRASS_BOTTOM		TextureCoordinates{0, 15}
 
-	#define TEXTURE_SAND_UNIFORM	"assets\\textures\\blocks\\sand\\sand_uniform.png"
+	#define TEXTURE_DIRT_UNIFORM		TextureCoordinates{0, 15}
 
-	#define TEXTURE_STONE_UNIFORM	"assets\\textures\\blocks\\stone\\stone_uniform.png"
+	#define TEXTURE_SAND_UNIFORM		TextureCoordinates{5, 15}
 
-	#define TEXTURE_LEAVES_UNIFORM	"assets\\textures\\blocks\\leaves\\leaves_uniform.png"
+	#define TEXTURE_STONE_UNIFORM		TextureCoordinates{6, 15}
 
-	#define TEXTURE_LOG_SIDE		"assets\\textures\\blocks\\log\\log_side.png"
-	#define TEXTURE_LOG_REST		"assets\\textures\\blocks\\log\\log_top.png"
+	#define TEXTURE_LOG_SIDE			TextureCoordinates{3, 15}
+	#define TEXTURE_LOG_TOP_BOTTOM		TextureCoordinates{4, 15}
 
 	class BlockTextureData : Object
 	{
+		using Mother = Object;
+
 		/************************************/
 		/************ATTRIBUTES**************/
 		/************************************/
 
 		private:
-			std::shared_ptr<Texture> m_SideTexture{};
-			std::shared_ptr<Texture> m_TopTexture{};
-			std::shared_ptr<Texture> m_BottomTexture{};
+			TextureCoordinates m_SideTextureCoordinates{};
+			TextureCoordinates m_TopTextureCoordinates{};
+			TextureCoordinates m_BottomTextureCoordinates{};
 
 		/************************************/
 		/**************METHODS***************/
 		/************************************/
 
 		public:
-			BlockTextureData(std::string sideTexture, std::string topTexture, std::string bottomTexture);
-			BlockTextureData(std::string sideTexture, std::string topBottomTexture);
-			BlockTextureData(std::string uniformTexture);
-			~BlockTextureData() {}
+			BlockTextureData(const TextureCoordinates& sideTextureCoordinates, const TextureCoordinates& topTextureCoordinates, const TextureCoordinates& bottomTextureCoordinates);
+			BlockTextureData(const TextureCoordinates& sideTextureCoordinates, const TextureCoordinates& topBottomTextureCoordinates);
+			BlockTextureData(const TextureCoordinates& uniformTextureCoordinates);
 
-			Texture* GetSideTexture() const { return m_SideTexture.get(); }
-			Texture* GetTopTexture() const { return m_TopTexture.get(); }
-			Texture* GetBottomTexture() const { return m_BottomTexture.get(); }
+			TextureCoordinates GetSideTexture() const { return m_SideTextureCoordinates; }
+			TextureCoordinates GetTopTexture() const { return m_TopTextureCoordinates; }
+			TextureCoordinates GetBottomTexture() const { return m_BottomTextureCoordinates; }
 	};
 }

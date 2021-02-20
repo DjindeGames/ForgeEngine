@@ -2,6 +2,7 @@
 
 #include "common/components/CameraComponent.h"
 #include "engine/core/Entity.h"
+#include "engine/core/ManagerContainer.h"
 #include "engine/core/OpenGL.h"
 #include "engine/misc/Texture.h"
 #include "engine/shader/Shader.h"
@@ -123,6 +124,7 @@ namespace ForgeEngine
 			m_Shader->Use();
 			m_Shader->SetColor(DEFAULT_RENDER_COLOR_NAME, m_renderColor);
 			m_Shader->SetTexture(GL_TEXTURE0, m_Texture);
+			m_Shader->SetFloat(DEFAULT_LIGHT_INTENSITY_NAME, 1.f);
 			m_Shader->SetTransform(DEFAULT_TRANSFORM_NAME, &m_Owner->GetTransform());
 			m_Shader->SetProjection(DEFAULT_PROJECTION_NAME, CameraComponent::GetActiveCamera()->GetProjection());
 			m_Shader->SetView(DEFAULT_VIEW_NAME, CameraComponent::GetActiveCamera()->GetView());

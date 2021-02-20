@@ -20,7 +20,6 @@ namespace PapierKraft
 		Grass,
 		Stone,
 		Woodlog,
-		Leaves,
 		Sand,
 		Count
 	};

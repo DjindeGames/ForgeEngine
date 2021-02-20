@@ -32,7 +32,7 @@ namespace PapierKraft
 		{
 			if (yCoordinate == CHUNK_HEIGHT - 1)
 			{
-				blockType = EBlockType::Grass;
+				blockType = EBlockType::Woodlog;
 			}
 			else
 			{
@@ -41,7 +41,7 @@ namespace PapierKraft
 		}
 		else
 		{
-			blockType = EBlockType::Stone;
+			blockType = EBlockType::Sand;
 		}
 
 		return blockType;

@@ -19,6 +19,7 @@ namespace ForgeEngine
 
 	#define DEFAULT_RENDER_COLOR_NAME		"RenderColor"
 	#define DEFAULT_RENDER_TEXTURE_NAME		"RenderTexture"
+	#define DEFAULT_LIGHT_INTENSITY_NAME	"LightIntensity"
 	#define DEFAULT_TRANSFORM_NAME			"Transform"
 	#define DEFAULT_PROJECTION_NAME			"Projection"
 	#define DEFAULT_VIEW_NAME				"View"

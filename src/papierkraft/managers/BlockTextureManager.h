@@ -5,11 +5,19 @@
 
 #include <unordered_map>
 
+namespace ForgeEngine
+{
+	class Texture;
+}
+
 using namespace ForgeEngine;
 
 namespace PapierKraft
 {
 	enum class EBlockType;
+
+	#define TEXTURE_ATLAS_PATH	"assets\\textures\\blocks\\texture_atlas.png"
+	#define TEXTURE_RESOLUTION	16.f
 
 	class BlockTextureManager : public Manager
 	{
@@ -20,6 +28,7 @@ namespace PapierKraft
 		/************************************/
 
 		private:
+			std::unique_ptr<Texture> m_TextureAtlas{};
 			std::unordered_map<EBlockType, std::unique_ptr<BlockTextureData>> m_RegisteredTextures{};
 
 		/************************************/
@@ -30,5 +39,6 @@ namespace PapierKraft
 			BlockTextureManager();
 
 			BlockTextureData* GetTextureDataByBlockType(EBlockType blockType) const;
+			Texture* GetTextureAtlas() const { return m_TextureAtlas.get(); }
 	};
 }

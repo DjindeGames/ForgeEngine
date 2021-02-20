@@ -32,6 +32,9 @@ namespace ForgeEngine
 		Texture(const char* texturePath, unsigned int rgbaMode = GL_RGBA, bool flip = true);
 		~Texture();
 
+		int GetWidth() const { return m_Width; }
+		int GetHeight() const { return m_Height; }
+
 		GL_ID GetGLTexture() const { return m_GLTexture; }
 		void Use();
 	};
