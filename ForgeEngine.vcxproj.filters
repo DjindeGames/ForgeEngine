@@ -1035,7 +1035,7 @@
     <ClInclude Include="src\engine\core\GameHandler.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\common\Input\InputAction.h">
+    <ClInclude Include="src\system\Input\InputAction.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1178,7 +1178,7 @@
     <ClCompile Include="src\engine\core\GameHandler.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\common\Input\InputAction.cpp">
+    <ClCompile Include="src\system\Input\InputAction.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>

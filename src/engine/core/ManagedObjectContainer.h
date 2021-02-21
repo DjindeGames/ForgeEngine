@@ -23,6 +23,7 @@ namespace ForgeEngine
 
 		protected:
 			std::vector<std::unique_ptr<ManagedObject>> m_RegisteredObjects{};
+			static const constexpr unsigned int K_MAX_INITIALIZATIONS_PER_FRAME = 1;
 
 		/************************************/
 		/**************METHODS***************/

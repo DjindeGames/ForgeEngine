@@ -1,6 +1,5 @@
 #pragma once
 
-#include "system/time/Timer.h"
 #include "engine/core/Object.h"
 
 namespace ForgeEngine
@@ -44,10 +43,7 @@ namespace ForgeEngine
 			EInputType m_InputType;
 			KeyID m_Key;
 			bool m_IsActive{ false };
-
 			bool m_NeedsReset{ false };
-
-			Timer m_Timer;
 
 		/************************************/
 		/**************METHODS***************/
@@ -61,5 +57,9 @@ namespace ForgeEngine
 
 		private:
 			bool IsKeyPressed() const;
+
+			void ProcessHoldUpdate();
+			void ProcessPressUpdate();
+			void ProcessReleaseUpdate();
 	};
 }

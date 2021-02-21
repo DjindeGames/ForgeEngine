@@ -21,7 +21,7 @@
   <ItemGroup>
     <ClInclude Include="src\common\helpers\ManagerHelper.h" />
     <ClInclude Include="src\common\helpers\InputHelper.h" />
-    <ClInclude Include="src\common\Input\InputAction.h" />
+    <ClInclude Include="src\system\Input\InputAction.h" />
     <ClInclude Include="src\common\managers\DebugManager.h" />
     <ClInclude Include="src\engine\core\OpenGL.h" />
     <ClInclude Include="src\engine\ui\ImGUI.h" />
@@ -364,7 +364,7 @@
   <ItemGroup>
     <ClCompile Include="src\common\helpers\ManagerHelper.cpp" />
     <ClCompile Include="src\common\helpers\InputHelper.cpp" />
-    <ClCompile Include="src\common\Input\InputAction.cpp" />
+    <ClCompile Include="src\system\Input\InputAction.cpp" />
     <ClCompile Include="src\common\managers\DebugManager.cpp" />
     <ClCompile Include="src\papierkraft\core\PapierKraft.cpp" />
     <ClCompile Include="src\extern\imgui\imgui.cpp" />

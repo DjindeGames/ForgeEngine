@@ -1,8 +1,8 @@
 #pragma once
 
-#include "common/input/InputAction.h"
 #include "engine/core/Defines.h"
 #include "engine/core/Manager.h"
+#include "system/input/InputAction.h"
 #include "system/math/Vector2.h"
 
 #include <unordered_map>

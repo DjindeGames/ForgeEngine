@@ -1,6 +1,6 @@
 #pragma once
 
-#include "common/input/InputAction.h"
+#include "system/input/InputAction.h"
 #include "system/math/Vector2.h"
 
 namespace ForgeEngine

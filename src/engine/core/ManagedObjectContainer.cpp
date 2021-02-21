@@ -64,33 +64,54 @@ namespace ForgeEngine
 
 	void ManagedObjectContainer::PreUpdate(float dT)
 	{
+		unsigned int initializedObjectsThisFrame = 0;
 		for (auto& object : m_RegisteredObjects)
 		{
 			if (object != nullptr)
 			{
-				object->OnPreUpdate(dT);
+				if (object->IsInitialized())
+				{
+					object->OnPreUpdate(dT);
+				}
+				else if (object->NeedsPreInit() && initializedObjectsThisFrame < K_MAX_INITIALIZATIONS_PER_FRAME)
+				{
+					object->OnPreInit();
+					initializedObjectsThisFrame++;
+				}
 			}
 		}
 	}
 
 	void ManagedObjectContainer::Update(float dT)
 	{
+		unsigned int initializedObjectsThisFrame = 0;
 		for (auto& object : m_RegisteredObjects)
 		{
-			if (object != nullptr)
+			if (object->IsInitialized())
 			{
 				object->OnUpdate(dT);
+			}
+			else if (object->NeedsInit() && initializedObjectsThisFrame < K_MAX_INITIALIZATIONS_PER_FRAME)
+			{
+				object->OnInit();
+				initializedObjectsThisFrame++;
 			}
 		}
 	}
 
 	void ManagedObjectContainer::PostUpdate(float dT)
 	{
+		unsigned int initializedObjectsThisFrame = 0;
 		for (auto& object : m_RegisteredObjects)
 		{
-			if (object != nullptr)
+			if (object->IsInitialized())
 			{
 				object->OnPostUpdate(dT);
+			}
+			else if (object->NeedsPostInit() && initializedObjectsThisFrame < K_MAX_INITIALIZATIONS_PER_FRAME)
+			{
+				object->OnPostInit();
+				initializedObjectsThisFrame++;
 			}
 		}
 	}

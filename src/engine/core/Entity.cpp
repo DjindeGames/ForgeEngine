@@ -68,7 +68,14 @@ namespace ForgeEngine
 		{
 			if (component != nullptr && component->IsActive())
 			{
-				component->OnPreUpdate(dT);
+				if (component->IsInitialized())
+				{
+					component->OnPreUpdate(dT);
+				}
+				else if (component->NeedsPreInit())
+				{
+					component->OnPreInit();
+				}
 			}
 		}
 	}
@@ -86,7 +93,14 @@ namespace ForgeEngine
 		{
 			if (component != nullptr && component->IsActive())
 			{
-				component->OnUpdate(dT);
+				if (component->IsInitialized())
+				{
+					component->OnUpdate(dT);
+				}
+				else if (component->NeedsInit())
+				{
+					component->OnInit();
+				}
 			}
 		}
 	}
@@ -106,7 +120,14 @@ namespace ForgeEngine
 		{
 			if (component != nullptr && component->IsActive())
 			{
-				component->OnPostUpdate(dT);
+				if (component->IsInitialized())
+				{
+					component->OnPostUpdate(dT);
+				}
+				else if (component->NeedsPostInit())
+				{
+					component->OnPostInit();
+				}
 			}
 		}
 	}
