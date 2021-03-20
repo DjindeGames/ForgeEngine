@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/core/Object.h"
+#include "engine/core/Component.h"
 #include "system/math/Vector3.h"
 
 using namespace ForgeEngine;
@@ -22,9 +22,10 @@ namespace PapierKraft
 
 	enum class EBlockType;
 
-	class Chunk : Object
+	class ChunkComponent : Component
 	{
-		using Mother = Object;
+		using Mother = Component;
+		using ChunkBlocksArray = EBlockType[CHUNK_WIDTH][CHUNK_HEIGHT][CHUNK_WIDTH];
 
 		/************************************/
 		/************ATTRIBUTES**************/
@@ -32,13 +33,14 @@ namespace PapierKraft
 
 		private:
 			EBiomeType m_BiomeType;
+			ChunkBlocksArray m_Blocks;
 
 		/************************************/
 		/**************METHODS***************/
 		/************************************/
 
 		public:
-			Chunk(EBiomeType biomeType, Vector3 position);
+			ChunkComponent(EBiomeType biomeType, Vector3 position);
 			
 			EBlockType ComputeBlockType(float yCoordinate);
 	};

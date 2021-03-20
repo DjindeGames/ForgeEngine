@@ -6,7 +6,8 @@
 
 namespace ForgeEngine
 {
-	Texture::Texture(const char* texturePath, unsigned int rgbaMode/*= GL_RGB*/, bool flip/* = true*/)
+	Texture::Texture(const char* texturePath, unsigned int rgbaMode/*= GL_RGB*/, bool flip/* = true*/) :
+		Mother()
 	{
 		stbi_set_flip_vertically_on_load(flip);
 		unsigned char* data = stbi_load(texturePath, &m_Width, &m_Height, &m_Channels, 0);
@@ -32,6 +33,27 @@ namespace ForgeEngine
 		}
 		
 		stbi_image_free(data);
+	}
+
+	Texture::Texture(void* data, unsigned int width, unsigned int height) :
+		Mother(),
+		m_Width(width),
+		m_Height(height)
+	{
+		if (data)
+		{
+			glGenTextures(1, &m_GLTexture);
+			glBindTexture(GL_TEXTURE_2D, m_GLTexture);
+
+			// set the texture wrapping/filtering options (on the currently bound texture object)
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_Width, m_Height, 0, GL_RGB, GL_FLOAT, data);
+			glGenerateMipmap(GL_TEXTURE_2D);
+		}
 	}
 
 	Texture::~Texture()

@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\alchemist\core\Alchemist.h" />
+    <ClInclude Include="src\alchemist\core\LandscapeComponent.h" />
     <ClInclude Include="src\common\helpers\ManagerHelper.h" />
     <ClInclude Include="src\common\helpers\InputHelper.h" />
     <ClInclude Include="src\system\Input\InputAction.h" />
@@ -34,7 +36,7 @@
     <ClInclude Include="src\extern\imgui\imstb_rectpack.h" />
     <ClInclude Include="src\extern\imgui\imstb_textedit.h" />
     <ClInclude Include="src\extern\imgui\imstb_truetype.h" />
-    <ClInclude Include="src\papierkraft\components\Chunk.h" />
+    <ClInclude Include="src\papierkraft\components\ChunkComponent.h" />
     <ClInclude Include="src\common\managers\InputManager.h" />
     <ClInclude Include="src\common\components\FirstPersonControllerComponent.h" />
     <ClInclude Include="src\common\components\CameraComponent.h" />
@@ -362,6 +364,8 @@
     <ClInclude Include="src\system\time\Timer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\alchemist\core\Alchemist.cpp" />
+    <ClCompile Include="src\alchemist\core\LandscapeComponent.cpp" />
     <ClCompile Include="src\common\helpers\ManagerHelper.cpp" />
     <ClCompile Include="src\common\helpers\InputHelper.cpp" />
     <ClCompile Include="src\system\Input\InputAction.cpp" />
@@ -374,7 +378,7 @@
     <ClCompile Include="src\extern\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="src\extern\imgui\imgui_tables.cpp" />
     <ClCompile Include="src\extern\imgui\imgui_widgets.cpp" />
-    <ClCompile Include="src\papierkraft\components\Chunk.cpp" />
+    <ClCompile Include="src\papierkraft\components\ChunkComponent.cpp" />
     <ClCompile Include="src\common\managers\InputManager.cpp" />
     <ClCompile Include="src\common\components\FirstPersonControllerComponent.cpp" />
     <ClCompile Include="src\common\components\CameraComponent.cpp" />

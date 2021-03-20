@@ -12,9 +12,12 @@ namespace ForgeEngine
 
 	class Texture : Object
 	{
+		using Mother = Object;
+
 		/************************************/
 		/************ATTRIBUTES**************/
 		/************************************/
+
 		private:
 			GL_ID m_GLTexture{};
 
@@ -22,20 +25,19 @@ namespace ForgeEngine
 			int m_Height{};
 			int m_Channels{};
 
-	private:
-
 		/************************************/
 		/**************METHODS***************/
 		/************************************/
 
-	public:
-		Texture(const char* texturePath, unsigned int rgbaMode = GL_RGBA, bool flip = true);
-		~Texture();
+		public:
+			Texture(const char* texturePath, unsigned int rgbaMode = GL_RGBA, bool flip = true);
+			Texture(void* data, unsigned int width, unsigned int height);
+			~Texture();
 
-		int GetWidth() const { return m_Width; }
-		int GetHeight() const { return m_Height; }
+			int GetWidth() const { return m_Width; }
+			int GetHeight() const { return m_Height; }
 
-		GL_ID GetGLTexture() const { return m_GLTexture; }
-		void Use();
+			GL_ID GetGLTexture() const { return m_GLTexture; }
+			void Use();
 	};
 }

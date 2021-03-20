@@ -1,4 +1,4 @@
-#include "Chunk.h"
+#include "ChunkComponent.h"
 
 #include "engine/core/Entity.h"
 #include "papierkraft/components/BlockComponent.h"
@@ -6,7 +6,7 @@
 
 namespace PapierKraft
 {
-	Chunk::Chunk(EBiomeType biomeType, Vector3 position) :
+	ChunkComponent::ChunkComponent(EBiomeType biomeType, Vector3 position) :
 		Mother(),
 		m_BiomeType(biomeType)
 	{
@@ -24,7 +24,7 @@ namespace PapierKraft
 		}
 	}
 
-	EBlockType Chunk::ComputeBlockType(float yCoordinate)
+	EBlockType ChunkComponent::ComputeBlockType(float yCoordinate)
 	{
 		EBlockType blockType;
 

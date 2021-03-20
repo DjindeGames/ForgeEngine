@@ -37,6 +37,8 @@ namespace ForgeEngine
 			MeshComponent(const std::vector<float>& vertices, const std::vector<unsigned int>& indices, Shader* shader, const Color& renderColor = COLOR_MAGENTA);
 			MeshComponent(const std::vector<float>& vertices, const std::vector<unsigned int>& indices, Shader* shader, Texture* texture);
 
+			void SetTexture(Texture* texture) { m_Texture = texture; }
+
 			virtual void OnUpdate(float dT) override;
 			virtual void OnDestroy() override;
 
