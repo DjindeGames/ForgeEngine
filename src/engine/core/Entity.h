@@ -86,6 +86,8 @@ namespace ForgeEngine
 			virtual void OnUpdate(float dT) override;
 			virtual void OnPostUpdate(float dT) override;
 
+			virtual void OnDrawDebug(float dT) override;
+
 			virtual void OnDestroy() override;
 	};
 }

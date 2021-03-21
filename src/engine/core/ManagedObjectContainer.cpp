@@ -87,14 +87,17 @@ namespace ForgeEngine
 		unsigned int initializedObjectsThisFrame = 0;
 		for (auto& object : m_RegisteredObjects)
 		{
-			if (object->IsInitialized())
+			if (object != nullptr)
 			{
-				object->OnUpdate(dT);
-			}
-			else if (object->NeedsInit() && initializedObjectsThisFrame < K_MAX_INITIALIZATIONS_PER_FRAME)
-			{
-				object->OnInit();
-				initializedObjectsThisFrame++;
+				if (object->IsInitialized())
+				{
+					object->OnUpdate(dT);
+				}
+				else if (object->NeedsInit() && initializedObjectsThisFrame < K_MAX_INITIALIZATIONS_PER_FRAME)
+				{
+					object->OnInit();
+					initializedObjectsThisFrame++;
+				}
 			}
 		}
 	}
@@ -104,14 +107,31 @@ namespace ForgeEngine
 		unsigned int initializedObjectsThisFrame = 0;
 		for (auto& object : m_RegisteredObjects)
 		{
-			if (object->IsInitialized())
+			if (object != nullptr)
 			{
-				object->OnPostUpdate(dT);
+				if (object->IsInitialized())
+				{
+					object->OnPostUpdate(dT);
+				}
+				else if (object->NeedsPostInit() && initializedObjectsThisFrame < K_MAX_INITIALIZATIONS_PER_FRAME)
+				{
+					object->OnPostInit();
+					initializedObjectsThisFrame++;
+				}
 			}
-			else if (object->NeedsPostInit() && initializedObjectsThisFrame < K_MAX_INITIALIZATIONS_PER_FRAME)
+		}
+	}
+
+	void ManagedObjectContainer::DrawDebug(float dT)
+	{
+		for (auto& object : m_RegisteredObjects)
+		{
+			if (object != nullptr)
 			{
-				object->OnPostInit();
-				initializedObjectsThisFrame++;
+				if (object->IsInitialized())
+				{
+					object->OnDrawDebug(dT);
+				}
 			}
 		}
 	}

@@ -8,6 +8,8 @@ struct GLFWwindow;
 
 namespace ForgeEngine
 {
+	#define FORGE_DEBUG_MODE
+
 	class GameHandler : Object
 	{
 		/************************************/
@@ -16,6 +18,8 @@ namespace ForgeEngine
 
 		public:
 			static GLFWwindow* m_Window;
+			static unsigned int m_WindowWidth;
+			static unsigned int m_WindowHeight;
 
 		/************************************/
 		/**************METHODS***************/

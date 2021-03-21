@@ -1,5 +1,6 @@
 #include "CoreEngine.h"
 
+#include "engine/core/GameHandler.h"
 #include "engine/core/OpenGL.h"
 
 #include <iostream>
@@ -12,6 +13,8 @@ namespace ForgeEngine
 		//make sure the viewport matches the new window dimensions; note that width and 
 		//height will be significantly larger than specified on retina displays.
 		glViewport(0, 0, width, height);
+		GameHandler::m_WindowWidth = width;
+		GameHandler::m_WindowHeight = height;
 	}
 
 	GLFWwindow* InitWindow(std::string name, unsigned int width, unsigned int height)

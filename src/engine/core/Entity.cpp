@@ -132,6 +132,27 @@ namespace ForgeEngine
 		}
 	}
 
+	void Entity::OnDrawDebug(float dT) /*override*/
+	{
+		if (!IsActive())
+		{
+			return;
+		}
+
+		Mother::OnDrawDebug(dT);
+
+		for (auto& component : m_RegisteredComponents)
+		{
+			if (component != nullptr && component->IsActive())
+			{
+				if (component->IsInitialized())
+				{
+					component->OnDrawDebug(dT);
+				}
+			}
+		}
+	}
+
 	void Entity::OnDestroy() /*override*/
 	{
 		Mother::OnDestroy();

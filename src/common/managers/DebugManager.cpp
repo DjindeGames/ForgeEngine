@@ -15,45 +15,16 @@ namespace ForgeEngine
 	{
 	}
 
-	bool DebugManager::OnInit() /*override*/
+	void DebugManager::OnDrawDebug(float dT) /*override*/
 	{
-		Mother::OnInit();
-
-		InitImgui();
-
-		return true;
-	}
-
-	void DebugManager::InitImgui()
-	{
-		// Setup Dear ImGui context
-		IMGUI_CHECKVERSION();
-		ImGui::CreateContext();
-		ImGuiIO& io = ImGui::GetIO(); (void)io;
-
-		// Setup Dear ImGui style
-		ImGui::StyleColorsDark();
-		ImGui_ImplGlfw_InitForOpenGL(GameHandler::m_Window, true);
-		ImGui_ImplOpenGL3_Init("#version 150");
-	}
-
-	void DebugManager::OnPostUpdate(float dT) /*override*/
-	{
-		// feed inputs to dear imgui, start new frame
-		ImGui_ImplOpenGL3_NewFrame();
-		ImGui_ImplGlfw_NewFrame();
-		ImGui::NewFrame();
-
+		Vector2 mousePosition = InputHelper::GetMousePosition();
 		ProcessDebugInput();
 
-		// render your GUI
-		ImGui::Begin("Framerate");
+		ImGui::Begin("General");
 		ImGui::Text("FPS: %d", ComputeFramerate(dT));
+		ImGui::Text("Window Size: %d x %d", GameHandler::m_WindowWidth, GameHandler::m_WindowHeight);
+		ImGui::Text("Mouse {%f,%f}", mousePosition.x, mousePosition.y);
 		ImGui::End();
-
-		// Render dear imgui into screen
-		ImGui::Render();
-		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	}
 
 	int DebugManager::ComputeFramerate(float dT)

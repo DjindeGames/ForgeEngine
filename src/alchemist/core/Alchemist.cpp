@@ -16,7 +16,7 @@
 int main()
 {
 	Alchemist::Alchemist instance{};
-	instance.Init("Alchemist", 1280, 720);
+	instance.Init("Alchemist", ALCHEMIST_WINDOW_WIDTH, ALCHEMIST_WINDOW_HEIGHT);
 	instance.HandleProcess();
 }
 
@@ -34,8 +34,8 @@ namespace Alchemist
 		landscape->RegisterComponent(new LandscapeComponent());
 
 		Entity* camera = EntityContainer::Get()->RegisterEntity();
-		camera->RegisterComponent(new FirstPersonControllerComponent());
-		camera->RegisterComponent(new CameraComponent());
+		camera->RegisterComponent(new CameraComponent(CameraComponent::PerspectiveCamera{}));
+		camera->SetPosition(Vector3(0.f, 0.f, 10.85f));
 	}
 
 	void Alchemist::OnUpdate(float dT) /*override*/

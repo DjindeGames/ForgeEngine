@@ -115,7 +115,7 @@ namespace ForgeEngine
 	{
 		Mother::OnUpdate(dT);
 
-		if (m_Shader != nullptr && CameraComponent::GetActiveCamera() != nullptr)
+		if (m_Shader != nullptr)
 		{
 			glEnable(GL_DEPTH_TEST);
 			glEnable(GL_BLEND);
@@ -127,12 +127,10 @@ namespace ForgeEngine
 			m_Shader->SetFloat(DEFAULT_LIGHT_INTENSITY_NAME, 1.f);
 			m_Shader->SetTransform(DEFAULT_TRANSFORM_NAME, &m_Owner->GetTransform());
 
-			m_Shader->SetProjection(DEFAULT_PROJECTION_NAME, CameraComponent::GetActiveCamera()->GetProjection());
-			m_Shader->SetView(DEFAULT_VIEW_NAME, CameraComponent::GetActiveCamera()->GetView());
-			
-			if (m_Texture != nullptr)
+			if (CameraComponent::GetActiveCamera() != nullptr)
 			{
-				m_Texture->Use();
+				m_Shader->SetProjection(DEFAULT_PROJECTION_NAME, CameraComponent::GetActiveCamera()->GetProjection());
+				m_Shader->SetView(DEFAULT_VIEW_NAME, CameraComponent::GetActiveCamera()->GetView());
 			}
 
 			glBindVertexArray(m_VertexArrayObject);

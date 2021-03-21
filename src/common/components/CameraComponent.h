@@ -9,6 +9,23 @@ namespace ForgeEngine
 	{
 		using Mother = Component;
 
+		public:
+			struct PerspectiveCamera
+			{
+				float m_Fov = 45.f; 
+				float m_AspectRatio = 16.f / 9.f;
+				float m_NearPlane = 0.1f;
+				float m_FarPlane = 100.f;
+			};
+
+			struct OrthographicCamera
+			{
+				unsigned int m_Width = 1280;
+				unsigned int m_Height = 720;
+				float m_NearPlane = 0.1f;
+				float m_FarPlane = 100.f;
+			};
+
 		/************************************/
 		/************ATTRIBUTES**************/
 		/************************************/
@@ -34,7 +51,8 @@ namespace ForgeEngine
 		/************************************/
 
 		public:
-			CameraComponent(float fov = 45.f, float aspectRatio = 16.f / 9.f, float nearPlane = 0.1f, float farPlane = 100.f);
+			CameraComponent(const PerspectiveCamera& cameraData);
+			CameraComponent(const OrthographicCamera& cameraData);
 
 			static const CameraComponent* GetActiveCamera() { return s_ActiveCamera; }
 			const Matrix4& GetProjection() const { return m_Projection; }

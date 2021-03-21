@@ -43,6 +43,8 @@ namespace ForgeEngine
 			void Update(float dT);
 			void PostUpdate(float dT);
 
+			void DrawDebug(float dT);
+
 		private:
 			void OnDestroy();
 	};

@@ -54,6 +54,8 @@ namespace ForgeEngine
 			virtual void OnUpdate(float dT) {}
 			virtual void OnPostUpdate(float dT) {}
 
+			virtual void OnDrawDebug(float dT) {}
+
 			void Destroy() { OnDestroy(); }
 		
 		protected:

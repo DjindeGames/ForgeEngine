@@ -5,16 +5,27 @@
 
 namespace ForgeEngine
 {
-	InputAction::InputAction(EInputType type, KeyID id) :
+	InputAction::InputAction(EInputType type, EDeviceTarget target, KeyID id) :
 		Mother(),
 		m_InputType(type),
+		m_Target(target),
 		m_Key(id)
 	{
 	}
 
-	bool InputAction::IsKeyPressed() const
+	bool InputAction::IsActionPressed() const
 	{
-		return (glfwGetKey(GameHandler::m_Window, m_Key) == GLFW_PRESS);
+		bool isActionPressed{ false };
+		switch (m_Target)
+		{
+			case(EDeviceTarget::Keyboard):
+				isActionPressed = (glfwGetKey(GameHandler::m_Window, m_Key) == GLFW_PRESS);
+				break;
+			case(EDeviceTarget::Mouse):
+				isActionPressed = (glfwGetMouseButton(GameHandler::m_Window, m_Key) == GLFW_PRESS);
+				break;
+		}
+		return isActionPressed;
 	}
 
 	void InputAction::Update(float dT)
@@ -35,12 +46,12 @@ namespace ForgeEngine
 
 	void InputAction::ProcessHoldUpdate()
 	{
-		m_IsActive = IsKeyPressed();
+		m_IsActive = IsActionPressed();
 	}
 
 	void InputAction::ProcessPressUpdate()
 	{
-		if (IsKeyPressed() && !m_NeedsReset)
+		if (IsActionPressed() && !m_NeedsReset)
 		{
 			m_NeedsReset = true;
 			m_IsActive = true;
@@ -48,19 +59,19 @@ namespace ForgeEngine
 		else if (m_NeedsReset)
 		{
 			m_IsActive = false;
-			m_NeedsReset = IsKeyPressed();
+			m_NeedsReset = IsActionPressed();
 		}
 	}
 
 	void InputAction::ProcessReleaseUpdate()
 	{
-		if (IsKeyPressed() && !m_NeedsReset)
+		if (IsActionPressed() && !m_NeedsReset)
 		{
 			m_NeedsReset = true;
 		}
 		else if (m_NeedsReset)
 		{
-			if (!IsKeyPressed())
+			if (!IsActionPressed())
 			{
 				m_NeedsReset = false;
 				m_IsActive = true;

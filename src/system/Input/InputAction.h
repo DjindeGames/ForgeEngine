@@ -14,6 +14,10 @@ namespace ForgeEngine
 		MoveLeft,
 		FlyUp,
 		FlyDown,
+		RightClick,
+		RightClickOnce,
+		LeftClick,
+		LeftClickOnce,
 		Exit,
 		Count
 	};
@@ -23,6 +27,13 @@ namespace ForgeEngine
 		Hold,
 		Press,
 		Release,
+		Count
+	};
+
+	enum class EDeviceTarget
+	{
+		Keyboard,
+		Mouse,
 		Count
 	};
 
@@ -41,6 +52,7 @@ namespace ForgeEngine
 			static const constexpr float K_INPUT_THRESHOLD_MS = 0.1f;
 
 			EInputType m_InputType;
+			EDeviceTarget m_Target;
 			KeyID m_Key;
 			bool m_IsActive{ false };
 			bool m_NeedsReset{ false };
@@ -50,13 +62,13 @@ namespace ForgeEngine
 		/************************************/
 
 		public:
-			InputAction(EInputType type, KeyID id);
+			InputAction(EInputType type, EDeviceTarget target, KeyID id);
 
 			virtual void Update(float dT);
 			bool IsActive() const { return m_IsActive; }
 
 		private:
-			bool IsKeyPressed() const;
+			bool IsActionPressed() const;
 
 			void ProcessHoldUpdate();
 			void ProcessPressUpdate();

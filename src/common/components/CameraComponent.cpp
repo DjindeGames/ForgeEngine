@@ -8,10 +8,16 @@ namespace ForgeEngine
 {
 	/*static*/ const CameraComponent* CameraComponent::s_ActiveCamera{};
 
-	CameraComponent::CameraComponent(float fov /*= 45.f*/, float aspectRatio /*= 16.f / 9.f*/, float nearPlane /*= 0.1f*/, float farPlane /*= 100.f*/) :
+	CameraComponent::CameraComponent(const PerspectiveCamera& cameraData) :
 		Mother()
 	{
-		m_Projection = glm::perspective(glm::radians(fov), aspectRatio, nearPlane, farPlane);
+		m_Projection = glm::perspective(glm::radians(cameraData.m_Fov), cameraData.m_AspectRatio, cameraData.m_NearPlane, cameraData.m_FarPlane);
+		s_ActiveCamera = this;
+	}
+
+	CameraComponent::CameraComponent(const OrthographicCamera& cameraData)
+	{
+		m_Projection = glm::ortho(0.f, static_cast<float>(cameraData.m_Width), 0.f, static_cast<float>(cameraData.m_Height), cameraData.m_NearPlane, cameraData.m_FarPlane);
 		s_ActiveCamera = this;
 	}
 

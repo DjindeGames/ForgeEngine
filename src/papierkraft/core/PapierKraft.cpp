@@ -32,12 +32,12 @@ namespace PapierKraft
 		ManagerContainer::Get()->RegisterManager(new InputManager());
 		ManagerContainer::Get()->RegisterManager(new DebugManager());
 
-		//Chunk chunk(EBiomeType::Plain, VECTOR3_NULL);
+		Entity* block = EntityContainer::Get()->RegisterEntity();
+		block->RegisterComponent(new BlockComponent(EBlockType::Grass));
 
 		Entity* camera = EntityContainer::Get()->RegisterEntity();
-		camera->SetPosition(Vector3{ 0.f, CHUNK_HEIGHT + 2.5f, 0.f });
 		camera->RegisterComponent(new FirstPersonControllerComponent());
-		camera->RegisterComponent(new CameraComponent());
+		camera->RegisterComponent(new CameraComponent(CameraComponent::PerspectiveCamera{}));
 	}
 
 	void PapierKraft::OnUpdate(float dT) /*override*/

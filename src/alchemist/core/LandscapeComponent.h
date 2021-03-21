@@ -15,9 +15,13 @@ using namespace ForgeEngine;
 
 namespace Alchemist
 {
-	#define ALCHEMIST_LANDSCAPE_WIDTH 100
-	#define ALCHEMIST_LANDSCAPE_HEIGHT 100
+	#define ALCHEMIST_WINDOW_WIDTH 1280
+	#define ALCHEMIST_WINDOW_HEIGHT 720
+	#define ALCHEMIST_LANDSCAPE_WIDTH 200
+	#define ALCHEMIST_LANDSCAPE_HEIGHT 200
 	#define ALCHEMIST_PIXEL_DATA_SIZE 3
+	#define ALCHEMIST_WINDOW_TO_LANDSCAPE_WIDTH_CONVERSION_RATIO (ALCHEMIST_WINDOW_WIDTH / ALCHEMIST_LANDSCAPE_WIDTH)
+	#define ALCHEMIST_WINDOW_TO_LANDSCAPE_HEIGHT_CONVERSION_RATIO (ALCHEMIST_WINDOW_HEIGHT / ALCHEMIST_LANDSCAPE_HEIGHT)
 
 	#define PARTICLE_AIR Particle{}
 	#define PARTICLE_SAND Particle{EParticleType::Sand, false}
@@ -77,6 +81,7 @@ namespace Alchemist
 		public:
 			virtual bool OnPreInit() override;
 			virtual void OnPreUpdate(float dT) override;
+			virtual void OnDrawDebug(float dT) override;
 
 			void SpawnParticle(EParticleType type, unsigned int x, unsigned int y);
 

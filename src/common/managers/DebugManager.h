@@ -22,11 +22,9 @@ namespace ForgeEngine
 		public:
 			DebugManager();
 
-			virtual bool OnInit() override;
-			virtual void OnPostUpdate(float dT) override;
+			virtual void OnDrawDebug(float dT) override;
 
 		private:
-			void InitImgui();
 			int ComputeFramerate(float dT);
 			void ProcessDebugInput();
 			void ToggleWireframeMode();

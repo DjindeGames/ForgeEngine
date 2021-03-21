@@ -6,6 +6,7 @@
 #include "engine/core/ManagerContainer.h"
 #include "engine/core/OpenGL.h"
 #include "engine/shader/ShaderUtils.h"
+#include "engine/ui/ImGUI.h"
 
 #include <chrono>
 #include <cmath>
@@ -14,9 +15,13 @@
 namespace ForgeEngine
 {
 	GLFWwindow* GameHandler::m_Window{};
+	unsigned int GameHandler::m_WindowWidth{};
+	unsigned int GameHandler::m_WindowHeight{};
 
 	bool GameHandler::Init(std::string name, unsigned int width, unsigned int height)
 	{
+		m_WindowWidth = width;
+		m_WindowHeight = height;
 		if (m_Window = InitWindow(name, width, height))
 		{
 			return true;
@@ -60,6 +65,20 @@ namespace ForgeEngine
 				ManagerContainer::Get()->PostUpdate(dT);
 				EntityContainer::Get()->PostUpdate(dT);
 
+				// feed inputs to dear imgui, start new frame
+				#ifdef FORGE_DEBUG_MODE
+					ImGui_ImplOpenGL3_NewFrame();
+					ImGui_ImplGlfw_NewFrame();
+					ImGui::NewFrame();
+
+					ManagerContainer::Get()->DrawDebug(dT);
+					EntityContainer::Get()->DrawDebug(dT);
+
+					// Render dear imgui into screen
+					ImGui::Render();
+					ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+				#endif // FORGE_DEBUG_MODE
+
 				// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 				glfwSwapBuffers(m_Window);
 				glfwPollEvents();
@@ -73,6 +92,17 @@ namespace ForgeEngine
 
 	void GameHandler::OnInit()
 	{
+		#ifdef FORGE_DEBUG_MODE
+			// Setup Dear ImGui context
+			IMGUI_CHECKVERSION();
+			ImGui::CreateContext();
+			ImGuiIO& io = ImGui::GetIO(); (void)io;
+
+			// Setup Dear ImGui style
+			ImGui::StyleColorsDark();
+			ImGui_ImplGlfw_InitForOpenGL(m_Window, true);
+			ImGui_ImplOpenGL3_Init("#version 150");
+		#endif // FORGE_DEBUG_MODE
 	}
 
 	void GameHandler::OnTermination()

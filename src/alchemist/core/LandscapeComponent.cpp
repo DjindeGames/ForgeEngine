@@ -1,10 +1,13 @@
 #include "LandscapeComponent.h"
 
 #include "engine/core/OpenGL.h"
+#include "engine/ui/ImGUI.h"
 #include "engine/misc/Texture.h"
+#include "common/helpers/InputHelper.h"
 #include "common/helpers/ManagerHelper.h"
 #include "common/components/MeshComponent.h"
 #include "common/managers/ShaderManager.h"
+#include "system/math/MathUtils.h"
 
 #include <vector>
 
@@ -14,10 +17,10 @@ namespace Alchemist
 	{
 		std::vector<float> vertices
 		{
-			1.f, 1.f, -1.f, 1.f, 1.f, // top right
-			1.f, -1.f, -1.f, 1.f, 0.f, // bottom right
-			-1.f, -1.f, -1.f, 0.f, 0.f, // bottom left
-			-1.f, 1.f, -1.f, 0.f, 1.f  // top left 
+			8.f, 4.5f, 0.f, 1.f, 1.f, // top right
+			8.f, -4.5f, 0.f, 1.f, 0.f, // bottom right
+			-8.f, -4.5f, 0.f, 0.f, 0.f, // bottom left
+			-8.f, 4.5f, 0.f, 0.f, 1.f  // top left 
 		};
 
 		std::vector<unsigned int> indices
@@ -37,13 +40,22 @@ namespace Alchemist
 
 		static unsigned int particles = 0;
 
-		if (particles < 1000)
+		Vector2 mousePosition = InputHelper::GetMousePosition();
+		int pixelX = mousePosition.y / ALCHEMIST_WINDOW_TO_LANDSCAPE_HEIGHT_CONVERSION_RATIO;
+		int pixelY = mousePosition.x / ALCHEMIST_WINDOW_TO_LANDSCAPE_WIDTH_CONVERSION_RATIO;
+
+		if (ForgeMaths::IsBetween(pixelX, 0, ALCHEMIST_LANDSCAPE_WIDTH - 1) && ForgeMaths::IsBetween(pixelY, 0, ALCHEMIST_LANDSCAPE_HEIGHT - 1))
 		{
-			particles++;
-			m_ParticleContainer[ALCHEMIST_LANDSCAPE_HEIGHT - 1][ALCHEMIST_LANDSCAPE_WIDTH / 2] = PARTICLE_SAND;
-			m_ParticleContainer[ALCHEMIST_LANDSCAPE_HEIGHT - 1][ALCHEMIST_LANDSCAPE_WIDTH / 3] = PARTICLE_WATER;
+			if (InputHelper::IsInputActive(EInputAction::LeftClick))
+			{
+				m_ParticleContainer[pixelX][pixelY] = PARTICLE_SAND;
+			}
+			else if (InputHelper::IsInputActive(EInputAction::RightClick))
+			{
+				m_ParticleContainer[pixelX][pixelY] = PARTICLE_WATER;
+			}
 		}
-		
+
 		UpdateParticles();
 
 		DrawTexture();
@@ -52,6 +64,18 @@ namespace Alchemist
 		{
 			mesh->SetTexture(m_Texture.get());
 		}
+	}
+
+	void LandscapeComponent::OnDrawDebug(float dT) /*override*/ 
+	{
+		Vector2 mousePosition = InputHelper::GetMousePosition();
+		int pixelX = mousePosition.x / ALCHEMIST_WINDOW_TO_LANDSCAPE_WIDTH_CONVERSION_RATIO;
+		int pixelY = mousePosition.y / ALCHEMIST_WINDOW_TO_LANDSCAPE_HEIGHT_CONVERSION_RATIO;
+		
+
+		ImGui::Begin("Alchemist");
+		ImGui::Text("Grid Mouse Position {%d,%d}", pixelX, pixelY);
+		ImGui::End();
 	}
 
 	void LandscapeComponent::UpdateParticles()
