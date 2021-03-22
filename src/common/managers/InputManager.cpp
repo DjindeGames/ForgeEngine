@@ -46,6 +46,6 @@ namespace ForgeEngine
 		double x, y;
 		glfwGetCursorPos(GameHandler::m_Window, &x, &y);
 		m_PreviousMousePosition = m_MousePosition;
-		m_MousePosition = Vector2{ x, GameHandler::m_WindowHeight - y };
+		m_MousePosition = Vector2{ x, y };
 	}
 }

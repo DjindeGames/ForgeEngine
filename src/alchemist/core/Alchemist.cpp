@@ -16,7 +16,7 @@
 int main()
 {
 	Alchemist::Alchemist instance{};
-	instance.Init("Alchemist", ALCHEMIST_WINDOW_WIDTH, ALCHEMIST_WINDOW_HEIGHT);
+	instance.Init("Alchemist", 1280, 720);
 	instance.HandleProcess();
 }
 

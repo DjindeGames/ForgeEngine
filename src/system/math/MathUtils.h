@@ -23,14 +23,14 @@ namespace ForgeEngine
 			return retValue;
 		}
 
-		template <typename T>
-		bool IsBetween(T value, T inf, T sup)
+		template <typename T1, typename T2, typename T3>
+		bool IsBetween(T1 value, T2 inf, T3 sup)
 		{
 			return (value >= inf && value <= sup);
 		}
 
-		template <typename T>
-		bool IsBetweenExclusive(T value, T inf, T sup)
+		template <typename T1, typename T2, typename T3>
+		bool IsBetweenExclusive(T1 value, T2 inf, T3 sup)
 		{
 			return (value > inf && value < sup);
 		}

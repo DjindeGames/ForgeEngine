@@ -3,6 +3,7 @@
 #include "engine/core/Component.h"
 #include "engine/core/Defines.h"
 #include "system/misc/Color.h"
+#include "system/math/Vector2.h"
 
 #include <array>
 
@@ -15,13 +16,9 @@ using namespace ForgeEngine;
 
 namespace Alchemist
 {
-	#define ALCHEMIST_WINDOW_WIDTH 1280
-	#define ALCHEMIST_WINDOW_HEIGHT 720
-	#define ALCHEMIST_LANDSCAPE_WIDTH 200
-	#define ALCHEMIST_LANDSCAPE_HEIGHT 200
+	#define ALCHEMIST_LANDSCAPE_WIDTH 360
+	#define ALCHEMIST_LANDSCAPE_HEIGHT 180
 	#define ALCHEMIST_PIXEL_DATA_SIZE 3
-	#define ALCHEMIST_WINDOW_TO_LANDSCAPE_WIDTH_CONVERSION_RATIO (ALCHEMIST_WINDOW_WIDTH / ALCHEMIST_LANDSCAPE_WIDTH)
-	#define ALCHEMIST_WINDOW_TO_LANDSCAPE_HEIGHT_CONVERSION_RATIO (ALCHEMIST_WINDOW_HEIGHT / ALCHEMIST_LANDSCAPE_HEIGHT)
 
 	#define PARTICLE_AIR Particle{}
 	#define PARTICLE_SAND Particle{EParticleType::Sand, false}
@@ -63,7 +60,7 @@ namespace Alchemist
 	{
 		using Mother = Component;
 
-		using ParticleContainer = Particle[ALCHEMIST_LANDSCAPE_WIDTH][ALCHEMIST_LANDSCAPE_HEIGHT];
+		using ParticleContainer = Particle[ALCHEMIST_LANDSCAPE_HEIGHT][ALCHEMIST_LANDSCAPE_WIDTH];
 
 		/************************************/
 		/************ATTRIBUTES**************/
@@ -83,7 +80,7 @@ namespace Alchemist
 			virtual void OnPreUpdate(float dT) override;
 			virtual void OnDrawDebug(float dT) override;
 
-			void SpawnParticle(EParticleType type, unsigned int x, unsigned int y);
+			void SpawnParticle(EParticleType type, int x, int y);
 
 		private:
 			EParticleType GetSurroundingParticleType(EDirection direction, unsigned int centerX, unsigned int centerY) const;
@@ -91,6 +88,7 @@ namespace Alchemist
 			void DrawTexture();
 			Color GetColorForParticleType(EParticleType type) const;
 			void GeneratePixels();
+			Vector2 GetMousePosition() const;
 
 			void UpdateSand(unsigned int x, unsigned int y);
 			void UpdateWater(unsigned int x, unsigned int y);

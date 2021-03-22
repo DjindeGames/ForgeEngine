@@ -1,5 +1,6 @@
 #include "LandscapeComponent.h"
 
+#include "engine/core/GameHandler.h"
 #include "engine/core/OpenGL.h"
 #include "engine/ui/ImGUI.h"
 #include "engine/misc/Texture.h"
@@ -38,21 +39,21 @@ namespace Alchemist
 	{
 		Mother::OnPreUpdate(dT);
 
-		static unsigned int particles = 0;
+		Vector2 mousePosition = GetMousePosition();
+		unsigned int pixelX = mousePosition.x;
+		unsigned int pixelY = ALCHEMIST_LANDSCAPE_HEIGHT - mousePosition.y;
 
-		Vector2 mousePosition = InputHelper::GetMousePosition();
-		int pixelX = mousePosition.y / ALCHEMIST_WINDOW_TO_LANDSCAPE_HEIGHT_CONVERSION_RATIO;
-		int pixelY = mousePosition.x / ALCHEMIST_WINDOW_TO_LANDSCAPE_WIDTH_CONVERSION_RATIO;
-
-		if (ForgeMaths::IsBetween(pixelX, 0, ALCHEMIST_LANDSCAPE_WIDTH - 1) && ForgeMaths::IsBetween(pixelY, 0, ALCHEMIST_LANDSCAPE_HEIGHT - 1))
+		if (ForgeMaths::IsBetween(pixelY, 0, ALCHEMIST_LANDSCAPE_HEIGHT - 1) && 
+			ForgeMaths::IsBetween(pixelX, 0, ALCHEMIST_LANDSCAPE_WIDTH - 1) &&
+			m_ParticleContainer[pixelY][pixelX].m_Type == EParticleType::Air)
 		{
 			if (InputHelper::IsInputActive(EInputAction::LeftClick))
 			{
-				m_ParticleContainer[pixelX][pixelY] = PARTICLE_SAND;
+				SpawnParticle(EParticleType::Sand, pixelX, pixelY);
 			}
 			else if (InputHelper::IsInputActive(EInputAction::RightClick))
 			{
-				m_ParticleContainer[pixelX][pixelY] = PARTICLE_WATER;
+				SpawnParticle(EParticleType::Water, pixelX, pixelY);
 			}
 		}
 
@@ -68,14 +69,19 @@ namespace Alchemist
 
 	void LandscapeComponent::OnDrawDebug(float dT) /*override*/ 
 	{
-		Vector2 mousePosition = InputHelper::GetMousePosition();
-		int pixelX = mousePosition.x / ALCHEMIST_WINDOW_TO_LANDSCAPE_WIDTH_CONVERSION_RATIO;
-		int pixelY = mousePosition.y / ALCHEMIST_WINDOW_TO_LANDSCAPE_HEIGHT_CONVERSION_RATIO;
-		
+		Vector2 mousePosition = GetMousePosition();
 
 		ImGui::Begin("Alchemist");
-		ImGui::Text("Grid Mouse Position {%d,%d}", pixelX, pixelY);
+		ImGui::Text("Grid Mouse Position {%f,%f}", mousePosition.x, mousePosition.y);
 		ImGui::End();
+	}
+
+	Vector2 LandscapeComponent::GetMousePosition() const
+	{
+		float heightConversionRatio = GameHandler::m_WindowHeight / ALCHEMIST_LANDSCAPE_HEIGHT;
+		float widthConversionRatio = GameHandler::m_WindowWidth / ALCHEMIST_LANDSCAPE_WIDTH;
+		Vector2 mousePosition = InputHelper::GetMousePosition();
+		return Vector2{ mousePosition.x / widthConversionRatio, mousePosition.y / heightConversionRatio };
 	}
 
 	void LandscapeComponent::UpdateParticles()
@@ -84,11 +90,11 @@ namespace Alchemist
 		{
 			for (unsigned short y = 0; y < ALCHEMIST_LANDSCAPE_HEIGHT; y++)
 			{
-				if (!m_ParticleContainer[x][y].m_HasBeenUpdated)
+				if (!m_ParticleContainer[y][x].m_HasBeenUpdated)
 				{
-					m_ParticleContainer[x][y].m_HasBeenUpdated = true;
+					m_ParticleContainer[y][x].m_HasBeenUpdated = true;
 					EParticleType particleBeneath = GetSurroundingParticleType(EDirection::Bottom, x, y);
-					switch (m_ParticleContainer[x][y].m_Type)
+					switch (m_ParticleContainer[y][x].m_Type)
 					{
 						case(EParticleType::Sand):
 							UpdateSand(x, y);
@@ -105,17 +111,20 @@ namespace Alchemist
 		{
 			for (unsigned short y = 0; y < ALCHEMIST_LANDSCAPE_HEIGHT; y++)
 			{
-				m_ParticleContainer[x][y].m_HasBeenUpdated = false;
+				m_ParticleContainer[y][x].m_HasBeenUpdated = false;
 			}
 		}
 	}
 
-	void LandscapeComponent::SpawnParticle(EParticleType type, unsigned int x, unsigned int y)
+	void LandscapeComponent::SpawnParticle(EParticleType type, int x, int y)
 	{
 		switch (type)
 		{
 			case(EParticleType::Sand):
-				m_ParticleContainer[x][y] = PARTICLE_SAND;
+				m_ParticleContainer[y][x] = PARTICLE_SAND;
+				break;
+			case(EParticleType::Water):
+				m_ParticleContainer[y][x] = PARTICLE_WATER;
 				break;
 		}
 	}
@@ -123,55 +132,54 @@ namespace Alchemist
 	EParticleType LandscapeComponent::GetSurroundingParticleType(EDirection direction, unsigned int centerX, unsigned int centerY) const
 	{
 		EParticleType type = EParticleType::Border;
-
 		switch (direction)
 		{
 			case(EDirection::TopLeft):
-				if (centerX < ALCHEMIST_LANDSCAPE_HEIGHT - 1 && centerY > 0)
+				if (centerX > 0 && centerY < ALCHEMIST_LANDSCAPE_HEIGHT - 1)
 				{
-					type = m_ParticleContainer[centerX + 1][centerY - 1].m_Type;
+					type = m_ParticleContainer[centerY + 1][centerX - 1].m_Type;
 				}
 				break;
 			case(EDirection::Top):
-				if (centerX < ALCHEMIST_LANDSCAPE_HEIGHT - 1)
+				if (centerY < ALCHEMIST_LANDSCAPE_HEIGHT - 1)
 				{
-					type = m_ParticleContainer[centerX + 1][centerY].m_Type;
+					type = m_ParticleContainer[centerY + 1][centerX].m_Type;
 				}
 				break;
 			case(EDirection::TopRight):
-				if (centerX < ALCHEMIST_LANDSCAPE_HEIGHT - 1 && centerY < ALCHEMIST_LANDSCAPE_WIDTH - 1)
+				if (centerX < ALCHEMIST_LANDSCAPE_WIDTH - 1 && centerY < ALCHEMIST_LANDSCAPE_HEIGHT - 1)
 				{
-					type = m_ParticleContainer[centerX + 1][centerY + 1].m_Type;
+					type = m_ParticleContainer[centerY + 1][centerX - 1].m_Type;
 				}
 				break;
 			case(EDirection::Left):
-				if (centerY > 0)
+				if (centerX > 0)
 				{
-					type = m_ParticleContainer[centerX][centerY - 1].m_Type;
+					type = m_ParticleContainer[centerY][centerX - 1].m_Type;
 				}
 				break;
 			case(EDirection::Right):
-				if (centerY < ALCHEMIST_LANDSCAPE_WIDTH - 1)
+				if (centerX < ALCHEMIST_LANDSCAPE_WIDTH - 1)
 				{
-					type = m_ParticleContainer[centerX][centerY + 1].m_Type;
+					type = m_ParticleContainer[centerY][centerX + 1].m_Type;
 				}
 				break;
 			case(EDirection::BottomLeft):
 				if (centerX > 0 && centerY > 0)
 				{
-					type = m_ParticleContainer[centerX - 1][centerY - 1].m_Type;
+					type = m_ParticleContainer[centerY - 1][centerX - 1].m_Type;
 				}
 				break;
 			case(EDirection::Bottom):
-				if (centerX > 0)
+				if (centerY > 0)
 				{
-					type = m_ParticleContainer[centerX - 1][centerY].m_Type;
+					type = m_ParticleContainer[centerY - 1][centerX].m_Type;
 				}
 				break;
 			case(EDirection::BottomRight):
-				if (centerX > 0 && centerY < ALCHEMIST_LANDSCAPE_WIDTH - 1)
+				if (centerX < ALCHEMIST_LANDSCAPE_WIDTH - 1 && centerY > 0)
 				{
-					type = m_ParticleContainer[centerX - 1][centerY + 1].m_Type;
+					type = m_ParticleContainer[centerY - 1][centerX + 1].m_Type;
 				}
 				break;
 		}
@@ -192,8 +200,8 @@ namespace Alchemist
 		{
 			for (unsigned short y = 0; y < ALCHEMIST_LANDSCAPE_HEIGHT; y++)
 			{
-				Color particleColor = GetColorForParticleType(m_ParticleContainer[x][y].m_Type);
-				unsigned int basePixelIndex = ((x * ALCHEMIST_LANDSCAPE_WIDTH) + y) * ALCHEMIST_PIXEL_DATA_SIZE;
+				Color particleColor = GetColorForParticleType(m_ParticleContainer[y][x].m_Type);
+				unsigned int basePixelIndex = ((y * ALCHEMIST_LANDSCAPE_WIDTH) + x) * ALCHEMIST_PIXEL_DATA_SIZE;
 				m_Pixels[basePixelIndex] = particleColor.GetRRatio();
 				m_Pixels[basePixelIndex + 1] = particleColor.GetGRatio();
 				m_Pixels[basePixelIndex + 2] = particleColor.GetBRatio();
@@ -221,50 +229,55 @@ namespace Alchemist
 
 	void LandscapeComponent::UpdateSand(unsigned int x, unsigned int y)
 	{
-		Particle currentParticle = m_ParticleContainer[x][y];
-		if (GetSurroundingParticleType(EDirection::Bottom, x, y) != EParticleType::Border && GetSurroundingParticleType(EDirection::Bottom, x, y) != EParticleType::Sand)
+		Particle currentParticle = m_ParticleContainer[y][x];
+		if (GetSurroundingParticleType(EDirection::Bottom, x, y) != EParticleType::Border && 
+			GetSurroundingParticleType(EDirection::Bottom, x, y) != EParticleType::Sand)
 		{
-			m_ParticleContainer[x][y] = m_ParticleContainer[x - 1][y];
-			m_ParticleContainer[x - 1][y] = currentParticle;
+			m_ParticleContainer[y][x] = PARTICLE_AIR;
+			m_ParticleContainer[y - 1][x] = currentParticle;
 		}
-		else if (GetSurroundingParticleType(EDirection::BottomLeft, x, y) != EParticleType::Border && GetSurroundingParticleType(EDirection::BottomLeft, x, y) != EParticleType::Sand)
+		else if (GetSurroundingParticleType(EDirection::BottomLeft, x, y) != EParticleType::Border 
+			&& GetSurroundingParticleType(EDirection::BottomLeft, x, y) != EParticleType::Sand)
 		{
-			m_ParticleContainer[x][y] = m_ParticleContainer[x - 1][y - 1];
-			m_ParticleContainer[x - 1][y - 1] = currentParticle;
+			m_ParticleContainer[y][x] = PARTICLE_AIR;
+			m_ParticleContainer[y - 1][x - 1] = currentParticle;
 		}
-		else if (GetSurroundingParticleType(EDirection::BottomRight, x, y) != EParticleType::Border && GetSurroundingParticleType(EDirection::BottomRight, x, y) != EParticleType::Sand)
+		else if (GetSurroundingParticleType(EDirection::BottomRight, x, y) != EParticleType::Border 
+			&& GetSurroundingParticleType(EDirection::BottomRight, x, y) != EParticleType::Sand)
 		{
-			m_ParticleContainer[x][y] = m_ParticleContainer[x - 1][y + 1];
-			m_ParticleContainer[x - 1][y + 1] = currentParticle;
+			m_ParticleContainer[y][x] = PARTICLE_AIR;
+			m_ParticleContainer[y - 1][x + 1] = currentParticle;
 		}
 	}
 
 	void LandscapeComponent::UpdateWater(unsigned int x, unsigned int y)
 	{
+		Particle currentParticle = m_ParticleContainer[y][x];
 		if (GetSurroundingParticleType(EDirection::Bottom, x, y) == EParticleType::Air)
 		{
-			m_ParticleContainer[x - 1][y] = m_ParticleContainer[x][y];
-			m_ParticleContainer[x][y] = PARTICLE_AIR;
+			m_ParticleContainer[y][x] = m_ParticleContainer[y - 1][x];
+			m_ParticleContainer[y - 1][x] = currentParticle;
 		}
 		else if (GetSurroundingParticleType(EDirection::BottomLeft, x, y) == EParticleType::Air)
 		{
-			m_ParticleContainer[x - 1][y - 1] = m_ParticleContainer[x][y];
-			m_ParticleContainer[x][y] = PARTICLE_AIR;
+			m_ParticleContainer[y][x] = m_ParticleContainer[y - 1][x - 1];
+			m_ParticleContainer[y - 1][x - 1] = currentParticle;
 		}
 		else if (GetSurroundingParticleType(EDirection::BottomRight, x, y) == EParticleType::Air)
 		{
-			m_ParticleContainer[x - 1][y + 1] = m_ParticleContainer[x][y];
-			m_ParticleContainer[x][y] = PARTICLE_AIR;
+			m_ParticleContainer[y][x] = m_ParticleContainer[y - 1][x + 1];
+			m_ParticleContainer[y - 1][x + 1] = currentParticle;
 		}
 		else if (GetSurroundingParticleType(EDirection::Left, x, y) == EParticleType::Air)
 		{
-			m_ParticleContainer[x][y - 1] = m_ParticleContainer[x][y];
-			m_ParticleContainer[x][y] = PARTICLE_AIR;
+			m_ParticleContainer[y][x] = m_ParticleContainer[y][x - 1];
+			m_ParticleContainer[y][x - 1] = currentParticle;
+			
 		}
 		else if (GetSurroundingParticleType(EDirection::Right, x, y) == EParticleType::Air)
 		{
-			m_ParticleContainer[x][y + 1] = m_ParticleContainer[x][y];
-			m_ParticleContainer[x][y] = PARTICLE_AIR;
+			m_ParticleContainer[y][x] = m_ParticleContainer[y][x + 1];
+			m_ParticleContainer[y][x + 1] = currentParticle;
 		}
 	}
 }
