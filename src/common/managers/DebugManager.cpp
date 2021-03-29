@@ -23,7 +23,7 @@ namespace ForgeEngine
 		ImGui::Begin("General");
 		ImGui::Text("FPS: %d", ComputeFramerate(dT));
 		ImGui::Text("Window Size: %d x %d", GameHandler::m_WindowWidth, GameHandler::m_WindowHeight);
-		ImGui::Text("Mouse {%f,%f}", mousePosition.x, mousePosition.y);
+		ImGui::Text("Mouse {%d,%d}", static_cast<int>(mousePosition.x), static_cast<int>(mousePosition.y));
 		ImGui::End();
 	}
 

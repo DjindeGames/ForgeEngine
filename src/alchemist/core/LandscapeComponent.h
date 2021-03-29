@@ -16,13 +16,15 @@ using namespace ForgeEngine;
 
 namespace Alchemist
 {
-	#define ALCHEMIST_LANDSCAPE_WIDTH 360
-	#define ALCHEMIST_LANDSCAPE_HEIGHT 180
+	#define ALCHEMIST_WINDOW_WIDTH 1280
+	#define ALCHEMIST_WINDOW_HEIGHT 720
+	#define ALCHEMIST_LANDSCAPE_WIDTH 160
+	#define ALCHEMIST_LANDSCAPE_HEIGHT 90
 	#define ALCHEMIST_PIXEL_DATA_SIZE 3
 
 	#define PARTICLE_AIR Particle{}
-	#define PARTICLE_SAND Particle{EParticleType::Sand, false}
-	#define PARTICLE_WATER Particle{EParticleType::Water, false}
+	#define PARTICLE_SAND Particle{EParticleType::Sand, COLOR_MAGENTA, false}
+	#define PARTICLE_WATER Particle{EParticleType::Water, COLOR_MAGENTA, false}
 
 	struct ParticlePosition
 	{
@@ -53,6 +55,7 @@ namespace Alchemist
 	struct Particle
 	{
 		EParticleType m_Type = EParticleType::Air;
+		Color m_Color = COLOR_BLACK;
 		bool m_HasBeenUpdated = false;
 	};
 

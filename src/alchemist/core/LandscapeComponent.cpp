@@ -10,6 +10,7 @@
 #include "common/managers/ShaderManager.h"
 #include "system/math/MathUtils.h"
 
+#include <cstdlib>
 #include <vector>
 
 namespace Alchemist
@@ -18,10 +19,10 @@ namespace Alchemist
 	{
 		std::vector<float> vertices
 		{
-			8.f, 4.5f, 0.f, 1.f, 1.f, // top right
-			8.f, -4.5f, 0.f, 1.f, 0.f, // bottom right
-			-8.f, -4.5f, 0.f, 0.f, 0.f, // bottom left
-			-8.f, 4.5f, 0.f, 0.f, 1.f  // top left 
+			ALCHEMIST_WINDOW_WIDTH, ALCHEMIST_WINDOW_HEIGHT, 0.f, 1.f, 1.f, // top right
+			ALCHEMIST_WINDOW_WIDTH, 0.f, 0.f, 1.f, 0.f, // bottom right
+			0.f, 0.f, 0.f, 0.f, 0.f, // bottom left
+			0.f, ALCHEMIST_WINDOW_HEIGHT, 0.f, 0.f, 1.f  // top left 
 		};
 
 		std::vector<unsigned int> indices
@@ -70,9 +71,13 @@ namespace Alchemist
 	void LandscapeComponent::OnDrawDebug(float dT) /*override*/ 
 	{
 		Vector2 mousePosition = GetMousePosition();
+		float heightConversionRatio = GameHandler::m_WindowHeight / static_cast<float>(ALCHEMIST_LANDSCAPE_HEIGHT);
+		float widthConversionRatio = GameHandler::m_WindowWidth / static_cast<float>(ALCHEMIST_LANDSCAPE_WIDTH);
 
 		ImGui::Begin("Alchemist");
-		ImGui::Text("Grid Mouse Position {%f,%f}", mousePosition.x, mousePosition.y);
+		ImGui::Text("Grid Size: %d x %d", ALCHEMIST_LANDSCAPE_WIDTH, ALCHEMIST_LANDSCAPE_HEIGHT);
+		ImGui::Text("Grid Mouse Position {%d,%d}", static_cast<int>(mousePosition.x), static_cast<int>(mousePosition.y));
+		ImGui::Text("Conversion Ratio {%f,%f}", heightConversionRatio, widthConversionRatio);
 		ImGui::End();
 	}
 
@@ -122,9 +127,11 @@ namespace Alchemist
 		{
 			case(EParticleType::Sand):
 				m_ParticleContainer[y][x] = PARTICLE_SAND;
+				m_ParticleContainer[y][x].m_Color = GetColorForParticleType(EParticleType::Sand);
 				break;
 			case(EParticleType::Water):
 				m_ParticleContainer[y][x] = PARTICLE_WATER;
+				m_ParticleContainer[y][x].m_Color = GetColorForParticleType(EParticleType::Water);
 				break;
 		}
 	}
@@ -200,7 +207,7 @@ namespace Alchemist
 		{
 			for (unsigned short y = 0; y < ALCHEMIST_LANDSCAPE_HEIGHT; y++)
 			{
-				Color particleColor = GetColorForParticleType(m_ParticleContainer[y][x].m_Type);
+				Color particleColor = m_ParticleContainer[y][x].m_Color;
 				unsigned int basePixelIndex = ((y * ALCHEMIST_LANDSCAPE_WIDTH) + x) * ALCHEMIST_PIXEL_DATA_SIZE;
 				m_Pixels[basePixelIndex] = particleColor.GetRRatio();
 				m_Pixels[basePixelIndex + 1] = particleColor.GetGRatio();
@@ -214,15 +221,20 @@ namespace Alchemist
 		Color color = COLOR_MAGENTA;
 		switch (type)
 		{
-			case(EParticleType::Air):
-				color = COLOR_BLACK;
-				break;
-			case(EParticleType::Water):
-				color = COLOR_BLUE;
-				break;
-			case(EParticleType::Sand):
-				color = COLOR_YELLOW;
-				break;
+		case(EParticleType::Air):
+			color = COLOR_BLACK;
+			break;
+		case(EParticleType::Water):
+			color = COLOR_BLUE;
+			break;
+		case(EParticleType::Sand):
+			Color sandColors[3]{
+				Color{230, 179, 14},
+				Color{166, 129, 24},
+				Color{122, 94, 0},
+			};
+			color = sandColors[std::rand() % 3];
+			break;
 		}
 		return color;
 	}
