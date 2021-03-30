@@ -1,9 +1,7 @@
 #include "DebugManager.h"
 
 #include "common/helpers/InputHelper.h"
-#include "engine/core/GameHandler.h"
-#include "engine/core/ManagerContainer.h"
-#include "engine/core/OpenGL.h"
+#include "engine/core/ForgeEngine.h"
 #include "engine/ui/ImGUI.h"
 
 #include <list>

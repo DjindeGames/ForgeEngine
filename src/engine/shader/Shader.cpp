@@ -1,9 +1,8 @@
 #include "Shader.h"
 
-#include "engine/core/OpenGL.h"
+#include "engine/core/ForgeEngine.h"
 #include "engine/misc/Texture.h"
 #include "engine/shader/ShaderUtils.h"
-#include "system/math/Transform.h"
 #include "system/misc/Color.h"
 #include "system/misc/Utils.h"
 
@@ -126,7 +125,7 @@ namespace ForgeEngine
 		}
 	}
 
-	void Shader::SetTransform(const char* which, const Transform* transform)
+	void Shader::SetTransform(const char* which, const TransformComponent* transform)
 	{
 		if (transform != nullptr)
 		{

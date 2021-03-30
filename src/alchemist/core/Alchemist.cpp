@@ -7,8 +7,7 @@
 #include "common/managers/InputManager.h"
 #include "common/managers/ShaderManager.h"
 #include "common/managers/DebugManager.h"
-#include "engine/core/Entity.h"
-#include "engine/core/ManagerContainer.h"
+#include "engine/core/ForgeEngine.h"
 #include "engine/misc/Texture.h"
 #include "engine/shader/ShaderUtils.h"
 #include "system/misc/Color.h"
@@ -35,7 +34,7 @@ namespace Alchemist
 
 		Entity* camera = EntityContainer::Get()->RegisterEntity();
 		camera->RegisterComponent(new CameraComponent(CameraComponent::OrthographicCamera{ ALCHEMIST_WINDOW_WIDTH, ALCHEMIST_WINDOW_HEIGHT, 0.f, 100.f}));
-		camera->SetPosition(Vector3(0.f, 0.f, 1.f));
+		camera->GetTransform()->SetPosition(Vector3(0.f, 0.f, 1.f));
 	}
 
 	void Alchemist::OnUpdate(float dT) /*override*/

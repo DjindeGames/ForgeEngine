@@ -34,6 +34,7 @@ namespace ForgeEngine
 	{
 		Keyboard,
 		Mouse,
+		Gamepad,
 		Count
 	};
 

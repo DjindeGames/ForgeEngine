@@ -1,7 +1,6 @@
 #include "LandscapeComponent.h"
 
-#include "engine/core/GameHandler.h"
-#include "engine/core/OpenGL.h"
+#include "engine/core/ForgeEngine.h"
 #include "engine/ui/ImGUI.h"
 #include "engine/misc/Texture.h"
 #include "common/helpers/InputHelper.h"

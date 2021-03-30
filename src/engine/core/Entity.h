@@ -1,7 +1,6 @@
 #pragma once
 
-#include "system/math/Transform.h"
-#include "engine/Core/Component.h"
+#include "engine/core/Component.h"
 #include "engine/core/EntityContainer.h"
 #include "engine/core/ManagedObject.h"
 
@@ -11,7 +10,7 @@
 namespace ForgeEngine
 {
 	class Component;
-	class Transform;
+	class TransformComponent;
 
 	class Entity : public ManagedObject
 	{
@@ -24,7 +23,7 @@ namespace ForgeEngine
 		/************************************/
 
 		private:
-			Transform m_Transform{};
+			mutable TransformComponent* m_Transform{};
 
 			std::vector<std::unique_ptr<Component>> m_RegisteredComponents;
 
@@ -33,11 +32,7 @@ namespace ForgeEngine
 		/************************************/
 
 		public:
-			Transform& GetTransform() { return m_Transform; }
-			void SetTransform(const Transform& transform) { m_Transform = transform; }
-
-			Vector3 GetPosition() const { return m_Transform.GetPosition(); }
-			void SetPosition(const Vector3& position) { m_Transform.SetPosition(position); }
+			TransformComponent* GetTransform() const;
 
 			template <typename T>
 			T* RegisterComponent(T* component)
@@ -51,7 +46,7 @@ namespace ForgeEngine
 			}
 
 			template <typename T>
-			T* GetComponentByType()
+			T* GetComponentByType() const
 			{
 				for (auto& registeredComponent : m_RegisteredComponents)
 				{
@@ -62,8 +57,9 @@ namespace ForgeEngine
 				}
 				return nullptr;
 			}
+
 			template <typename T>
-			bool GetComponent(T* component)
+			bool GetComponent(T* component) const
 			{
 				component = nullptr;
 				for (auto& registeredComponent : m_RegisteredComponents)

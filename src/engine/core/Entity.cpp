@@ -1,9 +1,20 @@
 #include "Entity.h"
 
+#include "engine/core/TransformComponent.h"
+
 #include <algorithm>
 
 namespace ForgeEngine
 {
+	TransformComponent* Entity::GetTransform() const
+	{
+		if (m_Transform == nullptr)
+		{
+			m_Transform = GetComponentByType<TransformComponent>();
+		}
+		return m_Transform;
+	}
+
 	bool Entity::OnPreInit() /*override*/
 	{
 		bool success = Mother::OnPreInit();
@@ -113,8 +124,6 @@ namespace ForgeEngine
 		}
 
 		Mother::OnPostUpdate(dT);
-
-		m_Transform.Refresh();
 
 		for (auto& component : m_RegisteredComponents)
 		{

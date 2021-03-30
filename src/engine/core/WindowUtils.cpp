@@ -1,7 +1,6 @@
-#include "CoreEngine.h"
+#include "WindowUtils.h"
 
-#include "engine/core/GameHandler.h"
-#include "engine/core/OpenGL.h"
+#include "engine/core/ForgeEngine.h"
 
 #include <iostream>
 

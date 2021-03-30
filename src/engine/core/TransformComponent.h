@@ -1,12 +1,15 @@
 #pragma once
 
+#include "engine/core/Component.h"
 #include "system/math/Matrix4.h"
 #include "system/math/Vector3.h"
 
 namespace ForgeEngine
 {
-	class Transform
+	class TransformComponent : public Component
 	{
+		using Mother = Component;
+
 		/************************************/
 		/************ATTRIBUTES**************/
 		/************************************/
@@ -23,7 +26,9 @@ namespace ForgeEngine
 		/************************************/
 
 		public:
-			Transform();
+			TransformComponent();
+
+			virtual void OnPostUpdate(float dT) override;
 
 			const Matrix4& GetMatrix() const { return m_Matrix; }
 
@@ -40,7 +45,6 @@ namespace ForgeEngine
 			void Rotate(const Vector3& euleurAngles);
 			void Scale(const Vector3& scale);
 
-			void Refresh();
 			void Reset();
 	};
 }

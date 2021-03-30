@@ -1,5 +1,6 @@
 #include "CameraComponent.h"
 
+#include "engine/core/ForgeEngine.h"
 #include "system/math/MathUtils.h"
 
 #include <glm/gtc/matrix_transform.hpp>
@@ -56,12 +57,12 @@ namespace ForgeEngine
 	void CameraComponent::RefreshView()
 	{
 		m_View = Matrix4{ 1.f };
-		ForgeMaths::Translate(m_View, -GetOwner()->GetPosition());
+		ForgeMaths::Translate(m_View, -GetOwner()->GetTransform()->GetPosition());
 
 		Vector3 sight{};
 		if (m_IsFocusActive && m_FocusedEntity != nullptr)
 		{
-			sight = m_FocusedEntity->GetPosition() - GetOwner()->GetPosition();
+			sight = m_FocusedEntity->GetTransform()->GetPosition() - GetOwner()->GetTransform()->GetPosition();
 		}
 		else
 		{
@@ -72,6 +73,6 @@ namespace ForgeEngine
 		m_Right = ForgeMaths::Cross(VECTOR3_Y, m_Sight);
 		m_Up = ForgeMaths::Cross(m_Sight, m_Right);
 
-		ForgeMaths::LookAt(m_View, GetOwner()->GetPosition(), GetOwner()->GetPosition() + m_Sight, VECTOR3_Y);
+		ForgeMaths::LookAt(m_View, GetOwner()->GetTransform()->GetPosition(), GetOwner()->GetTransform()->GetPosition() + m_Sight, VECTOR3_Y);
 	}
 }

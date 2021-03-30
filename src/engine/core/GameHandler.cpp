@@ -1,10 +1,7 @@
 #include "GameHandler.h"
 
 #include "common/managers/ShaderManager.h"
-#include "engine/core/CoreEngine.h"
-#include "engine/core/Entity.h"
-#include "engine/core/ManagerContainer.h"
-#include "engine/core/OpenGL.h"
+#include "engine/core/ForgeEngine.h"
 #include "engine/shader/ShaderUtils.h"
 #include "engine/ui/ImGUI.h"
 

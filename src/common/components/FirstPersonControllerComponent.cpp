@@ -2,10 +2,7 @@
 
 #include "common/components/CameraComponent.h"
 #include "common/helpers/InputHelper.h"
-#include "engine/core/Entity.h"
-#include "engine/core/GameHandler.h"
-#include "engine/core/ManagerContainer.h"
-#include "engine/core/OpenGL.h"
+#include "engine/core/ForgeEngine.h"
 #include "system/math/MathUtils.h"
 #include "system/math/Vector3.h"
 
@@ -67,7 +64,7 @@ namespace ForgeEngine
 		m_CameraComponent->SetPitch(pitch);
 
 		//TODO: Normalize translation
-		GetOwner()->GetTransform().Translate(translation * dT);
+		GetOwner()->GetTransform()->Translate(translation * dT);
 	}
 
 	void FirstPersonControllerComponent::OnDestroy() /*override*/

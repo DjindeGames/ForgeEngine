@@ -1,8 +1,6 @@
 #include "ViewerComponent.h"
 
-#include "engine/core/Entity.h"
-#include "engine/core/GameHandler.h"
-#include "engine/core/OpenGL.h"
+#include "engine/core/ForgeEngine.h"
 #include "system/math/Vector3.h"
 
 namespace ForgeEngine
@@ -15,23 +13,9 @@ namespace ForgeEngine
 	{
 	}
 
-	bool ViewerComponent::OnInit() /*override*/
-	{
-		bool success = Mother::OnInit();
-		m_InitialTransform = GetOwner()->GetTransform();
-		return success;
-	}
-
 	void ViewerComponent::OnUpdate(float dT) /*override*/
 	{
 		Mother::OnUpdate(dT);
-
-		//Reset
-		if (glfwGetKey(GameHandler::m_Window, GLFW_KEY_SPACE) == GLFW_PRESS)
-		{
-			ResetTransform();
-			return;
-		}
 
 		Vector3 eulerRotation{};
 		Vector3 translation{};
@@ -83,13 +67,8 @@ namespace ForgeEngine
 			scale *= m_ScaleSpeed;
 		}
 
-		m_Owner->GetTransform().Rotate(eulerRotation * dT);
-		m_Owner->GetTransform().Translate(translation * dT);
-		m_Owner->GetTransform().Scale(scale);
-	}
-
-	void ViewerComponent::ResetTransform()
-	{
-		m_Owner->SetTransform(m_InitialTransform);
+		m_Owner->GetTransform()->Rotate(eulerRotation * dT);
+		m_Owner->GetTransform()->Translate(translation * dT);
+		m_Owner->GetTransform()->Scale(scale);
 	}
 }

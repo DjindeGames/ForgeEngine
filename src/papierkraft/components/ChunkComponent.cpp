@@ -1,6 +1,6 @@
 #include "ChunkComponent.h"
 
-#include "engine/core/Entity.h"
+#include "engine/core/ForgeEngine.h"
 #include "papierkraft/components/BlockComponent.h"
 #include "system/math/MathUtils.h"
 
@@ -18,7 +18,7 @@ namespace PapierKraft
 				{
 					Entity* block = EntityContainer::Get()->RegisterEntity();
 					block->RegisterComponent(new BlockComponent(ComputeBlockType(y)));
-					block->SetPosition(Vector3{ position.x + x, position.y + y, position.z + z});
+					block->GetTransform()->SetPosition(Vector3{ position.x + x, position.y + y, position.z + z});
 				}
 			}
 		}

@@ -1,7 +1,6 @@
 #include "InputManager.h"
 
-#include "engine/core/GameHandler.h"
-#include "engine/core/OpenGL.h"
+#include "engine/core/ForgeEngine.h"
 
 namespace ForgeEngine
 {

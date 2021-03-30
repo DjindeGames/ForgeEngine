@@ -26,7 +26,7 @@ namespace ForgeEngine
 
 	class Color;
 	class Texture;
-	class Transform;
+	class TransformComponent;
 
 	class Shader : Object
 	{
@@ -66,7 +66,7 @@ namespace ForgeEngine
 			void SetInt(const char* which, int value);
 			void SetColor(const char* which, const Color& value);
 			void SetTexture(unsigned int which, const Texture* texture);
-			void SetTransform(const char* which, const Transform* transform);
+			void SetTransform(const char* which, const TransformComponent* transform);
 			void SetProjection(const char* which, const Matrix4& projection);
 			void SetView(const char* which, const Matrix4& view);
 	};
