@@ -410,6 +410,8 @@
   <ItemGroup>
     <None Include="assets\shaders\fragment\textured.glslf" />
     <None Include="assets\shaders\vertex\textured.glslv" />
+    <None Include="src\alchemist\Alchemist.cd" />
+    <None Include="src\engine\ForgeEngine.cd" />
     <None Include="src\extern\opengl\includes\glm\detail\func_common.inl" />
     <None Include="src\extern\opengl\includes\glm\detail\func_common_simd.inl" />
     <None Include="src\extern\opengl\includes\glm\detail\func_exponential.inl" />
@@ -546,6 +548,7 @@
     <None Include="src\extern\opengl\includes\glm\gtx\vector_angle.inl" />
     <None Include="src\extern\opengl\includes\glm\gtx\vector_query.inl" />
     <None Include="src\extern\opengl\includes\glm\gtx\wrap.inl" />
+    <None Include="src\papierkraft\PapierKraft.cd" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

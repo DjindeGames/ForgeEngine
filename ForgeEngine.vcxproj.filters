@@ -1584,5 +1584,8 @@
     <None Include="src\extern\opengl\includes\glm\gtx\wrap.inl">
       <Filter>Fichiers d%27en-tête</Filter>
     </None>
+    <None Include="src\engine\ForgeEngine.cd" />
+    <None Include="src\papierkraft\PapierKraft.cd" />
+    <None Include="src\alchemist\Alchemist.cd" />
   </ItemGroup>
 </Project>
