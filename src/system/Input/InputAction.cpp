@@ -18,10 +18,10 @@ namespace ForgeEngine
 		switch (m_Target)
 		{
 			case(EDeviceTarget::Keyboard):
-				isActionPressed = (glfwGetKey(GameHandler::m_Window, m_Key) == GLFW_PRESS);
+				isActionPressed = (glfwGetKey(GameHandler::Get().GetWindow(), m_Key) == GLFW_PRESS);
 				break;
 			case(EDeviceTarget::Mouse):
-				isActionPressed = (glfwGetMouseButton(GameHandler::m_Window, m_Key) == GLFW_PRESS);
+				isActionPressed = (glfwGetMouseButton(GameHandler::Get().GetWindow(), m_Key) == GLFW_PRESS);
 				break;
 		}
 		return isActionPressed;

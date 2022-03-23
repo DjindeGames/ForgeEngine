@@ -1,6 +1,7 @@
 #pragma once
 
 #include "engine/core/Object.h"
+#include "engine/core/World.h"
 
 #include <string>
 
@@ -8,7 +9,7 @@ struct GLFWwindow;
 
 namespace ForgeEngine
 {
-	#define FORGE_DEBUG_MODE
+    class World;
 
 	class GameHandler : Object
 	{
@@ -17,20 +18,31 @@ namespace ForgeEngine
 		/************************************/
 
 		public:
-			static GLFWwindow* m_Window;
-			static unsigned int m_WindowWidth;
-			static unsigned int m_WindowHeight;
+            static GameHandler* s_Instance;
+
+        private:
+            GLFWwindow* m_Window{ nullptr };
+            unsigned int m_WindowWidth;
+            unsigned int m_WindowHeight;
+            World m_World{};
 
 		/************************************/
 		/**************METHODS***************/
 		/************************************/
 
 		public:
-			/*** Following methods should always be called, and always in the following order ***/
-			//Creates a window
-			bool Init(std::string name, unsigned int width, unsigned int height);
+            GameHandler(std::string name, unsigned int width, unsigned int height);
 			//Handles the main loop
 			void HandleProcess();
+
+            GLFWwindow* GetWindow() const { return m_Window; }
+            unsigned int GetWindowWidth() const { return m_WindowWidth; }
+            void SetWindowWidth(unsigned int width) { m_WindowWidth = width; }
+            unsigned int GetWindowHeight() const { return m_WindowHeight; }
+            void SetWindowHeight(unsigned int height) { m_WindowHeight = height; }
+            World* GetWorld() { return &m_World; }
+
+            static GameHandler& Get() { return *s_Instance; }
 
 		protected:
 			virtual void OnInit();

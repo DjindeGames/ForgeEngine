@@ -1,7 +1,7 @@
 #pragma once
 
 #include "engine/core/Component.h"
-#include "engine/core/EntityContainer.h"
+#include "engine/core/World.h"
 #include "engine/core/ManagedObject.h"
 
 #include <memory>
@@ -11,19 +11,21 @@ namespace ForgeEngine
 {
 	class Component;
 	class TransformComponent;
+    class World;
 
 	class Entity : public ManagedObject
 	{
 		using Mother = ManagedObject;
 
-		friend Entity* EntityContainer::RegisterEntity();
+		friend class World;
 
 		/************************************/
 		/************ATTRIBUTES**************/
 		/************************************/
 
 		private:
-			mutable TransformComponent* m_Transform{};
+            World* m_World{ nullptr };
+			mutable TransformComponent* m_Transform{ nullptr };
 
 			std::vector<std::unique_ptr<Component>> m_RegisteredComponents;
 
@@ -33,11 +35,13 @@ namespace ForgeEngine
 
 		public:
 			TransformComponent* GetTransform() const;
+            World* GetWorld() { return m_World; }
+            const World* GetWorld() const { return m_World; }
 
 			template <typename T>
 			T* RegisterComponent(T* component)
 			{
-				if (component != nullptr)
+				if (dynamic_cast<Component*>(component))
 				{
 					m_RegisteredComponents.push_back(std::unique_ptr<Component>(component));
 					component->SetOwner(this);
@@ -74,6 +78,8 @@ namespace ForgeEngine
 			}
 
 		protected:
+            Entity(World* world);
+
 			virtual bool OnPreInit() override;
 			virtual bool OnInit() override;
 			virtual bool OnPostInit() override;

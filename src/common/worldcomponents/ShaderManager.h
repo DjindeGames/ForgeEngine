@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/core/Manager.h"
+#include "engine/core/WorldComponent.h"
 #include "engine/shader/Shader.h"
 
 #include <unordered_map>
@@ -14,9 +14,9 @@ namespace ForgeEngine
 		Count
 	};
 
-	class ShaderManager : public Manager
+	class ShaderManager : public WorldComponent
 	{
-		using Mother = Manager;
+		using Mother = WorldComponent;
 
 		/************************************/
 		/************ATTRIBUTES**************/

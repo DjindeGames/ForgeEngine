@@ -42,6 +42,8 @@ namespace PapierKraft
 		public:
 			ChunkComponent(EBiomeType biomeType, Vector3 position);
 			
+            virtual bool OnPreInit() override;
+
 			EBlockType ComputeBlockType(float yCoordinate);
 	};
 }

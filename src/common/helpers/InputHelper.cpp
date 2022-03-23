@@ -1,7 +1,8 @@
-#include "InputHelper.h"
+#include "common/helpers/InputHelper.h"
 
-#include "common/helpers/ManagerHelper.h"
-#include "common/managers/InputManager.h"
+#include "common/worldcomponents/InputManager.h"
+#include "engine/core/GameHandler.h"
+#include "engine/core/World.h"
 
 namespace ForgeEngine
 {
@@ -9,7 +10,7 @@ namespace ForgeEngine
 	{
 		bool IsInputActive(EInputAction type)
 		{
-			if (InputManager * inputManager = ManagerHelper::GetManagerByType<InputManager>())
+			if (InputManager* inputManager = GameHandler::Get().GetWorld()->GetComponentByType<InputManager>())
 			{
 				return inputManager->IsInputActive(type);
 			}
@@ -18,7 +19,7 @@ namespace ForgeEngine
 
 		Vector2 GetMouseVelocity()
 		{
-			if (InputManager * inputManager = ManagerHelper::GetManagerByType<InputManager>())
+			if (InputManager* inputManager = GameHandler::Get().GetWorld()->GetComponentByType<InputManager>())
 			{
 				return inputManager->GetMouseVelocity();
 			}
@@ -27,7 +28,7 @@ namespace ForgeEngine
 
 		Vector2 GetMousePosition()
 		{
-			if (InputManager * inputManager = ManagerHelper::GetManagerByType<InputManager>())
+			if (InputManager* inputManager = GameHandler::Get().GetWorld()->GetComponentByType<InputManager>())
 			{
 				return inputManager->GetMousePosition();
 			}

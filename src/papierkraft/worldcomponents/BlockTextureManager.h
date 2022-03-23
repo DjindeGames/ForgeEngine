@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/core/Manager.h"
+#include "engine/core/WorldComponent.h"
 #include "papierkraft/data/BlockTextureData.h"
 
 #include <unordered_map>
@@ -16,12 +16,12 @@ namespace PapierKraft
 {
 	enum class EBlockType;
 
-	#define TEXTURE_ATLAS_PATH	"assets\\textures\\blocks\\texture_atlas.png"
-	#define BLOCK_TEXTURE_RESOLUTION	16.f
+	#define TEXTURE_ATLAS_PATH "assets\\textures\\blocks\\texture_atlas.png"
+	#define BLOCK_TEXTURE_RESOLUTION 16.f
 
-	class BlockTextureManager : public Manager
+	class BlockTextureManager : public WorldComponent
 	{
-		using Mother = Manager;
+		using Mother = WorldComponent;
 
 		/************************************/
 		/************ATTRIBUTES**************/

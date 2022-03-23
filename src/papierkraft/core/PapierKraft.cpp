@@ -3,38 +3,42 @@
 #include "common/components/CameraComponent.h"
 #include "common/components/FirstPersonControllerComponent.h"
 #include "common/helpers/InputHelper.h"
-#include "common/managers/InputManager.h"
-#include "common/managers/ShaderManager.h"
-#include "common/managers/DebugManager.h"
+#include "common/worldcomponents/InputManager.h"
+#include "common/worldcomponents/ShaderManager.h"
+#include "common/worldcomponents/DebugManager.h"
 #include "engine/core/ForgeEngine.h"
 #include "engine/shader/ShaderUtils.h"
 #include "papierkraft/components/BlockComponent.h"
 #include "papierkraft/components/ChunkComponent.h"
-#include "papierkraft/managers/BlockTextureManager.h"
+#include "papierkraft/worldcomponents/BlockTextureManager.h"
 #include "system/misc/Color.h"
 
-void mained()
+int main()
 {
-	PapierKraft::PapierKraft instance{};
-	instance.Init("PapierKraft", 1280, 720);
-	instance.HandleProcess();
+    PapierKraft::PapierKraft instance("PapierKraft", 1280, 720);
+    instance.HandleProcess();
 }
 
 namespace PapierKraft
 {
+    PapierKraft::PapierKraft(std::string name, unsigned int width, unsigned int height) :
+        Mother(name, width, height)
+    {
+    }
+
 	void PapierKraft::OnInit() /*override*/
 	{
 		Mother::OnInit();
 
-		ManagerContainer::Get()->RegisterManager(new BlockTextureManager());
-		ManagerContainer::Get()->RegisterManager(new ShaderManager());
-		ManagerContainer::Get()->RegisterManager(new InputManager());
-		ManagerContainer::Get()->RegisterManager(new DebugManager());
+        World* world = GetWorld();
 
-		Entity* block = EntityContainer::Get()->RegisterEntity();
-		block->RegisterComponent(new BlockComponent(EBlockType::Grass));
+        world->RegisterComponent(new BlockTextureManager());
 
-		Entity* camera = EntityContainer::Get()->RegisterEntity();
+        Entity* block = world->RegisterEntity();
+        block->RegisterComponent(new BlockComponent(EBlockType::Grass));
+
+		Entity* camera = world->RegisterEntity();
+        camera->GetTransform()->SetPosition(Vector3(0.f, 0.f, 10.f));
 		camera->RegisterComponent(new FirstPersonControllerComponent());
 		camera->RegisterComponent(new CameraComponent(CameraComponent::PerspectiveCamera{}));
 	}

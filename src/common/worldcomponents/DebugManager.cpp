@@ -20,7 +20,7 @@ namespace ForgeEngine
 
 		ImGui::Begin("General");
 		ImGui::Text("FPS: %d", ComputeFramerate(dT));
-		ImGui::Text("Window Size: %d x %d", GameHandler::m_WindowWidth, GameHandler::m_WindowHeight);
+		ImGui::Text("Window Size: %d x %d", GameHandler::Get().GetWindowWidth(), GameHandler::Get().GetWindowHeight());
 		ImGui::Text("Mouse {%d,%d}", static_cast<int>(mousePosition.x), static_cast<int>(mousePosition.y));
 		ImGui::End();
 	}
@@ -30,7 +30,7 @@ namespace ForgeEngine
 		static std::list<float> deltaTimes;
 		float framerate = 0;
 
-		if (deltaTimes.size() == 50)
+		if (deltaTimes.size() == K_NB_FRAMERATE_SAMPLES)
 		{
 			deltaTimes.pop_back();
 		}

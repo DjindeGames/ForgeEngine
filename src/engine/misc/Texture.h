@@ -1,13 +1,11 @@
 #pragma once
 
 #include "engine/core/Defines.h"
-#include "engine/core/Object.h""
+#include "engine/core/Object.h"
 #include "engine/core/OpenGL.h"
 
 namespace ForgeEngine
 {
-	#define BLOCK_TEXTURE_RESOLUTION 16
-
 	#define MISSING_TEXTURE "assets\\textures\\default\\default.png"
 
 	class Texture : Object

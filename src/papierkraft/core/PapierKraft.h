@@ -14,16 +14,11 @@ namespace PapierKraft
 		/************ATTRIBUTES**************/
 		/************************************/
 
-		public:
-			static GLFWwindow* m_Window;
-
-		private:
-			int m_CurrentDrawMode;
-			int m_Framerate;
-
 		/************************************/
 		/**************METHODS***************/
 		/************************************/
+        public:
+            PapierKraft(std::string name, unsigned int width, unsigned int height);
 
 		protected:
 			virtual void OnInit() override;

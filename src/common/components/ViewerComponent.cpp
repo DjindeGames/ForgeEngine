@@ -22,47 +22,47 @@ namespace ForgeEngine
 		Vector3 scale{ 1.f };
 
 		//Translation
-		if (glfwGetKey(GameHandler::m_Window, GLFW_KEY_W) == GLFW_PRESS)
+		if (glfwGetKey(GameHandler::Get().GetWindow(), GLFW_KEY_W) == GLFW_PRESS)
 		{
 			translation.y += m_TranslationSpeed;
 		}
-		if (glfwGetKey(GameHandler::m_Window, GLFW_KEY_S) == GLFW_PRESS)
+		if (glfwGetKey(GameHandler::Get().GetWindow(), GLFW_KEY_S) == GLFW_PRESS)
 		{
 			translation.y -= m_TranslationSpeed;
 		}
-		if (glfwGetKey(GameHandler::m_Window, GLFW_KEY_A) == GLFW_PRESS)
+		if (glfwGetKey(GameHandler::Get().GetWindow(), GLFW_KEY_A) == GLFW_PRESS)
 		{
 			translation.x -= m_TranslationSpeed;
 		}
-		if (glfwGetKey(GameHandler::m_Window, GLFW_KEY_D) == GLFW_PRESS)
+		if (glfwGetKey(GameHandler::Get().GetWindow(), GLFW_KEY_D) == GLFW_PRESS)
 		{
 			translation.x += m_TranslationSpeed;
 		}
 
 		//Rotation
-		if (glfwGetKey(GameHandler::m_Window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+		if (glfwGetKey(GameHandler::Get().GetWindow(), GLFW_KEY_RIGHT) == GLFW_PRESS)
 		{
 			eulerRotation.y += m_RotationSpeed;
 		}
-		if (glfwGetKey(GameHandler::m_Window, GLFW_KEY_LEFT) == GLFW_PRESS)
+		if (glfwGetKey(GameHandler::Get().GetWindow(), GLFW_KEY_LEFT) == GLFW_PRESS)
 		{
 			eulerRotation.y -= m_RotationSpeed;
 		}
-		if (glfwGetKey(GameHandler::m_Window, GLFW_KEY_UP) == GLFW_PRESS)
+		if (glfwGetKey(GameHandler::Get().GetWindow(), GLFW_KEY_UP) == GLFW_PRESS)
 		{
 			eulerRotation.x -= m_RotationSpeed;
 		}
-		if (glfwGetKey(GameHandler::m_Window, GLFW_KEY_DOWN) == GLFW_PRESS)
+		if (glfwGetKey(GameHandler::Get().GetWindow(), GLFW_KEY_DOWN) == GLFW_PRESS)
 		{
 			eulerRotation.x += m_RotationSpeed;
 		}
 
 		//Scale
-		if (glfwGetKey(GameHandler::m_Window, GLFW_KEY_KP_SUBTRACT) == GLFW_PRESS)
+		if (glfwGetKey(GameHandler::Get().GetWindow(), GLFW_KEY_KP_SUBTRACT) == GLFW_PRESS)
 		{
 			scale *= (1.f / m_ScaleSpeed);
 		}
-		if (glfwGetKey(GameHandler::m_Window, GLFW_KEY_KP_ADD) == GLFW_PRESS)
+		if (glfwGetKey(GameHandler::Get().GetWindow(), GLFW_KEY_KP_ADD) == GLFW_PRESS)
 		{
 			scale *= m_ScaleSpeed;
 		}

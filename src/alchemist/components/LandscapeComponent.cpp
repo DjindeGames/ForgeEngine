@@ -4,9 +4,8 @@
 #include "engine/ui/ImGUI.h"
 #include "engine/misc/Texture.h"
 #include "common/helpers/InputHelper.h"
-#include "common/helpers/ManagerHelper.h"
 #include "common/components/MeshComponent.h"
-#include "common/managers/ShaderManager.h"
+#include "common/worldcomponents/ShaderManager.h"
 #include "system/math/MathUtils.h"
 
 #include <cstdlib>
@@ -30,7 +29,7 @@ namespace Alchemist
 			1, 2, 3
 		};
 
-		GetOwner()->RegisterComponent(new MeshComponent(vertices, indices, ManagerHelper::GetManagerByType<ShaderManager>()->GetShaderByType(EShaderType::Textured)));
+		GetOwner()->RegisterComponent(new MeshComponent(vertices, indices, GetOwner()->GetWorld()->GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Textured)));
 
 		return true;
 	}
@@ -40,8 +39,8 @@ namespace Alchemist
 		Mother::OnPreUpdate(dT);
 
 		Vector2 mousePosition = GetMousePosition();
-		unsigned int pixelX = mousePosition.x;
-		unsigned int pixelY = ALCHEMIST_LANDSCAPE_HEIGHT - mousePosition.y;
+		unsigned int pixelX = (unsigned int)mousePosition.x;
+		unsigned int pixelY = ALCHEMIST_LANDSCAPE_HEIGHT - (unsigned int)mousePosition.y;
 
 		if (ForgeMaths::IsBetween(pixelY, 0, ALCHEMIST_LANDSCAPE_HEIGHT - 1) && 
 			ForgeMaths::IsBetween(pixelX, 0, ALCHEMIST_LANDSCAPE_WIDTH - 1) &&
@@ -70,8 +69,8 @@ namespace Alchemist
 	void LandscapeComponent::OnDrawDebug(float dT) /*override*/ 
 	{
 		Vector2 mousePosition = GetMousePosition();
-		float heightConversionRatio = GameHandler::m_WindowHeight / static_cast<float>(ALCHEMIST_LANDSCAPE_HEIGHT);
-		float widthConversionRatio = GameHandler::m_WindowWidth / static_cast<float>(ALCHEMIST_LANDSCAPE_WIDTH);
+		float heightConversionRatio = GameHandler::Get().GetWindowHeight() / static_cast<float>(ALCHEMIST_LANDSCAPE_HEIGHT);
+		float widthConversionRatio = GameHandler::Get().GetWindowWidth() / static_cast<float>(ALCHEMIST_LANDSCAPE_WIDTH);
 
 		ImGui::Begin("Alchemist");
 		ImGui::Text("Grid Size: %d x %d", ALCHEMIST_LANDSCAPE_WIDTH, ALCHEMIST_LANDSCAPE_HEIGHT);
@@ -82,8 +81,8 @@ namespace Alchemist
 
 	Vector2 LandscapeComponent::GetMousePosition() const
 	{
-		float heightConversionRatio = GameHandler::m_WindowHeight / ALCHEMIST_LANDSCAPE_HEIGHT;
-		float widthConversionRatio = GameHandler::m_WindowWidth / ALCHEMIST_LANDSCAPE_WIDTH;
+		float heightConversionRatio = GameHandler::Get().GetWindowHeight() / (float)ALCHEMIST_LANDSCAPE_HEIGHT;
+		float widthConversionRatio = GameHandler::Get().GetWindowWidth() / (float)ALCHEMIST_LANDSCAPE_WIDTH;
 		Vector2 mousePosition = InputHelper::GetMousePosition();
 		return Vector2{ mousePosition.x / widthConversionRatio, mousePosition.y / heightConversionRatio };
 	}

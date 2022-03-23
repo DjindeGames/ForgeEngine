@@ -1,11 +1,17 @@
 #include "Entity.h"
 
-#include "engine/core/TransformComponent.h"
+#include "engine/components/TransformComponent.h"
 
 #include <algorithm>
 
 namespace ForgeEngine
 {
+    Entity::Entity(World* world) : 
+        m_World(world)
+    {
+        m_RegisteredComponents.push_back(std::unique_ptr<TransformComponent>(new TransformComponent()));
+    }
+
 	TransformComponent* Entity::GetTransform() const
 	{
 		if (m_Transform == nullptr)

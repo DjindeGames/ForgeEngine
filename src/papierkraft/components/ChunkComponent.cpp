@@ -10,19 +10,24 @@ namespace PapierKraft
 		Mother(),
 		m_BiomeType(biomeType)
 	{
-		for (float x = -(CHUNK_WIDTH / 2) ; x < (CHUNK_WIDTH / 2); x++)
-		{
-			for (float y = 0 ; y < CHUNK_HEIGHT ; y++)
-			{
-				for (float z = -(CHUNK_WIDTH / 2); z < (CHUNK_WIDTH / 2); z++)
-				{
-					Entity* block = EntityContainer::Get()->RegisterEntity();
-					block->RegisterComponent(new BlockComponent(ComputeBlockType(y)));
-					block->GetTransform()->SetPosition(Vector3{ position.x + x, position.y + y, position.z + z});
-				}
-			}
-		}
 	}
+
+    bool ChunkComponent::OnPreInit() //override
+    {
+        for (float x = -(CHUNK_WIDTH / 2); x < (CHUNK_WIDTH / 2); x++)
+        {
+            for (float y = 0; y < CHUNK_HEIGHT; y++)
+            {
+                for (float z = -(CHUNK_WIDTH / 2); z < (CHUNK_WIDTH / 2); z++)
+                {
+                    Entity* block = GetOwner()->GetWorld()->RegisterEntity();
+                    block->RegisterComponent(new BlockComponent(ComputeBlockType(y)));
+                    //block->GetTransform()->SetPosition(Vector3{ position.x + x, position.y + y, position.z + z });
+                }
+            }
+        }
+        return Mother::OnPreInit();
+    }
 
 	EBlockType ChunkComponent::ComputeBlockType(float yCoordinate)
 	{

@@ -1,18 +1,19 @@
 #pragma once
 
-#include "engine/core/Manager.h"
+#include "engine/core/WorldComponent.h"
 
 namespace ForgeEngine
 {
-	class DebugManager : public Manager
+	class DebugManager : public WorldComponent
 	{
-		using Mother = Manager;
+		using Mother = WorldComponent;
 
 		/************************************/
 		/************ATTRIBUTES**************/
 		/************************************/
 
 		private:
+            static const unsigned int K_NB_FRAMERATE_SAMPLES{ 10 };
 			int m_CurrentDrawMode;
 
 		/************************************/

@@ -1,6 +1,9 @@
 #include "GameHandler.h"
 
-#include "common/managers/ShaderManager.h"
+#include "common/worldcomponents/DebugManager.h"
+#include "common/worldcomponents/InputManager.h"
+#include "common/worldcomponents/ShaderManager.h"
+
 #include "engine/core/ForgeEngine.h"
 #include "engine/shader/ShaderUtils.h"
 #include "engine/ui/ImGUI.h"
@@ -11,20 +14,28 @@
 
 namespace ForgeEngine
 {
-	GLFWwindow* GameHandler::m_Window{};
-	unsigned int GameHandler::m_WindowWidth{};
-	unsigned int GameHandler::m_WindowHeight{};
+    GameHandler* GameHandler::s_Instance{};
 
-	bool GameHandler::Init(std::string name, unsigned int width, unsigned int height)
-	{
-		m_WindowWidth = width;
-		m_WindowHeight = height;
-		if (m_Window = InitWindow(name, width, height))
-		{
-			return true;
-		}
-		return false;
-	}
+    GameHandler::GameHandler(std::string name, unsigned int width, unsigned int height) :
+        m_WindowWidth(width),
+        m_WindowHeight(height)
+    {
+        if (s_Instance == nullptr)
+        {
+            s_Instance = this;
+            m_Window = InitWindow(name, width, height);
+            if (m_Window == nullptr)
+            {
+                std::cout << "ERROR::GAMEHANDLER::CANNOT_CREATE_WINDOW" << std::endl;
+                exit(-1);
+            }
+        }
+        else
+        {
+            std::cout << "ERROR::GAMEHANDLER::HANDLER_ALREADY_EXISTING" << std::endl;
+            exit(-1);
+        }
+    }
 
 	void GameHandler::HandleProcess()
 	{
@@ -34,18 +45,15 @@ namespace ForgeEngine
 		std::chrono::time_point<std::chrono::high_resolution_clock> frameEnd = std::chrono::high_resolution_clock::now();
 
 		float dT{};
-		const float nanoToSecMultiplier = std::pow(10, 9);
+		const float nanoToSecMultiplier = (float)std::pow(10, 9);
 
 		if (m_Window != nullptr)
 		{
 			OnInit();
 
-			ManagerContainer::Get()->PreInit();
-			EntityContainer::Get()->PreInit();
-			ManagerContainer::Get()->Init();
-			EntityContainer::Get()->Init();
-			ManagerContainer::Get()->PostInit();
-			EntityContainer::Get()->PostInit();
+			m_World.PreInit();
+			m_World.Init();
+			m_World.PostInit();
 
 			while (!ShouldTerminate())
 			{
@@ -55,26 +63,23 @@ namespace ForgeEngine
 
 				OnUpdate(dT);
 
-				ManagerContainer::Get()->PreUpdate(dT);
-				EntityContainer::Get()->PreUpdate(dT);
-				ManagerContainer::Get()->Update(dT);
-				EntityContainer::Get()->Update(dT);
-				ManagerContainer::Get()->PostUpdate(dT);
-				EntityContainer::Get()->PostUpdate(dT);
+				m_World.PreUpdate(dT);
+                m_World.Update(dT);
+                m_World.PostUpdate(dT);
 
 				// feed inputs to dear imgui, start new frame
-				#ifdef FORGE_DEBUG_MODE
+				#ifdef FORGE_DEBUG_ENABLED
 					ImGui_ImplOpenGL3_NewFrame();
 					ImGui_ImplGlfw_NewFrame();
 					ImGui::NewFrame();
 
-					ManagerContainer::Get()->DrawDebug(dT);
-					EntityContainer::Get()->DrawDebug(dT);
+					m_World.DrawDebug(dT);
+                    m_World.DrawDebug(dT);
 
 					// Render dear imgui into screen
 					ImGui::Render();
 					ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-				#endif // FORGE_DEBUG_MODE
+				#endif // FORGE_DEBUG_ENABLED
 
 				// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 				glfwSwapBuffers(m_Window);
@@ -89,7 +94,12 @@ namespace ForgeEngine
 
 	void GameHandler::OnInit()
 	{
-		#ifdef FORGE_DEBUG_MODE
+        m_World.RegisterComponent(new ShaderManager());
+        m_World.RegisterComponent(new InputManager());
+
+		#ifdef FORGE_DEBUG_ENABLED
+            m_World.RegisterComponent(new DebugManager());
+
 			// Setup Dear ImGui context
 			IMGUI_CHECKVERSION();
 			ImGui::CreateContext();
@@ -99,7 +109,7 @@ namespace ForgeEngine
 			ImGui::StyleColorsDark();
 			ImGui_ImplGlfw_InitForOpenGL(m_Window, true);
 			ImGui_ImplOpenGL3_Init("#version 150");
-		#endif // FORGE_DEBUG_MODE
+		#endif //#ifdef FORGE_DEBUG_ENABLED
 	}
 
 	void GameHandler::OnTermination()

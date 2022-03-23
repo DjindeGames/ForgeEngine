@@ -1,7 +1,7 @@
 #pragma once
 
 #include "engine/core/Defines.h"
-#include "engine/core/Manager.h"
+#include "engine/core/WorldComponent.h"
 #include "system/input/InputAction.h"
 #include "system/math/Vector2.h"
 
@@ -9,9 +9,9 @@
 
 namespace ForgeEngine
 {
-	class InputManager : public Manager
+	class InputManager : public WorldComponent
 	{
-		using Mother = Manager;
+		using Mother = WorldComponent;
 
 		/************************************/
 		/************ATTRIBUTES**************/

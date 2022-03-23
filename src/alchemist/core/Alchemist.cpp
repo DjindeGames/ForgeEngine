@@ -1,38 +1,40 @@
 #include "Alchemist.h"
 
-#include "alchemist/core/LandscapeComponent.h"
+#include "alchemist/components/LandscapeComponent.h"
 #include "common/components/FirstPersonControllerComponent.h"
 #include "common/components/CameraComponent.h"
 #include "common/helpers/InputHelper.h"
-#include "common/managers/InputManager.h"
-#include "common/managers/ShaderManager.h"
-#include "common/managers/DebugManager.h"
+#include "common/worldcomponents/InputManager.h"
+#include "common/worldcomponents/ShaderManager.h"
+#include "common/worldcomponents/DebugManager.h"
 #include "engine/core/ForgeEngine.h"
 #include "engine/misc/Texture.h"
 #include "engine/shader/ShaderUtils.h"
 #include "system/misc/Color.h"
 
-int main()
+void mained()
 {
-	Alchemist::Alchemist instance{};
-	instance.Init("Alchemist", ALCHEMIST_WINDOW_WIDTH, ALCHEMIST_WINDOW_HEIGHT);
-	instance.HandleProcess();
+	Alchemist::Alchemist instance("Alchemist", ALCHEMIST_WINDOW_WIDTH, ALCHEMIST_WINDOW_HEIGHT);
+    instance.HandleProcess();
 }
 
 namespace Alchemist
 {
+    Alchemist::Alchemist(std::string name, unsigned int width, unsigned int height) :
+        Mother(name, width, height)
+    {
+    }
+
 	void Alchemist::OnInit() /*override*/
 	{
 		Mother::OnInit();
 
-		ManagerContainer::Get()->RegisterManager(new ShaderManager());
-		ManagerContainer::Get()->RegisterManager(new InputManager());
-		ManagerContainer::Get()->RegisterManager(new DebugManager());
+        World* world = GetWorld();
 
-		Entity* landscape = EntityContainer::Get()->RegisterEntity();
+		Entity* landscape = world->RegisterEntity();
 		landscape->RegisterComponent(new LandscapeComponent());
 
-		Entity* camera = EntityContainer::Get()->RegisterEntity();
+		Entity* camera = world->RegisterEntity();
 		camera->RegisterComponent(new CameraComponent(CameraComponent::OrthographicCamera{ ALCHEMIST_WINDOW_WIDTH, ALCHEMIST_WINDOW_HEIGHT, 0.f, 100.f}));
 		camera->GetTransform()->SetPosition(Vector3(0.f, 0.f, 1.f));
 	}

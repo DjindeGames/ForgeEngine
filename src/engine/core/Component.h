@@ -5,6 +5,8 @@
 
 namespace ForgeEngine
 {
+    class Entity;
+
 	class Component : public ManagedObject
 	{
 		using Mother = ManagedObject;

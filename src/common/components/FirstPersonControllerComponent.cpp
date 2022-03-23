@@ -19,7 +19,7 @@ namespace ForgeEngine
 		bool success = Mother::OnInit();
 
 		m_CameraComponent = GetOwner()->GetComponentByType<CameraComponent>();
-		glfwSetInputMode(GameHandler::m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		glfwSetInputMode(GameHandler::Get().GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 		return success
 			&& m_CameraComponent != nullptr;
@@ -70,7 +70,7 @@ namespace ForgeEngine
 	void FirstPersonControllerComponent::OnDestroy() /*override*/
 	{
 		Mother::OnDestroy();
-		glfwSetInputMode(GameHandler::m_Window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		glfwSetInputMode(GameHandler::Get().GetWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 	}
 }
 

@@ -1,6 +1,5 @@
 #pragma once
 
-#include "engine/core/ManagedObjectContainer.h"
 #include "engine/core/Object.h"
 
 namespace ForgeEngine
@@ -17,7 +16,7 @@ namespace ForgeEngine
 	{
 		using Mother = Object;
 
-		friend class ManagedObjectContainer;
+		friend class World;
 
 		/************************************/
 		/************ATTRIBUTES**************/

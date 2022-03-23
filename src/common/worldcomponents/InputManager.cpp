@@ -43,7 +43,7 @@ namespace ForgeEngine
 	void InputManager::UpdateMousePosition()
 	{
 		double x, y;
-		glfwGetCursorPos(GameHandler::m_Window, &x, &y);
+		glfwGetCursorPos(GameHandler::Get().GetWindow(), &x, &y);
 		m_PreviousMousePosition = m_MousePosition;
 		m_MousePosition = Vector2{ x, y };
 	}
