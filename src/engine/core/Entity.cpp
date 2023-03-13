@@ -9,7 +9,7 @@ namespace ForgeEngine
     Entity::Entity(World* world) : 
         m_World(world)
     {
-        m_RegisteredComponents.push_back(std::unique_ptr<TransformComponent>(new TransformComponent()));
+        m_RegisteredComponents.push_back(Unique<TransformComponent>(new TransformComponent()));
     }
 
 	TransformComponent* Entity::GetTransform() const

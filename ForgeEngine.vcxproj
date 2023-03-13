@@ -5,6 +5,14 @@
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Final|Win32">
+      <Configuration>Final</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Final|x64">
+      <Configuration>Final</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
@@ -19,6 +27,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Daggerfall.h" />
     <ClInclude Include="src\alchemist\core\Alchemist.h" />
     <ClInclude Include="src\alchemist\components\LandscapeComponent.h" />
     <ClInclude Include="src\common\helpers\InputHelper.h" />
@@ -361,6 +370,7 @@
     <ClInclude Include="src\system\time\Timer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Daggerfall.cpp" />
     <ClCompile Include="src\alchemist\core\Alchemist.cpp" />
     <ClCompile Include="src\alchemist\components\LandscapeComponent.cpp" />
     <ClCompile Include="src\common\helpers\InputHelper.cpp" />
@@ -583,6 +593,12 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Final|Win32'">
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Final|x64'">
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
@@ -609,6 +625,10 @@
     <LibraryPath>.\src\extern\opengl\libs;$(LibraryPath)</LibraryPath>
     <IncludePath>.\src\extern;.\src\;.\src\extern\opengl\includes;$(IncludePath)</IncludePath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Final|x64'">
+    <IncludePath>.\src\extern;.\src\;.\src\extern\opengl\includes;$(IncludePath)</IncludePath>
+    <LibraryPath>.\src\extern\opengl\libs;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -626,6 +646,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <PreprocessorDefinitions>FORGE_DEBUG_ENABLED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

@@ -7,7 +7,7 @@ namespace ForgeEngine
 	Entity* World::RegisterEntity()
 	{
         Entity* entity = new Entity(this);
-		m_RegisteredEntities.push_back(std::unique_ptr<Entity>(entity));
+		m_RegisteredEntities.push_back(Unique<Entity>(entity));
 		return entity;
 	}
 

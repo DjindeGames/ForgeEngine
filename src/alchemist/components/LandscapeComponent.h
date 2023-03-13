@@ -72,7 +72,7 @@ namespace Alchemist
 		private:
 			ParticleContainer m_ParticleContainer;
 			float m_Pixels[ALCHEMIST_LANDSCAPE_WIDTH * ALCHEMIST_LANDSCAPE_HEIGHT * ALCHEMIST_PIXEL_DATA_SIZE];
-			std::unique_ptr<Texture> m_Texture;
+			Unique<Texture> m_Texture;
 
 		/************************************/
 		/**************METHODS***************/

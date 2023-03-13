@@ -23,7 +23,7 @@ namespace ForgeEngine
 		/************************************/
 
 		private:
-			std::unordered_map<EShaderType, std::unique_ptr<Shader>> m_RegisteredShaders{};
+			std::unordered_map<EShaderType, Unique<Shader>> m_RegisteredShaders{};
 
 		/************************************/
 		/**************METHODS***************/

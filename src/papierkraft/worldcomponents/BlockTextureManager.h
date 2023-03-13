@@ -28,8 +28,8 @@ namespace PapierKraft
 		/************************************/
 
 		private:
-			std::unique_ptr<Texture> m_TextureAtlas{};
-			std::unordered_map<EBlockType, std::unique_ptr<BlockTextureData>> m_RegisteredTextures{};
+			Unique<Texture> m_TextureAtlas{};
+			std::unordered_map<EBlockType, Unique<BlockTextureData>> m_RegisteredTextures{};
 
 		/************************************/
 		/**************METHODS***************/

@@ -18,7 +18,7 @@ namespace ForgeEngine
 		/************************************/
 
 		private:
-			std::unordered_map<EInputAction, std::unique_ptr<InputAction>> m_InputActionMappings{};
+			std::unordered_map<EInputAction, Unique<InputAction>> m_InputActionMappings{};
 			Vector2 m_MousePosition{};
 			Vector2 m_PreviousMousePosition{};
 

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "engine/core/Defines.h"
 #include "engine/core/Entity.h"
 #include "engine/core/WorldComponent.h"
 
@@ -22,8 +23,8 @@ namespace ForgeEngine
 		private:
             static const unsigned int K_MAX_INITIALIZATIONS_PER_FRAME = 1;
 
-			std::vector<std::unique_ptr<Entity>> m_RegisteredEntities{};
-			std::vector<std::unique_ptr<WorldComponent>> m_Components{};
+			std::vector<Unique<Entity>> m_RegisteredEntities{};
+			std::vector<Unique<WorldComponent>> m_Components{};
 			
 		/************************************/
 		/**************METHODS***************/
@@ -39,7 +40,7 @@ namespace ForgeEngine
             {
                 if (dynamic_cast<WorldComponent*>(component))
                 {
-                    m_Components.push_back(std::unique_ptr<WorldComponent>(component));
+                    m_Components.push_back(Unique<WorldComponent>(component));
                     component->SetWorld(this);
                 }
                 return component;

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "engine/core/Component.h"
+#include "engine/core/Defines.h"
 #include "engine/core/World.h"
 #include "engine/core/ManagedObject.h"
 
@@ -27,7 +28,7 @@ namespace ForgeEngine
             World* m_World{ nullptr };
 			mutable TransformComponent* m_Transform{ nullptr };
 
-			std::vector<std::unique_ptr<Component>> m_RegisteredComponents;
+			std::vector<Unique<Component>> m_RegisteredComponents;
 
 		/************************************/
 		/**************METHODS***************/
@@ -43,7 +44,7 @@ namespace ForgeEngine
 			{
 				if (dynamic_cast<Component*>(component))
 				{
-					m_RegisteredComponents.push_back(std::unique_ptr<Component>(component));
+					m_RegisteredComponents.push_back(Unique<Component>(component));
 					component->SetOwner(this);
 				}
 				return component;

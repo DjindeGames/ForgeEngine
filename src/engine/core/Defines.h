@@ -5,8 +5,6 @@
 
 namespace ForgeEngine
 {
-    #define FORGE_DEBUG_ENABLED
-
 	typedef unsigned int COUNTER;
 	typedef unsigned int GL_ID;
 	typedef int GL_RESULT;
@@ -17,7 +15,7 @@ namespace ForgeEngine
     using Array = std::vector<T>;
 
     template <typename T>
-    using Handle = std::shared_ptr<T>;
+    using Shared = std::shared_ptr<T>;
     template <typename T>
-    using Reference = std::unique_ptr<T>;
+    using Unique = std::unique_ptr<T>;
 }
