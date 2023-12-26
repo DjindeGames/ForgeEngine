@@ -113,7 +113,7 @@ namespace ForgeEngine
 
 	void Shader::SetColor(const char* which, const Color& value)
 	{
-		glUniform4f(glGetUniformLocation(m_ProgramID, which), value.GetR(), value.GetG(), value.GetB(), value.GetA());
+		glUniform4f(glGetUniformLocation(m_ProgramID, which), value.GetRRatio(), value.GetGRatio(), value.GetBRatio(), value.GetA());
 	}
 
 	void Shader::SetTexture(unsigned int which, const Texture* texture)

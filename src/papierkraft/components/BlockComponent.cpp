@@ -167,7 +167,7 @@ namespace PapierKraft
 					17, 18, 19,
 			/******************BOTTOM***********************/
 					20, 21, 23,
-							21, 22, 23
+					21, 22, 23
 		};
 
 		GetOwner()->RegisterComponent(new MeshComponent(verticesTexturesCoordinates, coordinates, m_Shader, textureAtlas));

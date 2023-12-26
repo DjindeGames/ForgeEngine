@@ -2,15 +2,16 @@
 
 //VERTEX SHADER
 
-//ATTRIBUTE 1
-layout (location = 0) in vec3 aPos;
-//ATTRIBUTE 2
-layout (location = 1) in vec2 aTexCoord;
+uniform mat4 Projection;
+uniform mat4 View;
+uniform mat4 Transform;
 
-out vec2 TexCoord;
+//ATTRIBUTE 3
+layout (location = 0) in vec3 aPos;
+
+out vec4 ourColor;
 
 void main()
 {
-	gl_Position = vec4(aPos, 1.0);
-	TexCoord = vec2(aTexCoord.x, aTexCoord.y);
+	gl_Position = Projection * View * Transform * vec4(aPos, 1.0);
 }

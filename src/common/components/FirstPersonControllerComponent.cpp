@@ -34,13 +34,16 @@ namespace ForgeEngine
 		float yaw = m_CameraComponent->GetYaw() - (mouseVelocity.x * m_RotationSpeed * dT);
 		float pitch = ForgeMaths::Clamp(m_CameraComponent->GetPitch() + (mouseVelocity.y * m_RotationSpeed * dT), -89.f, 89.f);
 
+        Vector3 sight = m_CameraComponent->GetSight();
+        sight = Vector3(sight.x, 0.f, sight.z);
+
 		if (InputHelper::IsInputActive(EInputAction::MoveForward))
 		{
-			translation += m_MoveSpeed * m_CameraComponent->GetSight();
+			translation += m_MoveSpeed * sight;
 		}
 		if (InputHelper::IsInputActive(EInputAction::MoveBackward))
 		{
-			translation -= m_MoveSpeed * m_CameraComponent->GetSight();
+			translation -= m_MoveSpeed * sight;
 		}
 		if (InputHelper::IsInputActive(EInputAction::MoveLeft))
 		{

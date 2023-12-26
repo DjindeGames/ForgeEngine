@@ -27,7 +27,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Daggerfall.h" />
+    <ClInclude Include="src\common\Mesh.h" />
+    <ClInclude Include="src\common\helpers\MeshUtils.h" />
+    <ClInclude Include="src\newton\Newton.h" />
+    <ClInclude Include="src\daggerfall\components\NPCComponent.h" />
+    <ClInclude Include="src\daggerfall\worldcomponents\SpriteAtlasManager.h" />
+    <ClInclude Include="src\daggerfall\core\Daggerfall.h" />
     <ClInclude Include="src\alchemist\core\Alchemist.h" />
     <ClInclude Include="src\alchemist\components\LandscapeComponent.h" />
     <ClInclude Include="src\common\helpers\InputHelper.h" />
@@ -370,7 +375,12 @@
     <ClInclude Include="src\system\time\Timer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Daggerfall.cpp" />
+    <ClCompile Include="src\common\Mesh.cpp" />
+    <ClCompile Include="src\common\helpers\MeshUtils.cpp" />
+    <ClCompile Include="src\newton\Newton.cpp" />
+    <ClCompile Include="src\daggerfall\components\NPCComponent.cpp" />
+    <ClCompile Include="src\daggerfall\worldcomponents\SpriteAtlasManager.cpp" />
+    <ClCompile Include="src\daggerfall\core\Daggerfall.cpp" />
     <ClCompile Include="src\alchemist\core\Alchemist.cpp" />
     <ClCompile Include="src\alchemist\components\LandscapeComponent.cpp" />
     <ClCompile Include="src\common\helpers\InputHelper.cpp" />

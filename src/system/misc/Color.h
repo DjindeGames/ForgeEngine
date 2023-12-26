@@ -15,6 +15,8 @@ namespace ForgeEngine
 	#define COLOR_SKY_BLUE		Color{27, 142, 250}
 	#define COLOR_BLACK			Color{0, 0, 0}
 	#define COLOR_WHITE			Color{255, 255, 255}
+	#define COLOR_LIGHT_GREY	Color{150, 150, 150}
+	#define COLOR_DARK_GREY	    Color{50, 50, 50}
 
 	class Color
 	{
@@ -33,12 +35,12 @@ namespace ForgeEngine
 		/************************************/
 
 		public:
-			Color(unsigned int r, unsigned int g, unsigned int b, float a = 255);
+			Color(unsigned int r, unsigned int g, unsigned int b, float a = 1.f);
 
-			unsigned int GetR() const { return m_R; }
-			unsigned int GetG() const { return m_G; }
-			unsigned int GetB() const { return m_B; }
-			float GetA() const { return m_A; }
+            float GetR() const { return static_cast<float>(m_R); }
+            float GetG() const { return static_cast<float>(m_G); }
+            float GetB() const { return static_cast<float>(m_B); }
+			float GetA() const { return static_cast<float>(m_A); }
 
 			float GetRRatio() const { return m_R / 255.f; }
 			float GetGRatio() const { return m_G / 255.f; }

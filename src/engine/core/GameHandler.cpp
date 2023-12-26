@@ -74,7 +74,6 @@ namespace ForgeEngine
 					ImGui::NewFrame();
 
 					m_World.DrawDebug(dT);
-                    m_World.DrawDebug(dT);
 
 					// Render dear imgui into screen
 					ImGui::Render();

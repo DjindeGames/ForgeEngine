@@ -12,11 +12,13 @@
 #include "engine/shader/ShaderUtils.h"
 #include "system/misc/Color.h"
 
-void mained()
+/*
+int main()
 {
 	Alchemist::Alchemist instance("Alchemist", ALCHEMIST_WINDOW_WIDTH, ALCHEMIST_WINDOW_HEIGHT);
     instance.HandleProcess();
 }
+*/
 
 namespace Alchemist
 {

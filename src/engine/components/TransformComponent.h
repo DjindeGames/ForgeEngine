@@ -17,9 +17,11 @@ namespace ForgeEngine
 		private:
 			Matrix4 m_Matrix;
 
-			Vector3 m_Position{0.f};
-			Vector3 m_Rotation{0.f};
-			Vector3 m_Scale{1.f};
+			mutable Vector3 m_Position{0.f};
+			mutable Vector3 m_Rotation{0.f};
+			mutable Vector3 m_Scale{1.f};
+
+            mutable bool m_Dirty{ true };
 
 		/************************************/
 		/**************METHODS***************/
@@ -28,13 +30,11 @@ namespace ForgeEngine
 		public:
 			TransformComponent();
 
-			virtual void OnPostUpdate(float dT) override;
-
 			const Matrix4& GetMatrix() const { return m_Matrix; }
 
-			Vector3 GetPosition() const { return m_Position; }
-			Vector3 GetRotation() const { return m_Rotation; }
-			Vector3 GetScale() const { return m_Scale; }
+            Vector3 GetPosition() const;
+            Vector3 GetRotation() const;
+            Vector3 GetScale() const;
 
 			void SetPosition(const Vector3& position);
 			void SetRotation(const Vector3& rotation);

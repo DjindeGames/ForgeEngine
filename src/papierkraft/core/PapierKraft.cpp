@@ -13,11 +13,13 @@
 #include "papierkraft/worldcomponents/BlockTextureManager.h"
 #include "system/misc/Color.h"
 
+/*
 int main()
 {
     PapierKraft::PapierKraft instance("PapierKraft", 1280, 720);
     instance.HandleProcess();
 }
+*/
 
 namespace PapierKraft
 {
