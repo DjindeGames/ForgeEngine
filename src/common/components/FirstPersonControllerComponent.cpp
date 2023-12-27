@@ -8,9 +8,10 @@
 
 namespace ForgeEngine
 {
-	FirstPersonControllerComponent::FirstPersonControllerComponent(float moveSpeed /*= 5.f*/, float rotationSpeed /*= 30.f*/) :
-		m_MoveSpeed(moveSpeed),
-		m_RotationSpeed(rotationSpeed)
+	FirstPersonControllerComponent::FirstPersonControllerComponent(float moveSpeed /*= 10.f*/, float rotationSpeed /*= 10.f*/) 
+        : Component()
+		, m_MoveSpeed(moveSpeed)
+		, m_RotationSpeed(rotationSpeed)
 	{
 	}
 
@@ -56,24 +57,25 @@ namespace ForgeEngine
 
 		if (InputHelper::IsInputActive(EInputAction::FlyUp))
 		{
-			translation += m_MoveSpeed * VECTOR3_Y;
+			translation += m_MoveSpeed * VECTOR3_UP;
 		}
 		if (InputHelper::IsInputActive(EInputAction::FlyDown))
 		{
-			translation -= m_MoveSpeed * VECTOR3_Y;
+			translation -= m_MoveSpeed * VECTOR3_UP;
 		}
 
 		m_CameraComponent->SetYaw(yaw);
 		m_CameraComponent->SetPitch(pitch);
 
 		//TODO: Normalize translation
-		GetOwner()->GetTransform()->Translate(translation * dT);
+        glm::normalize(translation);
+		GetOwner()->GetTransform().Translate(translation * dT);
 	}
 
 	void FirstPersonControllerComponent::OnDestroy() /*override*/
 	{
-		Mother::OnDestroy();
 		glfwSetInputMode(GameHandler::Get().GetWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		Mother::OnDestroy();
 	}
 }
 

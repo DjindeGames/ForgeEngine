@@ -1,7 +1,7 @@
 #include "ChunkComponent.h"
 
 #include "engine/core/ForgeEngine.h"
-#include "papierkraft/components/BlockComponent.h"
+#include "projects/papierkraft/components/BlockComponent.h"
 #include "system/math/MathUtils.h"
 
 namespace PapierKraft
@@ -20,9 +20,9 @@ namespace PapierKraft
             {
                 for (float z = -(CHUNK_WIDTH / 2); z < (CHUNK_WIDTH / 2); z++)
                 {
-                    Entity* block = GetOwner()->GetWorld()->RegisterEntity();
+                    Entity* block = GetOwner()->GetWorld().RegisterEntity();
                     block->RegisterComponent(new BlockComponent(ComputeBlockType(y)));
-                    //block->GetTransform()->SetPosition(Vector3{ position.x + x, position.y + y, position.z + z });
+                    //block->GetTransform().SetPosition(Vector3{ position.x + x, position.y + y, position.z + z });
                 }
             }
         }

@@ -10,7 +10,7 @@ namespace ForgeEngine
 	{
 		bool IsInputActive(EInputAction type)
 		{
-			if (InputManager* inputManager = GameHandler::Get().GetWorld()->GetComponentByType<InputManager>())
+			if (InputManager* inputManager = GameHandler::Get().GetWorld().GetComponentByType<InputManager>())
 			{
 				return inputManager->IsInputActive(type);
 			}
@@ -19,7 +19,7 @@ namespace ForgeEngine
 
 		Vector2 GetMouseVelocity()
 		{
-			if (InputManager* inputManager = GameHandler::Get().GetWorld()->GetComponentByType<InputManager>())
+			if (InputManager* inputManager = GameHandler::Get().GetWorld().GetComponentByType<InputManager>())
 			{
 				return inputManager->GetMouseVelocity();
 			}
@@ -28,7 +28,7 @@ namespace ForgeEngine
 
 		Vector2 GetMousePosition()
 		{
-			if (InputManager* inputManager = GameHandler::Get().GetWorld()->GetComponentByType<InputManager>())
+			if (InputManager* inputManager = GameHandler::Get().GetWorld().GetComponentByType<InputManager>())
 			{
 				return inputManager->GetMousePosition();
 			}

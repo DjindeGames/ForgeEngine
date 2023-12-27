@@ -12,7 +12,7 @@ namespace ForgeEngine
 	{
 		#define LOG_SIZE 512
 
-		bool TryCompileShader(GL_ID& shader, const char* shaderSource, int shaderType, bool outputLogs /* = true*/)
+		bool TryCompileShader(GL_ID& shader, const char* shaderPath, const char* shaderSource, int shaderType, bool outputLogs /* = true*/)
 		{
 			//Compile shader
 			shader = glCreateShader(shaderType);
@@ -27,8 +27,10 @@ namespace ForgeEngine
 			//Output log if needed
 			if (!compilationSuccess && outputLogs)
 			{
+                //TODO: Add detailed logs
 				glGetShaderInfoLog(shader, LOG_SIZE, nullptr, infoLog);
-				std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+				std::cout << shaderPath << "\n" << infoLog << std::endl;
+                exit(-1);
 			}
 
 			return static_cast<bool>(compilationSuccess);

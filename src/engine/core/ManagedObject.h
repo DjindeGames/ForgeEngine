@@ -42,6 +42,9 @@ namespace ForgeEngine
 			bool NeedsPostInit() const { return m_InitializationState == EInitializationState::NeedsPostInit; }
 			bool IsInitialized() const { return m_InitializationState == EInitializationState::Initialized; }
 
+			void Destroy() { OnDestroy(); }
+
+        protected:
 			virtual void OnActivate() {}
 			virtual void OnDeactivate() {}
 
@@ -55,9 +58,6 @@ namespace ForgeEngine
 
 			virtual void OnDrawDebug(float dT) {}
 
-			void Destroy() { OnDestroy(); }
-		
-		protected:
 			virtual void OnDestroy() {}
 	};
 }

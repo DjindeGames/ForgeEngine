@@ -1,4 +1,4 @@
-#include "PapierKraft.h"
+#include "papierkraft.h"
 
 #include "common/components/CameraComponent.h"
 #include "common/components/FirstPersonControllerComponent.h"
@@ -8,9 +8,9 @@
 #include "common/worldcomponents/DebugManager.h"
 #include "engine/core/ForgeEngine.h"
 #include "engine/shader/ShaderUtils.h"
-#include "papierkraft/components/BlockComponent.h"
-#include "papierkraft/components/ChunkComponent.h"
-#include "papierkraft/worldcomponents/BlockTextureManager.h"
+#include "projects/papierkraft/components/BlockComponent.h"
+#include "projects/papierkraft/components/ChunkComponent.h"
+#include "projects/papierkraft/worldcomponents/BlockTextureManager.h"
 #include "system/misc/Color.h"
 
 /*
@@ -32,15 +32,15 @@ namespace PapierKraft
 	{
 		Mother::OnInit();
 
-        World* world = GetWorld();
+        World& world = GetWorld();
 
-        world->RegisterComponent(new BlockTextureManager());
+        world.RegisterComponent(new BlockTextureManager());
 
-        Entity* block = world->RegisterEntity();
+        Entity* block = world.RegisterEntity();
         block->RegisterComponent(new BlockComponent(EBlockType::Grass));
 
-		Entity* camera = world->RegisterEntity();
-        camera->GetTransform()->SetPosition(Vector3(0.f, 0.f, 10.f));
+		Entity* camera = world.RegisterEntity();
+        camera->GetTransform().SetPosition(Vector3(0.f, 0.f, 10.f));
 		camera->RegisterComponent(new FirstPersonControllerComponent());
 		camera->RegisterComponent(new CameraComponent(CameraComponent::PerspectiveCamera{}));
 	}

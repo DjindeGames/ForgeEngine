@@ -1,25 +1,23 @@
 #include "Entity.h"
 
 #include "engine/components/TransformComponent.h"
+#include "system/math/Vector3.h"
 
 #include <algorithm>
 
 namespace ForgeEngine
 {
-    Entity::Entity(World* world) : 
-        m_World(world)
+    Entity::Entity(World& world, TransformComponent* transform) 
+        : m_World(world)
+        , m_Transform(*transform)
     {
-        m_RegisteredComponents.push_back(Unique<TransformComponent>(new TransformComponent()));
+        m_RegisteredComponents.push_back(Unique<TransformComponent>(transform));
     }
 
-	TransformComponent* Entity::GetTransform() const
-	{
-		if (m_Transform == nullptr)
-		{
-			m_Transform = GetComponentByType<TransformComponent>();
-		}
-		return m_Transform;
-	}
+    const Vector3& Entity::GetPosition() const
+    {
+        return GetTransform().GetPosition(); 
+    }
 
 	bool Entity::OnPreInit() /*override*/
 	{

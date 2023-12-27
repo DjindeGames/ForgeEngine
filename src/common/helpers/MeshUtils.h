@@ -9,8 +9,8 @@ namespace ForgeEngine
     namespace MeshUtils
     {
         std::vector<float> GetPlaneVerticesCoordinates(float scale = 1.f);
-        std::vector<float> GetPlaneVerticesCoordinatesTextured(float textureScale);
-        std::vector<float> GetPlaneVerticesCoordinatesColored(Color color);
+        std::vector<float> GetPlaneVerticesCoordinatesTextured(float scale = 1.f);
+        std::vector<float> GetPlaneVerticesCoordinatesColored(const Color& color);
         std::vector<unsigned int> GetPlaneVerticesIndexes();
 
         std::vector<float> GetCubeVerticesCoordinates();

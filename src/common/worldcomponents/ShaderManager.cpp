@@ -12,6 +12,9 @@ namespace ForgeEngine
 
 		//Textured
 		m_RegisteredShaders[EShaderType::Textured] = std::make_unique<Shader>(TEXTURED_VERTEX_SHADER_PATH, TEXTURED_FRAGMENT_SHADER_PATH);
+
+        //Lit
+        m_RegisteredShaders[EShaderType::Lit] = std::make_unique<Shader>(LIT_VERTEX_SHADER_PATH, LIT_FRAGMENT_SHADER_PATH);
 	}
 
 	Shader* ShaderManager::GetShaderByType(EShaderType shaderType) const

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "engine/core/ManagedObject.h"
-#include "engine/core/Entity.h"
 
 namespace ForgeEngine
 {

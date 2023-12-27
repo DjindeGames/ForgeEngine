@@ -8,7 +8,7 @@ namespace ForgeEngine
 	{
 	}
 
-    Vector3 TransformComponent::GetPosition() const 
+    const Vector3& TransformComponent::GetPosition() const 
     { 
         if (m_Dirty)
         {
@@ -18,7 +18,7 @@ namespace ForgeEngine
         return m_Position; 
     }
 
-    Vector3 TransformComponent::GetRotation() const 
+    const Vector3& TransformComponent::GetRotation() const 
     { 
         if (m_Dirty)
         {
@@ -28,7 +28,7 @@ namespace ForgeEngine
         return m_Rotation; 
     }
 
-    Vector3 TransformComponent::GetScale() const 
+    const Vector3& TransformComponent::GetScale() const 
     { 
         if (m_Dirty)
         {
@@ -76,9 +76,9 @@ namespace ForgeEngine
 
 	void TransformComponent::Rotate(const Vector3& euleurAngles)
 	{
-		Rotate(euleurAngles.x, VECTOR3_X);
-		Rotate(euleurAngles.y, VECTOR3_Y);
-		Rotate(euleurAngles.z, VECTOR3_Z);
+		Rotate(euleurAngles.x, VECTOR3_SIDE);
+		Rotate(euleurAngles.y, VECTOR3_UP);
+		Rotate(euleurAngles.z, VECTOR3_FORWARD);
         m_Dirty = true;
 	}
 
@@ -87,4 +87,10 @@ namespace ForgeEngine
 		ForgeMaths::Scale(m_Matrix, scale);
         m_Dirty = true;
 	}
+
+    void TransformComponent::Scale(float scale)
+    {
+        ForgeMaths::Scale(m_Matrix, scale);
+        m_Dirty = true;
+    }
 }

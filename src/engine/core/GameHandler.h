@@ -40,7 +40,7 @@ namespace ForgeEngine
             void SetWindowWidth(unsigned int width) { m_WindowWidth = width; }
             unsigned int GetWindowHeight() const { return m_WindowHeight; }
             void SetWindowHeight(unsigned int height) { m_WindowHeight = height; }
-            World* GetWorld() { return &m_World; }
+            World& GetWorld() { return m_World; }
 
             static GameHandler& Get() { return *s_Instance; }
 

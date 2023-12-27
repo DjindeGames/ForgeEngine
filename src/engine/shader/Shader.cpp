@@ -54,8 +54,8 @@ namespace ForgeEngine
 				}
 			}
 
-			if (!ShaderUtils::TryCompileShader(m_VertexID, vertexShaderSource.c_str(), GL_VERTEX_SHADER) ||
-				!ShaderUtils::TryCompileShader(m_FragmentID, fragmentShaderSource.c_str(), GL_FRAGMENT_SHADER) ||
+			if (!ShaderUtils::TryCompileShader(m_VertexID, vsPath, vertexShaderSource.c_str(), GL_VERTEX_SHADER) ||
+				!ShaderUtils::TryCompileShader(m_FragmentID, fsPath, fragmentShaderSource.c_str(), GL_FRAGMENT_SHADER) ||
 				!ShaderUtils::TryLinkShaderProgram(m_ProgramID, true, &m_VertexID, &m_FragmentID))
 			{
 				std::cout << "Could not compile shaders!" << std::endl;
@@ -125,12 +125,9 @@ namespace ForgeEngine
 		}
 	}
 
-	void Shader::SetTransform(const char* which, const TransformComponent* transform)
+	void Shader::SetTransform(const char* which, const TransformComponent& transform)
 	{
-		if (transform != nullptr)
-		{
-			glUniformMatrix4fv(glGetUniformLocation(m_ProgramID, which), 1, GL_FALSE, glm::value_ptr(transform->GetMatrix()));
-		}
+        glUniformMatrix4fv(glGetUniformLocation(m_ProgramID, which), 1, GL_FALSE, glm::value_ptr(transform.GetMatrix()));
 	}
 
 	void Shader::SetProjection(const char* which, const Matrix4& projection)
@@ -142,4 +139,9 @@ namespace ForgeEngine
 	{
 		glUniformMatrix4fv(glGetUniformLocation(m_ProgramID, which), 1, GL_FALSE, glm::value_ptr(view));
 	}
+
+    void Shader::SetVector4(const char* which, const Vector3& vector)
+    {
+        glUniform4f(glGetUniformLocation(m_ProgramID, which), vector.x, vector.y, vector.z, 0.f);
+    }
 }

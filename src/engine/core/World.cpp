@@ -1,12 +1,16 @@
 #include "engine/core/World.h"
 
+#include "engine/components/TransformComponent.h"
+#include "engine/core/Entity.h"
+#include "engine/core/WorldComponent.h"
+
 #include <algorithm>
 
 namespace ForgeEngine
 {
 	Entity* World::RegisterEntity()
 	{
-        Entity* entity = new Entity(this);
+        Entity* entity = new Entity(*this, new TransformComponent());
 		m_RegisteredEntities.push_back(Unique<Entity>(entity));
 		return entity;
 	}

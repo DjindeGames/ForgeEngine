@@ -4,6 +4,8 @@
 #include "engine/core/ForgeEngine.h"
 #include "engine/misc/Texture.h"
 #include "engine/shader/Shader.h"
+#include "common/components/LightComponent.h"
+#include "common/worldcomponents/LightManager.h"
 
 #include <algorithm>
 #include <iterator>
@@ -122,8 +124,16 @@ namespace ForgeEngine
 			m_Shader->Use();
 			m_Shader->SetColor(DEFAULT_RENDER_COLOR_NAME, m_renderColor);
 			m_Shader->SetTexture(GL_TEXTURE0, m_Texture);
-			m_Shader->SetFloat(DEFAULT_LIGHT_INTENSITY_NAME, 1.f);
 			m_Shader->SetTransform(DEFAULT_TRANSFORM_NAME, m_Owner->GetTransform());
+
+            //Lighting
+            std::vector<const LightComponent*> lights = GameHandler::Get().GetWorld().GetComponentByType<LightManager>()->GetLightsInRange(GetOwner()->GetPosition());
+            if (!lights.empty())
+            {
+                m_Shader->SetColor(DEFAULT_LIGHT_COLOR_NAME, lights[0]->GetColor());
+                m_Shader->SetVector4(DEFAULT_LIGHT_SOURCE_POSITION_NAME, lights[0]->GetOwner()->GetPosition());
+                m_Shader->SetFloat(DEFAULT_LIGHT_INTENSITY_NAME, lights[0]->GetIntensity());
+            }
 
 			if (CameraComponent::GetActiveCamera() != nullptr)
 			{

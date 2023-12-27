@@ -1,6 +1,6 @@
-#include "Alchemist.h"
+#include "alchemist.h"
 
-#include "alchemist/components/LandscapeComponent.h"
+#include "projects/alchemist/components/LandscapeComponent.h"
 #include "common/components/FirstPersonControllerComponent.h"
 #include "common/components/CameraComponent.h"
 #include "common/helpers/InputHelper.h"
@@ -11,7 +11,6 @@
 #include "engine/misc/Texture.h"
 #include "engine/shader/ShaderUtils.h"
 #include "system/misc/Color.h"
-
 /*
 int main()
 {
@@ -19,7 +18,6 @@ int main()
     instance.HandleProcess();
 }
 */
-
 namespace Alchemist
 {
     Alchemist::Alchemist(std::string name, unsigned int width, unsigned int height) :
@@ -31,14 +29,14 @@ namespace Alchemist
 	{
 		Mother::OnInit();
 
-        World* world = GetWorld();
+        World& world = GetWorld();
 
-		Entity* landscape = world->RegisterEntity();
+		Entity* landscape = world.RegisterEntity();
 		landscape->RegisterComponent(new LandscapeComponent());
 
-		Entity* camera = world->RegisterEntity();
+		Entity* camera = world.RegisterEntity();
 		camera->RegisterComponent(new CameraComponent(CameraComponent::OrthographicCamera{ ALCHEMIST_WINDOW_WIDTH, ALCHEMIST_WINDOW_HEIGHT, 0.f, 100.f}));
-		camera->GetTransform()->SetPosition(Vector3(0.f, 0.f, 1.f));
+		camera->GetTransform().SetPosition(Vector3(0.f, 0.f, 1.f));
 	}
 
 	void Alchemist::OnUpdate(float dT) /*override*/

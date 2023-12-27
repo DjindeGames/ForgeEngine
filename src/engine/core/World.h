@@ -1,8 +1,8 @@
 #pragma once
 
+#include "engine/core/ManagedObject.h"
+
 #include "engine/core/Defines.h"
-#include "engine/core/Entity.h"
-#include "engine/core/WorldComponent.h"
 
 #include <memory>
 #include <vector>
@@ -11,6 +11,7 @@ namespace ForgeEngine
 {
     class Entity;
     class GameHandler;
+    class WorldComponent;
 
 	class World : ManagedObject
 	{

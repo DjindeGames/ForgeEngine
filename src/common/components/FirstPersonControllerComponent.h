@@ -10,25 +10,17 @@ namespace ForgeEngine
 	{
 		using Mother = Component;
 
-		/************************************/
-		/************ATTRIBUTES**************/
-		/************************************/
+	public:
+		FirstPersonControllerComponent(float moveSpeed = 10.f, float rotationSpeed = 10.f);
 
-		private:
-			float m_MoveSpeed{};
-			float m_RotationSpeed{};
+		virtual bool OnInit() override;
+		virtual void OnUpdate(float dT) override;
+		virtual void OnDestroy() override;
 
-			CameraComponent* m_CameraComponent{};
+    private:
+        float m_MoveSpeed{10.f};
+        float m_RotationSpeed{10.f};
 
-		/************************************/
-		/**************METHODS***************/
-		/************************************/
-
-		public:
-			FirstPersonControllerComponent(float moveSpeed = 10.f, float rotationSpeed = 10.f);
-
-			virtual bool OnInit() override;
-			virtual void OnUpdate(float dT) override;
-			virtual void OnDestroy() override;
+        CameraComponent* m_CameraComponent{};
 	};
 }

@@ -67,8 +67,8 @@ namespace ForgeEngine
 			scale *= m_ScaleSpeed;
 		}
 
-		m_Owner->GetTransform()->Rotate(eulerRotation * dT);
-		m_Owner->GetTransform()->Translate(translation * dT);
-		m_Owner->GetTransform()->Scale(scale);
+		m_Owner->GetTransform().Rotate(eulerRotation * dT);
+		m_Owner->GetTransform().Translate(translation * dT);
+		m_Owner->GetTransform().Scale(scale);
 	}
 }

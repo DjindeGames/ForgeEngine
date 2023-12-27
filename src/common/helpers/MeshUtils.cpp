@@ -19,19 +19,19 @@ namespace ForgeEngine
             };
         }
 
-        std::vector<float> GetPlaneVerticesCoordinatesTextured(float textureScale)
+        std::vector<float> GetPlaneVerticesCoordinatesTextured(float scale/* = 1.f*/)
         {
             return std::vector<float>
             {
                     // positions       // texture coords
-                -0.5f, 0.f, -0.5f,    textureScale, textureScale, // top right
-                -0.5f, 0.f,  0.5f,    textureScale, 0.f, // bottom right
-                 0.5f, 0.f,  0.5f,    0.f, 0.f, // bottom left
-                 0.5f, 0.f, -0.5f,    0.f, textureScale  // top left 
+                -scale / 2.f, 0.f, -scale / 2.f, scale, scale, // top right
+                -scale / 2.f, 0.f,  scale / 2.f, scale, 0.f, // bottom right
+                 scale / 2.f, 0.f,  scale / 2.f, 0.f, 0.f, // bottom left
+                 scale / 2.f, 0.f, -scale / 2.f, 0.f, scale  // top left 
             };
         }
 
-        std::vector<float> GetPlaneVerticesCoordinatesColored(Color color)
+        std::vector<float> GetPlaneVerticesCoordinatesColored(const Color& color)
         {
             return std::vector<float>
             {

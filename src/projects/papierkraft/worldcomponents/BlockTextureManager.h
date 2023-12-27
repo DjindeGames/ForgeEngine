@@ -1,7 +1,7 @@
 #pragma once
 
 #include "engine/core/WorldComponent.h"
-#include "papierkraft/data/BlockTextureData.h"
+#include "projects/papierkraft/data/BlockTextureData.h"
 
 #include <unordered_map>
 

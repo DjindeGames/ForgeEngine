@@ -11,6 +11,7 @@ namespace ForgeEngine
 	{
 		Default = 0,
 		Textured,
+		Lit,
 		Count
 	};
 

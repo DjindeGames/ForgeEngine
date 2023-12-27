@@ -27,21 +27,24 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\common\worldcomponents\LightManager.h" />
+    <ClInclude Include="src\common\components\LightComponent.h" />
+    <ClInclude Include="src\common\helpers\DebugUtils.h" />
     <ClInclude Include="src\common\Mesh.h" />
     <ClInclude Include="src\common\helpers\MeshUtils.h" />
-    <ClInclude Include="src\newton\Newton.h" />
-    <ClInclude Include="src\daggerfall\components\NPCComponent.h" />
-    <ClInclude Include="src\daggerfall\worldcomponents\SpriteAtlasManager.h" />
-    <ClInclude Include="src\daggerfall\core\Daggerfall.h" />
-    <ClInclude Include="src\alchemist\core\Alchemist.h" />
-    <ClInclude Include="src\alchemist\components\LandscapeComponent.h" />
+    <ClInclude Include="src\projects\newton\Newton.h" />
+    <ClInclude Include="src\projects\daggerfall\components\NPCComponent.h" />
+    <ClInclude Include="src\projects\daggerfall\worldcomponents\SpriteAtlasManager.h" />
+    <ClInclude Include="src\projects\daggerfall\core\Daggerfall.h" />
+    <ClInclude Include="src\projects\alchemist\core\Alchemist.h" />
+    <ClInclude Include="src\projects\alchemist\components\LandscapeComponent.h" />
     <ClInclude Include="src\common\helpers\InputHelper.h" />
     <ClInclude Include="src\engine\core\ForgeEngine.h" />
     <ClInclude Include="src\system\Input\InputAction.h" />
     <ClInclude Include="src\common\worldcomponents\DebugManager.h" />
     <ClInclude Include="src\engine\core\OpenGL.h" />
     <ClInclude Include="src\engine\ui\ImGUI.h" />
-    <ClInclude Include="src\papierkraft\core\PapierKraft.h" />
+    <ClInclude Include="src\projects\papierkraft\core\PapierKraft.h" />
     <ClInclude Include="src\extern\imgui\imconfig.h" />
     <ClInclude Include="src\extern\imgui\imgui.h" />
     <ClInclude Include="src\extern\imgui\imgui_impl_glfw.h" />
@@ -50,7 +53,7 @@
     <ClInclude Include="src\extern\imgui\imstb_rectpack.h" />
     <ClInclude Include="src\extern\imgui\imstb_textedit.h" />
     <ClInclude Include="src\extern\imgui\imstb_truetype.h" />
-    <ClInclude Include="src\papierkraft\components\ChunkComponent.h" />
+    <ClInclude Include="src\projects\papierkraft\components\ChunkComponent.h" />
     <ClInclude Include="src\common\worldcomponents\InputManager.h" />
     <ClInclude Include="src\common\components\FirstPersonControllerComponent.h" />
     <ClInclude Include="src\common\components\CameraComponent.h" />
@@ -62,11 +65,11 @@
     <ClInclude Include="src\system\math\Vector2.h" />
     <ClInclude Include="src\system\math\Vector3.h" />
     <ClInclude Include="src\system\math\Vector4.h" />
-    <ClInclude Include="src\papierkraft\data\BlockTextureData.h" />
-    <ClInclude Include="src\papierkraft\worldcomponents\BlockTextureManager.h" />
+    <ClInclude Include="src\projects\papierkraft\data\BlockTextureData.h" />
+    <ClInclude Include="src\projects\papierkraft\worldcomponents\BlockTextureManager.h" />
     <ClInclude Include="src\engine\core\World.h" />
     <ClInclude Include="src\engine\core\WorldComponent.h" />
-    <ClInclude Include="src\papierkraft\components\BlockComponent.h" />
+    <ClInclude Include="src\projects\papierkraft\components\BlockComponent.h" />
     <ClInclude Include="src\engine\core\Component.h" />
     <ClInclude Include="src\engine\core\ManagedObject.h" />
     <ClInclude Include="src\engine\core\Entity.h" />
@@ -373,20 +376,24 @@
     <ClInclude Include="src\common\components\ViewerComponent.h" />
     <ClInclude Include="src\system\math\MathUtils.h" />
     <ClInclude Include="src\system\time\Timer.h" />
+    <ClInclude Include="src\projects\torch\Torch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\common\worldcomponents\LightManager.cpp" />
+    <ClCompile Include="src\common\components\LightComponent.cpp" />
+    <ClCompile Include="src\common\helpers\DebugUtils.cpp" />
     <ClCompile Include="src\common\Mesh.cpp" />
     <ClCompile Include="src\common\helpers\MeshUtils.cpp" />
-    <ClCompile Include="src\newton\Newton.cpp" />
-    <ClCompile Include="src\daggerfall\components\NPCComponent.cpp" />
-    <ClCompile Include="src\daggerfall\worldcomponents\SpriteAtlasManager.cpp" />
-    <ClCompile Include="src\daggerfall\core\Daggerfall.cpp" />
-    <ClCompile Include="src\alchemist\core\Alchemist.cpp" />
-    <ClCompile Include="src\alchemist\components\LandscapeComponent.cpp" />
+    <ClCompile Include="src\projects\newton\Newton.cpp" />
+    <ClCompile Include="src\projects\daggerfall\components\NPCComponent.cpp" />
+    <ClCompile Include="src\projects\daggerfall\worldcomponents\SpriteAtlasManager.cpp" />
+    <ClCompile Include="src\projects\daggerfall\core\Daggerfall.cpp" />
+    <ClCompile Include="src\projects\alchemist\core\Alchemist.cpp" />
+    <ClCompile Include="src\projects\alchemist\components\LandscapeComponent.cpp" />
     <ClCompile Include="src\common\helpers\InputHelper.cpp" />
     <ClCompile Include="src\system\Input\InputAction.cpp" />
     <ClCompile Include="src\common\worldcomponents\DebugManager.cpp" />
-    <ClCompile Include="src\papierkraft\core\PapierKraft.cpp" />
+    <ClCompile Include="src\projects\papierkraft\core\PapierKraft.cpp" />
     <ClCompile Include="src\extern\imgui\imgui.cpp" />
     <ClCompile Include="src\extern\imgui\imgui_demo.cpp" />
     <ClCompile Include="src\extern\imgui\imgui_draw.cpp" />
@@ -394,7 +401,7 @@
     <ClCompile Include="src\extern\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="src\extern\imgui\imgui_tables.cpp" />
     <ClCompile Include="src\extern\imgui\imgui_widgets.cpp" />
-    <ClCompile Include="src\papierkraft\components\ChunkComponent.cpp" />
+    <ClCompile Include="src\projects\papierkraft\components\ChunkComponent.cpp" />
     <ClCompile Include="src\common\worldcomponents\InputManager.cpp" />
     <ClCompile Include="src\common\components\FirstPersonControllerComponent.cpp" />
     <ClCompile Include="src\common\components\CameraComponent.cpp" />
@@ -403,11 +410,11 @@
     <ClCompile Include="src\common\worldcomponents\ShaderManager.cpp" />
     <ClCompile Include="src\system\math\Matrix4.cpp" />
     <ClCompile Include="src\system\math\Vector3.cpp" />
-    <ClCompile Include="src\papierkraft\data\BlockTextureData.cpp" />
-    <ClCompile Include="src\papierkraft\worldcomponents\BlockTextureManager.cpp" />
+    <ClCompile Include="src\projects\papierkraft\data\BlockTextureData.cpp" />
+    <ClCompile Include="src\projects\papierkraft\worldcomponents\BlockTextureManager.cpp" />
     <ClCompile Include="src\engine\core\World.cpp" />
     <ClCompile Include="src\engine\core\WorldComponent.cpp" />
-    <ClCompile Include="src\papierkraft\components\BlockComponent.cpp" />
+    <ClCompile Include="src\projects\papierkraft\components\BlockComponent.cpp" />
     <ClCompile Include="src\engine\core\Component.cpp" />
     <ClCompile Include="src\engine\core\ManagedObject.cpp" />
     <ClCompile Include="src\engine\core\Entity.cpp" />
@@ -426,11 +433,12 @@
     <ClCompile Include="src\common\components\ViewerComponent.cpp" />
     <ClCompile Include="src\system\math\MathUtils.cpp" />
     <ClCompile Include="src\system\time\Timer.cpp" />
+    <ClCompile Include="src\projects\torch\Torch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\shaders\fragment\textured.glslf" />
     <None Include="assets\shaders\vertex\textured.glslv" />
-    <None Include="src\alchemist\Alchemist.cd" />
+    <None Include="src\projects\alchemist\Alchemist.cd" />
     <None Include="src\engine\ForgeEngine.cd" />
     <None Include="src\extern\opengl\includes\glm\detail\func_common.inl" />
     <None Include="src\extern\opengl\includes\glm\detail\func_common_simd.inl" />
@@ -568,7 +576,7 @@
     <None Include="src\extern\opengl\includes\glm\gtx\vector_angle.inl" />
     <None Include="src\extern\opengl\includes\glm\gtx\vector_query.inl" />
     <None Include="src\extern\opengl\includes\glm\gtx\wrap.inl" />
-    <None Include="src\papierkraft\PapierKraft.cd" />
+    <None Include="src\projects\papierkraft\PapierKraft.cd" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

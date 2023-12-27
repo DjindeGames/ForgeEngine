@@ -3,9 +3,11 @@
 #include "common/components/MeshComponent.h"
 #include "common/components/ViewerComponent.h"
 #include "common/worldcomponents/ShaderManager.h"
+#include "engine/core/World.h"
+#include "engine/core/Entity.h"
 #include "engine/misc/Texture.h"
-#include "papierkraft/data/BlockTextureData.h"
-#include "papierkraft/worldcomponents/BlockTextureManager.h"
+#include "projects/papierkraft/data/BlockTextureData.h"
+#include "projects/papierkraft/worldcomponents/BlockTextureManager.h"
 
 #include <utility>
 #include <vector>
@@ -23,8 +25,8 @@ namespace PapierKraft
 	bool BlockComponent::OnPreInit() /*override*/
 	{
 		bool success = Mother::OnPreInit();
-        m_TextureData = GetOwner()->GetWorld()->GetComponentByType<BlockTextureManager>()->GetTextureDataByBlockType(m_BlockType);
-        m_Shader = GetOwner()->GetWorld()->GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Textured);
+        m_TextureData = GetOwner()->GetWorld().GetComponentByType<BlockTextureManager>()->GetTextureDataByBlockType(m_BlockType);
+        m_Shader = GetOwner()->GetWorld().GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Textured);
 		BuildBlock();
 		return success;
 	}
@@ -33,7 +35,7 @@ namespace PapierKraft
 	{
 		using FaceTextureCoordinates = std::pair<float, float>;
 
-		Texture* textureAtlas = GetOwner()->GetWorld()->GetComponentByType<BlockTextureManager>()->GetTextureAtlas();
+		Texture* textureAtlas = GetOwner()->GetWorld().GetComponentByType<BlockTextureManager>()->GetTextureAtlas();
 		TextureCoordinates sideTextureCoordinates = m_TextureData->GetSideTexture();
 		TextureCoordinates topTextureCoordinates = m_TextureData->GetTopTexture();
 		TextureCoordinates bottomTextureCoordinates = m_TextureData->GetBottomTexture();

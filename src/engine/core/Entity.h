@@ -2,42 +2,31 @@
 
 #include "engine/core/Component.h"
 #include "engine/core/Defines.h"
-#include "engine/core/World.h"
 #include "engine/core/ManagedObject.h"
+#include "system/math/Vector3.h"
 
 #include <memory>
 #include <vector>
 
 namespace ForgeEngine
 {
-	class Component;
-	class TransformComponent;
+    class TransformComponent;
     class World;
 
 	class Entity : public ManagedObject
 	{
-		using Mother = ManagedObject;
-
 		friend class World;
 
-		/************************************/
-		/************ATTRIBUTES**************/
-		/************************************/
-
-		private:
-            World* m_World{ nullptr };
-			mutable TransformComponent* m_Transform{ nullptr };
-
-			std::vector<Unique<Component>> m_RegisteredComponents;
-
-		/************************************/
-		/**************METHODS***************/
-		/************************************/
+		using Mother = ManagedObject;
 
 		public:
-			TransformComponent* GetTransform() const;
-            World* GetWorld() { return m_World; }
-            const World* GetWorld() const { return m_World; }
+            TransformComponent& GetTransform() { return m_Transform; }
+            const TransformComponent& GetTransform() const { return m_Transform; }
+
+            const Vector3& GetPosition() const;
+
+            World& GetWorld() { return m_World; }
+            const World& GetWorld() const { return m_World; }
 
 			template <typename T>
 			T* RegisterComponent(T* component)
@@ -79,7 +68,7 @@ namespace ForgeEngine
 			}
 
 		protected:
-            Entity(World* world);
+            Entity(World& world, TransformComponent* transform);
 
 			virtual bool OnPreInit() override;
 			virtual bool OnInit() override;
@@ -92,5 +81,12 @@ namespace ForgeEngine
 			virtual void OnDrawDebug(float dT) override;
 
 			virtual void OnDestroy() override;
+
+        private:
+            World& m_World;
+            TransformComponent& m_Transform;
+
+            std::vector<Unique<Component>> m_RegisteredComponents;
+
 	};
 }
