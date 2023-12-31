@@ -69,7 +69,7 @@ namespace ForgeEngine
 			sight = ForgeMaths::ComputeCameraSight(m_Yaw, m_Pitch);
 		}
 
-		m_Sight = glm::normalize(sight);
+		m_Sight = ForgeMaths::Normalize(sight);
 		m_Right = ForgeMaths::Cross(VECTOR3_UP, m_Sight);
 		m_Up = ForgeMaths::Cross(m_Sight, m_Right);
 

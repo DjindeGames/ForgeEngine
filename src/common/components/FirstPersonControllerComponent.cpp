@@ -2,7 +2,9 @@
 
 #include "common/components/CameraComponent.h"
 #include "common/helpers/InputHelper.h"
+#include "common/worldcomponents/DebugManager.h"
 #include "engine/core/ForgeEngine.h"
+#include "engine/ui/ImGUI.h"
 #include "system/math/MathUtils.h"
 #include "system/math/Vector3.h"
 
@@ -35,42 +37,57 @@ namespace ForgeEngine
 		float yaw = m_CameraComponent->GetYaw() - (mouseVelocity.x * m_RotationSpeed * dT);
 		float pitch = ForgeMaths::Clamp(m_CameraComponent->GetPitch() + (mouseVelocity.y * m_RotationSpeed * dT), -89.f, 89.f);
 
-        Vector3 sight = m_CameraComponent->GetSight();
-        sight = Vector3(sight.x, 0.f, sight.z);
+        Vector3 cameraSightFlattened = ForgeMaths::FlattenAndNormalize(m_CameraComponent->GetSight());
 
 		if (InputHelper::IsInputActive(EInputAction::MoveForward))
 		{
-			translation += m_MoveSpeed * sight;
+			translation += cameraSightFlattened;
 		}
 		if (InputHelper::IsInputActive(EInputAction::MoveBackward))
 		{
-			translation -= m_MoveSpeed * sight;
+			translation -= cameraSightFlattened;
 		}
 		if (InputHelper::IsInputActive(EInputAction::MoveLeft))
 		{
-			translation += m_MoveSpeed * m_CameraComponent->GetRight();
+			translation += m_CameraComponent->GetRight();
 		}
 		if (InputHelper::IsInputActive(EInputAction::MoveRight))
 		{
-			translation -= m_MoveSpeed * m_CameraComponent->GetRight();
+			translation -= m_CameraComponent->GetRight();
 		}
 
 		if (InputHelper::IsInputActive(EInputAction::FlyUp))
 		{
-			translation += m_MoveSpeed * VECTOR3_UP;
+			translation += VECTOR3_UP;
 		}
 		if (InputHelper::IsInputActive(EInputAction::FlyDown))
 		{
-			translation -= m_MoveSpeed * VECTOR3_UP;
+			translation -= VECTOR3_UP;
 		}
 
-		m_CameraComponent->SetYaw(yaw);
-		m_CameraComponent->SetPitch(pitch);
+        bool shouldUpdateCameraSight = true;
+#ifdef FORGE_DEBUG_ENABLED
+        const DebugManager* debugManager = GameHandler::Get().GetWorld().GetComponentByType<const DebugManager>();
+        shouldUpdateCameraSight = debugManager == nullptr || !debugManager->IsFreeMouseEnabled();
+#endif //FORGE_DEBUG_ENABLED
 
-		//TODO: Normalize translation
-        glm::normalize(translation);
-		GetOwner()->GetTransform().Translate(translation * dT);
+        if (shouldUpdateCameraSight)
+        {
+            m_CameraComponent->SetYaw(yaw);
+            m_CameraComponent->SetPitch(pitch);
+        }
+
+        Vector3 finalTranslation = translation != VECTOR3_NULL ? glm::normalize(translation) * m_MoveSpeed * dT : VECTOR3_NULL;
+		GetOwner()->GetTransform().Translate(finalTranslation);
 	}
+
+    void FirstPersonControllerComponent::OnDrawDebug(float dT) /*override*/
+    {
+        ImGui::Begin("FirstPersonControllerComponent");
+        const Vector3& playerPosition = GetOwner()->GetPosition();
+        ImGui::Text("Player Position: (%.2f, %.2f, %.2f)", playerPosition.x, playerPosition.y, playerPosition.z);
+        ImGui::End();
+    }
 
 	void FirstPersonControllerComponent::OnDestroy() /*override*/
 	{

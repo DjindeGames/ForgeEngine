@@ -8,6 +8,7 @@ namespace ForgeEngine
 		Mother()
 	{
 		m_InputActionMappings[EInputAction::ToggleWireframe]	= Unique<InputAction>(new InputAction{ EInputType::Press, EDeviceTarget::Keyboard, GLFW_KEY_F1 });
+		m_InputActionMappings[EInputAction::ToggleFreeMouse]	= Unique<InputAction>(new InputAction{ EInputType::Press, EDeviceTarget::Keyboard, GLFW_KEY_F2 });
 		m_InputActionMappings[EInputAction::RightClickOnce]		= Unique<InputAction>(new InputAction{ EInputType::Press, EDeviceTarget::Mouse, GLFW_MOUSE_BUTTON_RIGHT });
 		m_InputActionMappings[EInputAction::LeftClickOnce]		= Unique<InputAction>(new InputAction{ EInputType::Press, EDeviceTarget::Mouse, GLFW_MOUSE_BUTTON_LEFT });
 

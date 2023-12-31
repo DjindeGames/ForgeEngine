@@ -7,6 +7,7 @@ namespace ForgeEngine
 	enum class EInputAction
 	{
 		ToggleWireframe,
+		ToggleFreeMouse,
 
 		MoveForward,
 		MoveBackward,

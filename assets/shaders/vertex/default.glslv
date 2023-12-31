@@ -9,9 +9,9 @@ uniform mat4 Transform;
 //ATTRIBUTE 3
 layout (location = 0) in vec3 aPos;
 //ATTRIBUTE 3
-layout (location = 0) in vec3 aNormal;
+layout (location = 1) in vec3 aNormal;
 //ATTRIBUTE 2
-layout (location = 0) in vec2 aTextureCoordinates;
+layout (location = 2) in vec2 aTextureCoordinates;
 
 out vec4 ourColor;
 

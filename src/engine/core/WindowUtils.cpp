@@ -23,6 +23,9 @@ namespace ForgeEngine
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+#ifdef FORGE_DEBUG_ENABLED
+        glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, true);
+#endif //FORGE_DEBUG_ENABLED
 
 		//glfw window creation
 		GLFWwindow* window = glfwCreateWindow(width, height, name.c_str(), NULL, NULL);

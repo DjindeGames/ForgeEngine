@@ -17,6 +17,8 @@ namespace ForgeEngine
 		virtual void OnUpdate(float dT) override;
 		virtual void OnDestroy() override;
 
+        void OnDrawDebug(float dT) override;
+
     private:
         float m_MoveSpeed{10.f};
         float m_RotationSpeed{10.f};

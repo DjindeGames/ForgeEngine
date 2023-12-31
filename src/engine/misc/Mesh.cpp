@@ -88,7 +88,7 @@ namespace ForgeEngine
         for (unsigned int i = 0; i < GetTrianglesCount(); i++)
         {
             const std::vector<float> triangleData = m_Triangles[i].ToGLData(*this);
-            for (unsigned int j = 0; j < Triangle::GetGLDataSize(); j++)
+            for (unsigned int j = 0; j < triangleData.size(); j++)
             {
                 data.push_back(triangleData[j]);
             }

@@ -35,7 +35,7 @@ namespace Torch
         World& world = GetWorld();
 
         Entity* ground = world.RegisterEntity();
-        ground->RegisterComponent(new MeshComponent(MeshUtils::MakeTriangle(10.f, COLOR_MAGENTA), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Lit)));
+        ground->RegisterComponent(new MeshComponent(MeshUtils::MakePlane(1.f, COLOR_MAGENTA), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Default)));
         /*
         Entity* lightCube = world.RegisterEntity();
         lightCube->RegisterComponent(new MeshComponent(MeshUtils::MakeCube(0.1f, COLOR_WHITE), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Lit)));

@@ -9,8 +9,9 @@
 namespace ForgeEngine
 {
 	DebugManager::DebugManager() :
-		m_CurrentDrawMode(GL_FILL)
+		m_CurrentDrawMode(GL_LINE)
 	{
+        glPolygonMode(GL_FRONT_AND_BACK, m_CurrentDrawMode);
 	}
 
 	void DebugManager::OnDrawDebug(float dT) /*override*/
@@ -50,7 +51,25 @@ namespace ForgeEngine
 		{
 			ToggleWireframeMode();
 		}
+        if (InputHelper::IsInputActive(EInputAction::ToggleFreeMouse))
+        {
+            ToggleFreeMouse();
+        }
 	}
+
+    void DebugManager::ToggleFreeMouse()
+    {
+        if (!m_FreeMouseEnabled)
+        {
+            m_FreeMouseEnabled = true;
+            glfwSetInputMode(GameHandler::Get().GetWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+        }
+        else
+        {
+            m_FreeMouseEnabled = false;
+            glfwSetInputMode(GameHandler::Get().GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        }
+    }
 
 	void DebugManager::ToggleWireframeMode()
 	{
