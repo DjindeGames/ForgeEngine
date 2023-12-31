@@ -16,5 +16,6 @@ void main()
 	vec3 lightDirection = vec3(normalize(LightSourcePosition - ourFragmentPosition));
 	float diffuseFactor = max(dot(lightDirection, ourNormal), 0.0);
 	vec4 diffuseLight = diffuseFactor * LightColor;
-	FragColor = RenderColor * diffuseLight;
+	//FragColor = RenderColor * diffuseLight;
+	FragColor = RenderColor;
 }

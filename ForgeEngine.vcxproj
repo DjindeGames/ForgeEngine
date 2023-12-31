@@ -30,7 +30,7 @@
     <ClInclude Include="src\common\worldcomponents\LightManager.h" />
     <ClInclude Include="src\common\components\LightComponent.h" />
     <ClInclude Include="src\common\helpers\DebugUtils.h" />
-    <ClInclude Include="src\common\Mesh.h" />
+    <ClInclude Include="src\engine\misc\Mesh.h" />
     <ClInclude Include="src\common\helpers\MeshUtils.h" />
     <ClInclude Include="src\projects\newton\Newton.h" />
     <ClInclude Include="src\projects\daggerfall\components\NPCComponent.h" />
@@ -382,7 +382,7 @@
     <ClCompile Include="src\common\worldcomponents\LightManager.cpp" />
     <ClCompile Include="src\common\components\LightComponent.cpp" />
     <ClCompile Include="src\common\helpers\DebugUtils.cpp" />
-    <ClCompile Include="src\common\Mesh.cpp" />
+    <ClCompile Include="src\engine\misc\Mesh.cpp" />
     <ClCompile Include="src\common\helpers\MeshUtils.cpp" />
     <ClCompile Include="src\projects\newton\Newton.cpp" />
     <ClCompile Include="src\projects\daggerfall\components\NPCComponent.cpp" />

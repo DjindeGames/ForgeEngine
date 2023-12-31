@@ -41,11 +41,11 @@ namespace Newton
         player->GetTransform().SetPosition(Vector3(0.f, 1.8f, 0.f));
 
         Entity* ground = world.RegisterEntity();
-        ground->RegisterComponent(new MeshComponent(MeshUtils::GetPlaneVerticesCoordinates(10.f), MeshUtils::GetPlaneVerticesIndexes(), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Default), COLOR_LIGHT_GREY));
+        ground->RegisterComponent(new MeshComponent(MeshUtils::MakePlane(1.f, COLOR_LIGHT_GREY), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Default)));
         Entity* slope = world.RegisterEntity();
-        slope->RegisterComponent(new MeshComponent(MeshUtils::GetPlaneVerticesCoordinates(1.f), MeshUtils::GetPlaneVerticesIndexes(), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Default), COLOR_DARK_GREY));
+        slope->RegisterComponent(new MeshComponent(MeshUtils::MakePlane(1.f, COLOR_DARK_GREY), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Default)));
         Entity* cube = world.RegisterEntity();
-        cube->RegisterComponent(new MeshComponent(MeshUtils::GetCubeVerticesCoordinates(), MeshUtils::GetCubeVerticesIndexes(), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Default), COLOR_RED));
+        cube->RegisterComponent(new MeshComponent(MeshUtils::MakeCube(1.f, COLOR_RED), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Default)));
         cube->GetTransform().Translate(VECTOR3_UP * 0.5f);
         slope->GetTransform().Rotate(Vector3(30.f, 0.f, 0.f));
         slope->GetTransform().Scale(Vector3(10.f, 1.f, 5.f));

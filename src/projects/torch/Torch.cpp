@@ -34,27 +34,27 @@ namespace Torch
 
         World& world = GetWorld();
 
+        Entity* ground = world.RegisterEntity();
+        ground->RegisterComponent(new MeshComponent(MeshUtils::MakeTriangle(10.f, COLOR_MAGENTA), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Lit)));
+        /*
         Entity* lightCube = world.RegisterEntity();
-        lightCube->RegisterComponent(new MeshComponent(MeshUtils::GetCubeVerticesCoordinates(), MeshUtils::GetCubeVerticesIndexes(), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Default), COLOR_WHITE));
-        lightCube->RegisterComponent(new LightComponent());
+        lightCube->RegisterComponent(new MeshComponent(MeshUtils::MakeCube(0.1f, COLOR_WHITE), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Lit)));
+        lightCube->RegisterComponent(new LightComponent(100.f, 100.f));
         lightCube->GetTransform().Translate(VECTOR3_UP * 3.f);
-        lightCube->GetTransform().Scale(0.1f);
-
+        */
         Entity* player = world.RegisterEntity();
         player->RegisterComponent(new CameraComponent(CameraComponent::PerspectiveCamera{}));
         player->RegisterComponent(new FirstPersonControllerComponent());
         player->GetTransform().SetPosition(Vector3(0.f, 1.7f, 0.f));
-
-        Entity* ground = world.RegisterEntity();
-        ground->RegisterComponent(new MeshComponent(MeshUtils::GetPlaneVerticesCoordinatesTextured(30.f), MeshUtils::GetPlaneVerticesIndexes(), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Textured), new Texture("assets\\daggerfall\\textures\\grounds\\grass.PNG")));
-        
+        /*
         Entity* cube1 = world.RegisterEntity();
-        cube1->RegisterComponent(new MeshComponent(MeshUtils::GetCubeVerticesCoordinates(), MeshUtils::GetCubeVerticesIndexes(), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Lit), COLOR_LIGHT_GREY));
+        cube1->RegisterComponent(new MeshComponent(MeshUtils::MakeCube(1.f, COLOR_LIGHT_GREY), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Lit)));
         cube1->GetTransform().Translate(VECTOR3_UP * 0.5f);
 
         Entity* cube2 = world.RegisterEntity();
-        cube2->RegisterComponent(new MeshComponent(MeshUtils::GetCubeVerticesCoordinates(), MeshUtils::GetCubeVerticesIndexes(), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Default), COLOR_YELLOW));
+        cube2->RegisterComponent(new MeshComponent(MeshUtils::MakeCube(1.f, COLOR_YELLOW), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Lit)));
         cube2->GetTransform().Translate(Vector3(4.f, 0.5f, 4.f));
+        */
     }
 
     void Torch::OnUpdate(float dT) /*override*/

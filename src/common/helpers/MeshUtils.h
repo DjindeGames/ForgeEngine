@@ -1,22 +1,19 @@
 #pragma once
 
+#include "engine/misc/Mesh.h"
 #include "system/misc/Color.h"
 
 #include <vector>
 
 namespace ForgeEngine
 {
+    class Texture;
+
     namespace MeshUtils
     {
-        std::vector<float> GetPlaneVerticesCoordinates(float scale = 1.f);
-        std::vector<float> GetPlaneVerticesCoordinatesTextured(float scale = 1.f);
-        std::vector<float> GetPlaneVerticesCoordinatesColored(const Color& color);
-        std::vector<unsigned int> GetPlaneVerticesIndexes();
-
-        std::vector<float> GetCubeVerticesCoordinates();
-        std::vector<unsigned int> GetCubeVerticesIndexes();
-
-        std::vector<float> GetSphereVerticesCoordinates();
-        std::vector<unsigned int> GetSphereVerticesIndexes();
+        Mesh MakeCube(float scale = 1.f, const Color& renderColor = COLOR_MAGENTA, const Texture* texture = nullptr);
+        Mesh MakePlane(float scale = 1.f, const Color& renderColor = COLOR_MAGENTA, const Texture* texture = nullptr);
+        Mesh MakeTriangle(float scale = 1.f, const Color& renderColor = COLOR_MAGENTA, const Texture* texture = nullptr);
+        Mesh MakeSphere(float scale = 1.f, const Color& renderColor = COLOR_MAGENTA, const Texture* texture = nullptr);
     }
 }

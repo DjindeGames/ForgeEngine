@@ -40,25 +40,7 @@ namespace Daggerfall
         player->GetTransform().SetPosition(Vector3(0.f, 1.8f, 0.f));
 
         Entity* ground = world.RegisterEntity();
-
-        std::vector<float> verticesTexturesCoordinates{
-                // positions       // texture coords
-             -0.5f, -0.5f, -0.5f,   100.f, 100.f, // top right
-            -0.5f, -0.5f,  0.5f,    100.f, 0.f, // bottom right
-             0.5f, -0.5f,  0.5f,    0.f, 0.f, // bottom left
-             0.5f, -0.5f, -0.5f,    0.f, 100.f  // top left 
-        };
-
-        //Coordinate indexes 
-        std::vector<unsigned int> coordinates = {
-            0, 1, 3,
-            1, 2, 3
-        };
-
-        const float planeScale = 10.f;
-
-        ground->RegisterComponent(new MeshComponent(MeshUtils::GetPlaneVerticesCoordinatesTextured(planeScale), MeshUtils::GetPlaneVerticesIndexes(), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Textured), new Texture("assets\\daggerfall\\textures\\grounds\\grass.PNG")));
-        ground->GetTransform().Scale(Vector3(planeScale, 0.f, planeScale));
+        ground->RegisterComponent(new MeshComponent(MeshUtils::MakePlane(10.f, COLOR_MAGENTA, new Texture("assets\\daggerfall\\textures\\grounds\\grass.PNG")), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Textured)));
     }
 
     void Daggerfall::OnUpdate(float dT) /*override*/

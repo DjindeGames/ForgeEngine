@@ -11,6 +11,11 @@ namespace ForgeEngine
 			return glm::cross(v1, v2);
 		}
 
+        Vector3 Normalize(const Vector3& v)
+        {
+            return glm::normalize(v);
+        }
+
         float Dot(const Vector3& v1, const Vector3& v2)
         {
             return glm::dot(v1, v2);

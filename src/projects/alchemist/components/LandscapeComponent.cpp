@@ -29,7 +29,8 @@ namespace Alchemist
 			1, 2, 3
 		};
 
-		GetOwner()->RegisterComponent(new MeshComponent(vertices, indices, GetOwner()->GetWorld().GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Textured)));
+        //TODO: FIX THIS
+		//GetOwner()->RegisterComponent(new MeshComponent(vertices, indices, GetOwner()->GetWorld().GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Textured)));
 
 		return true;
 	}
@@ -62,7 +63,8 @@ namespace Alchemist
 
 		if (MeshComponent* mesh = GetOwner()->GetComponentByType<MeshComponent>())
 		{
-			mesh->SetTexture(m_Texture.get());
+            //TODO: FIX THIS
+			//mesh->GetMesh().SetTexture(m_Texture.get());
 		}
 	}
 

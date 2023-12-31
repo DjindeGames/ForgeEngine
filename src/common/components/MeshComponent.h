@@ -2,6 +2,7 @@
 
 #include "engine/core/Component.h"
 #include "engine/core/Defines.h"
+#include "engine/misc/Mesh.h"
 #include "system/misc/Color.h"
 
 namespace ForgeEngine
@@ -18,15 +19,12 @@ namespace ForgeEngine
 		/************************************/
 
 		private:
+            Mesh m_Mesh{};
 			Shader* m_Shader{};
-			Texture* m_Texture{};
-			Color m_renderColor;
 
 			GL_ID m_VertexArrayObject{};
 			GL_ID m_VertexBufferObject{};
 			GL_ID m_VertexBufferElement{};
-
-			unsigned int m_NumVertices{};
 			unsigned int m_NumIndices{};
 
 		/************************************/
@@ -34,15 +32,14 @@ namespace ForgeEngine
 		/************************************/
 
 		public:
-			MeshComponent(const std::vector<float>& vertices, const std::vector<unsigned int>& indices, Shader* shader, const Color& renderColor = COLOR_MAGENTA);
-			MeshComponent(const std::vector<float>& vertices, const std::vector<unsigned int>& indices, Shader* shader, Texture* texture);
-
-			void SetTexture(Texture* texture) { m_Texture = texture; }
+			MeshComponent(const Mesh& mesh, Shader* shader);
 
 			virtual void OnUpdate(float dT) override;
 			virtual void OnDestroy() override;
 
+            Mesh& GetMesh() { return m_Mesh; }
+
 		private:
-			void InitRender(const std::vector<float>& vertices, const std::vector<unsigned int>& indices);
+			void InitRender();
 	};
 }

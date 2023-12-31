@@ -10,6 +10,8 @@ uniform mat4 Transform;
 layout (location = 0) in vec3 aPosition;
 //ATTRIBUTE 3
 layout (location = 1) in vec3 aNormal;
+//ATTRIBUTE 2
+layout (location = 2) in vec2 aTextureCoordinates;
 
 out vec3 ourNormal;
 out vec4 ourFragmentPosition;

@@ -172,6 +172,7 @@ namespace PapierKraft
 					21, 22, 23
 		};
 
-		GetOwner()->RegisterComponent(new MeshComponent(verticesTexturesCoordinates, coordinates, m_Shader, textureAtlas));
+        //TODO: FIX THIS
+		//GetOwner()->RegisterComponent(new MeshComponent(verticesTexturesCoordinates, coordinates, m_Shader, textureAtlas));
 	}
 }

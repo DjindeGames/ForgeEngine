@@ -13,49 +13,23 @@
 
 namespace ForgeEngine
 {
-	MeshComponent::MeshComponent(
-		const std::vector<float>& vertices,
-		const std::vector<unsigned int>& indices,
-		Shader* shader,
-		const Color& renderColor /*= COLOR_RENDER_DEFAULT*/
-	) :
-		Mother(),
-		m_renderColor(renderColor),
-		m_Shader(shader)
+	MeshComponent::MeshComponent(const Mesh& mesh, Shader* shader) 
+        : Mother()
+        , m_Mesh(mesh)
+        , m_Shader(shader)
 	{
-		InitRender(vertices, indices);
+		InitRender();
 	}
 
-	MeshComponent::MeshComponent(
-		const std::vector<float>& vertices, 
-		const std::vector<unsigned int>& indices, 
-		Shader* shader, 
-		Texture* texture
-	) :
-		Mother(),
-		m_renderColor(COLOR_MAGENTA),
-		m_Shader(shader),
-		m_Texture(texture)
+	void MeshComponent::InitRender()
 	{
-		InitRender(vertices, indices);
-	}
+        if (m_Shader == nullptr)
+        {
+            //TODO: Add error message
+            return;
+        }
 
-	void MeshComponent::InitRender(const std::vector<float>& vertices, const std::vector<unsigned int>& indices)
-	{
-		if (m_Shader == nullptr)
-		{
-			return;
-		}
-
-		m_NumIndices = static_cast<unsigned int>(indices.size());
-		m_NumVertices = vertices.size() / m_Shader->GetInputDataSize();
-
-		float* glFloats = new float[(vertices.size())];
-
-		for (COUNTER i = 0; i < (vertices.size()); i++)
-		{
-			glFloats[i] = vertices[i];
-		} 
+        std::vector<float> meshData = m_Mesh.MakeGLData();
 
 		//Generates buffer to store vertices
 		glGenBuffers(1, &m_VertexBufferObject);
@@ -68,35 +42,31 @@ namespace ForgeEngine
 
 		//2. Copy our vertices array in a buffer for OpenGL to use
 		glBindBuffer(GL_ARRAY_BUFFER, m_VertexBufferObject);
-		glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), glFloats, GL_STATIC_DRAW);
+        const GLintptr meshDataSize = meshData.size() * sizeof(float);
+		glBufferData(GL_ARRAY_BUFFER, meshDataSize, meshData.data(), GL_STATIC_DRAW);
 
-		//2.5. Use vertex buffer element if necessary
-		if (indices.size() > 0)
-		{
-			glGenBuffers(1, &m_VertexBufferElement);
+		//2.5. Use vertex buffer element
+		glGenBuffers(1, &m_VertexBufferElement);
+        std::vector<unsigned int> indices = m_Mesh.GetTrianglesIndices();
+        m_NumIndices = indices.size();
 
-			unsigned int* glIndices = new unsigned int[indices.size()];
-			std::copy(indices.begin(), indices.end(), glIndices);
-
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_VertexBufferElement);
-			glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), glIndices, GL_STATIC_DRAW);
-
-			delete[](glIndices);
-		}
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_VertexBufferElement);
+        const GLintptr indicesSize = indices.size() * sizeof(unsigned int);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesSize, indices.data(), GL_STATIC_DRAW);
 
 		//3. Then set our vertex attributes pointers
 		//1st argument corresponds to the vertex attribute location (comes from vertexShaderSource)
-		//2nd argument corresponds to the number of float in a vec3 (used in the vertex shader)
-		//5th argument corresponds to the size of the stride in bytes, ie the number of bytes between 2 vec3
+		//2nd argument corresponds to the number of floats in the attribute (used in the vertex shader)
+		//5th argument corresponds to the size of the attribute in bytes
 		//Should be done for each attribute of the vertexShader, eg each in variable
 		int offset = 0;
+        const unsigned int inputDataSize = m_Shader->GetInputDataSize() * sizeof(float);
 		for (COUNTER i = 0; i < m_Shader->GetNBAttributes() ; i++)
 		{
 			unsigned int attributeSize = m_Shader->GetAttributeSize(i);
-			glVertexAttribPointer(i, attributeSize, GL_FLOAT, GL_FALSE, m_Shader->GetInputDataSize() * sizeof(float), (void*)offset);
-			offset += attributeSize * sizeof(float);
-			//Argument corresponds to the vertex attribute location
+			glVertexAttribPointer(i, attributeSize, GL_FLOAT, GL_FALSE, inputDataSize, (void*)offset);
 			glEnableVertexAttribArray(i);
+			offset += attributeSize * sizeof(float);
 		}
 
 		//Unbinding, this is optionnal
@@ -106,9 +76,6 @@ namespace ForgeEngine
 		//You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, but this rarely happens. Modifying other
 		//VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
 		glBindVertexArray(0);
-
-		//Clear vertices data
-		delete[](glFloats);
 	}
 
 	void MeshComponent::OnUpdate(float dT)
@@ -122,8 +89,8 @@ namespace ForgeEngine
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 			m_Shader->Use();
-			m_Shader->SetColor(DEFAULT_RENDER_COLOR_NAME, m_renderColor);
-			m_Shader->SetTexture(GL_TEXTURE0, m_Texture);
+			m_Shader->SetColor(DEFAULT_RENDER_COLOR_NAME, m_Mesh.GetRenderColor());
+			m_Shader->SetTexture(GL_TEXTURE0, m_Mesh.GetTexture());
 			m_Shader->SetTransform(DEFAULT_TRANSFORM_NAME, m_Owner->GetTransform());
 
             //Lighting
@@ -142,22 +109,15 @@ namespace ForgeEngine
 			}
 
 			glBindVertexArray(m_VertexArrayObject);
-			if (m_NumIndices > 0)
-			{
-				glDrawElements(GL_TRIANGLES, m_NumIndices, GL_UNSIGNED_INT, 0);
-			}
-			else
-			{
-				glDrawArrays(GL_TRIANGLES, 0, m_NumVertices * m_Shader->GetInputDataSize());
-			}
+			glDrawElements(GL_TRIANGLES, m_NumIndices, GL_UNSIGNED_INT, 0);
 		}
 	}
 
 	void MeshComponent::OnDestroy() /*override*/
 	{
-		Mother::OnDestroy();
 		glDeleteVertexArrays(1, &m_VertexArrayObject);
 		glDeleteBuffers(1, &m_VertexBufferObject);
 		glDeleteBuffers(1, &m_VertexBufferElement);
+		Mother::OnDestroy();
 	}
 }
