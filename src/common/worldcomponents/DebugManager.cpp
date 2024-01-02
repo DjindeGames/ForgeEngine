@@ -9,7 +9,7 @@
 namespace ForgeEngine
 {
 	DebugManager::DebugManager() :
-		m_CurrentDrawMode(GL_LINE)
+		m_CurrentDrawMode(GL_FILL)
 	{
         glPolygonMode(GL_FRONT_AND_BACK, m_CurrentDrawMode);
 	}

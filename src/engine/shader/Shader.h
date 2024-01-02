@@ -20,14 +20,15 @@ namespace ForgeEngine
     #define LIT_VERTEX_SHADER_PATH		    "assets\\shaders\\vertex\\lit.glslv"
     #define LIT_FRAGMENT_SHADER_PATH	    "assets\\shaders\\fragment\\lit.glslf"
 
-	#define DEFAULT_RENDER_COLOR_NAME		    "RenderColor"
-	#define DEFAULT_RENDER_TEXTURE_NAME		    "RenderTexture"
-	#define DEFAULT_LIGHT_INTENSITY_NAME	    "LightIntensity"
-	#define DEFAULT_TRANSFORM_NAME			    "Transform"
-	#define DEFAULT_PROJECTION_NAME			    "Projection"
-	#define DEFAULT_VIEW_NAME				    "View"
-	#define DEFAULT_LIGHT_COLOR_NAME		    "LightColor"
-	#define DEFAULT_LIGHT_SOURCE_POSITION_NAME	"LightSourcePosition"
+	#define DEFAULT_RENDER_COLOR_NAME		        "RenderColor"
+	#define DEFAULT_RENDER_TEXTURE_NAME		        "RenderTexture"
+	#define DEFAULT_AMBIENT_LIGHT_INTENSITY_NAME    "AmbientLightIntensity"
+	#define DEFAULT_LIGHT_INTENSITY_NAME	        "LightIntensity"
+	#define DEFAULT_TRANSFORM_NAME			        "Transform"
+	#define DEFAULT_PROJECTION_NAME			        "Projection"
+	#define DEFAULT_VIEW_NAME				        "View"
+	#define DEFAULT_LIGHT_COLOR_NAME		        "LightColor"
+	#define DEFAULT_LIGHT_SOURCE_POSITION_NAME	    "LightSourcePosition"
 
 	class Color;
 	class Texture;

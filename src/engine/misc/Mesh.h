@@ -28,7 +28,7 @@ namespace ForgeEngine
         const Color& GetRenderColor() const { return m_RenderColor; }
         const Texture* GetTexture() const { return m_Texture; }
 
-        //data format [vx, xy, vz, nx, ny, nz, tx, ty] * outNumVertices
+        //data format [vx, xy, vz, nx, ny, nz, tx, ty] * GetTrianglesCount() * 3
         //v = vertex coordinates
         //n = normal coordinates
         //t = texture coordinates

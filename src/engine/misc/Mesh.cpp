@@ -53,7 +53,7 @@ namespace ForgeEngine
         m_Normal = ForgeMaths::Normalize(ForgeMaths::Cross(v2 - v1, v3 - v1));
 
         //Flip inward facing normals
-        if (ForgeMaths::Dot(m_Normal, directionToMeshOrigin) > 0.f)
+        if (directionToMeshOrigin.y == 0.f || ForgeMaths::Dot(m_Normal, directionToMeshOrigin) > 0.f)
         {
             m_Normal = -m_Normal;
         }

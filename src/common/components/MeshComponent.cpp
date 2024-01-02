@@ -100,6 +100,7 @@ namespace ForgeEngine
                 m_Shader->SetColor(DEFAULT_LIGHT_COLOR_NAME, lights[0]->GetColor());
                 m_Shader->SetVector4(DEFAULT_LIGHT_SOURCE_POSITION_NAME, lights[0]->GetOwner()->GetPosition());
                 m_Shader->SetFloat(DEFAULT_LIGHT_INTENSITY_NAME, lights[0]->GetIntensity());
+                m_Shader->SetFloat(DEFAULT_AMBIENT_LIGHT_INTENSITY_NAME, 0.f);
             }
 
 			if (CameraComponent::GetActiveCamera() != nullptr)
@@ -109,7 +110,8 @@ namespace ForgeEngine
 			}
 
 			glBindVertexArray(m_VertexArrayObject);
-			glDrawElements(GL_TRIANGLES, m_NumIndices, GL_UNSIGNED_INT, 0);
+			//glDrawElements(GL_TRIANGLES, m_NumIndices, GL_UNSIGNED_INT, 0);
+            glDrawArrays(GL_TRIANGLES, 0, 3 * m_Mesh.GetTrianglesCount() * m_Shader->GetInputDataSize());
 		}
 	}
 

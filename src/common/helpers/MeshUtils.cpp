@@ -64,53 +64,53 @@ namespace ForgeEngine
             return std::vector<Vector2>
             {
                 /******************FRONT*******************/
-                Vector2(0.f, 0.f), //A -> ABE
-                Vector2(0.f, 0.f), //B -> ABE
-                Vector2(0.f, 0.f), //E -> ABE
+                Vector2(0.f, 0.f),   //A -> ABE
+                Vector2(scale, 0.f), //B -> ABE
+                Vector2(0.f, scale), //E -> ABE
 
-                Vector2(0.f, 0.f), //E -> EFB
-                Vector2(0.f, 0.f), //F -> EFB
-                Vector2(0.f, 0.f), //B -> EFB
+                Vector2(0.f, scale), //E -> EFB
+                Vector2(scale, 1.f), //F -> EFB
+                Vector2(scale, 0.f), //B -> EFB
                 /******************RIGHT*******************/
-                Vector2(0.f, 0.f), //B -> BCF
-                Vector2(0.f, 0.f), //C -> BCF
-                Vector2(0.f, 0.f), //F -> BCF
+                    Vector2(0.f, 0.f),   //A -> ABE
+                    Vector2(scale, 0.f), //B -> ABE
+                    Vector2(0.f, scale), //E -> ABE
 
-                Vector2(0.f, 0.f), //F -> FGC
-                Vector2(0.f, 0.f), //G -> FGC
-                Vector2(0.f, 0.f), //C -> FGC
+                    Vector2(0.f, scale), //E -> EFB
+                    Vector2(scale, 1.f), //F -> EFB
+                    Vector2(scale, 0.f), //B -> EFB
                 /******************BACK********************/
-                Vector2(0.f, 0.f), //C -> CDG
-                Vector2(0.f, 0.f), //D -> CDG
-                Vector2(0.f, 0.f), //G -> CDG
+                    Vector2(0.f, 0.f),   //A -> ABE
+                    Vector2(scale, 0.f), //B -> ABE
+                    Vector2(0.f, scale), //E -> ABE
 
-                Vector2(0.f, 0.f), //G -> GHD
-                Vector2(0.f, 0.f), //H -> GHD
-                Vector2(0.f, 0.f), //D -> GHD
+                    Vector2(0.f, scale), //E -> EFB
+                    Vector2(scale, 1.f), //F -> EFB
+                    Vector2(scale, 0.f), //B -> EFB
                 /******************LEFT********************/
-                Vector2(0.f, 0.f), //D -> DAH
-                Vector2(0.f, 0.f), //A -> DAH
-                Vector2(0.f, 0.f), //H -> DAH
+                    Vector2(0.f, 0.f),   //A -> ABE
+                    Vector2(scale, 0.f), //B -> ABE
+                    Vector2(0.f, scale), //E -> ABE
 
-                Vector2(0.f, 0.f), //A -> HEA
-                Vector2(0.f, 0.f), //A -> HEA
-                Vector2(0.f, 0.f), //A -> HEA
+                    Vector2(0.f, scale), //E -> EFB
+                    Vector2(scale, 1.f), //F -> EFB
+                    Vector2(scale, 0.f), //B -> EFB
                 /******************TOP*********************/
-                Vector2(0.f, 0.f), //E -> EFH
-                Vector2(0.f, 0.f), //F -> EFH
-                Vector2(0.f, 0.f), //H -> EFH
+                    Vector2(0.f, 0.f),   //A -> ABE
+                    Vector2(scale, 0.f), //B -> ABE
+                    Vector2(0.f, scale), //E -> ABE
 
-                Vector2(0.f, 0.f), //H -> HGF
-                Vector2(0.f, 0.f), //G -> HGF
-                Vector2(0.f, 0.f), //F -> HGF
+                    Vector2(0.f, scale), //E -> EFB
+                    Vector2(scale, 1.f), //F -> EFB
+                    Vector2(scale, 0.f), //B -> EFB
                 /******************BOTTOM******************/
-                Vector2(0.f, 0.f), //A -> ABD
-                Vector2(0.f, 0.f), //B -> ABD
-                Vector2(0.f, 0.f), //D -> ABD
+                    Vector2(0.f, 0.f),   //A -> ABE
+                    Vector2(scale, 0.f), //B -> ABE
+                    Vector2(0.f, scale), //E -> ABE
 
-                Vector2(0.f, 0.f), //D -> DCB
-                Vector2(0.f, 0.f), //C -> DCB
-                Vector2(0.f, 0.f)  //B -> DCB
+                    Vector2(0.f, scale), //E -> EFB
+                    Vector2(scale, 1.f), //F -> EFB
+                    Vector2(scale, 0.f), //B -> EFB
             };
         }
 

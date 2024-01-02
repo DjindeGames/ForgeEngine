@@ -120,8 +120,8 @@ namespace ForgeEngine
 	{
 		if (texture != nullptr)
 		{
-			glActiveTexture(which); // activate the texture unit first before binding texture
-			glBindTexture(GL_TEXTURE_2D, texture->GetGLTexture());
+			glActiveTexture(texture != nullptr ? which : 0); // activate the texture unit first before binding texture
+			glBindTexture(GL_TEXTURE_2D, texture != nullptr ? texture->GetGLTexture() : 0);
 		}
 	}
 
