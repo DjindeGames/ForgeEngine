@@ -35,31 +35,33 @@ namespace Torch
         World& world = GetWorld();
 
         Entity* ground = world.RegisterEntity();
-        ground->RegisterComponent(new MeshComponent(MeshUtils::MakePlane(30.f, COLOR_WHITE, new Texture("assets\\daggerfall\\textures\\grounds\\grass.PNG")), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Lit)));
+        ground->RegisterComponent(new MeshComponent(MeshUtils::MakePlane(100.f, COLOR_WHITE, new Texture("assets\\daggerfall\\textures\\grounds\\grass.PNG")), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Lit)));
         
-        Entity* lightCube = world.RegisterEntity();
-        lightCube->RegisterComponent(new MeshComponent(MeshUtils::MakeCube(0.1f, COLOR_WHITE), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Default)));
-        lightCube->RegisterComponent(new LightComponent(10.f, 1.f));
-        lightCube->GetTransform().Translate(VECTOR3_UP * 3.f);
+        m_Light = world.RegisterEntity();
+        m_Light->RegisterComponent(new MeshComponent(MeshUtils::MakeCube(0.1f, COLOR_WHITE), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Default)));
+        m_Light->RegisterComponent(new LightComponent(30.f, 1.f));
+        m_Light->GetTransform().Translate(VECTOR3_UP * 3.f + VECTOR3_SIDE * 2.f);
         
         Entity* player = world.RegisterEntity();
         player->RegisterComponent(new CameraComponent(CameraComponent::PerspectiveCamera{}));
         player->RegisterComponent(new FirstPersonControllerComponent());
-        player->GetTransform().SetPosition(Vector3(0.f, 1.7f, 0.f));
+        player->GetTransform().SetPosition(Vector3(-40.f, 1.7f, 42.f));
         
         Entity* cube1 = world.RegisterEntity();
-        cube1->RegisterComponent(new MeshComponent(MeshUtils::MakeCube(1.f, COLOR_WHITE, new Texture("assets\\daggerfall\\textures\\grounds\\stone.PNG")), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Default)));
+        cube1->RegisterComponent(new MeshComponent(MeshUtils::MakeCube(1.f, COLOR_WHITE, new Texture("assets\\daggerfall\\textures\\grounds\\stone.PNG")), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Lit)));
         cube1->GetTransform().Translate(VECTOR3_UP * 0.5f);
         
-        Entity* cube2 = world.RegisterEntity();
-        cube2->RegisterComponent(new MeshComponent(MeshUtils::MakeCube(1.f, COLOR_YELLOW), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Lit)));
-        cube2->GetTransform().Translate(Vector3(4.f, 0.5f, 4.f));
+        m_Cube = world.RegisterEntity();
+        m_Cube->RegisterComponent(new MeshComponent(MeshUtils::MakeCube(1.f, COLOR_YELLOW), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Lit)));
+        m_Cube->GetTransform().Translate(Vector3(4.f, 0.5f, 4.f));
     }
 
     void Torch::OnUpdate(float dT) /*override*/
     {
         Mother::OnUpdate(dT);
         ShaderUtils::ClearScreen(COLOR_BLACK);
+        //m_Light->GetTransform().Translate(VECTOR3_SIDE * 1.f * dT);
+        m_Cube->GetTransform().Rotate(VECTOR3_UP * 90.f * dT);
     }
 
     void Torch::OnTermination() /*override*/

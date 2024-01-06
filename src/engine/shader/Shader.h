@@ -22,13 +22,21 @@ namespace ForgeEngine
 
 	#define DEFAULT_RENDER_COLOR_NAME		        "RenderColor"
 	#define DEFAULT_RENDER_TEXTURE_NAME		        "RenderTexture"
+
 	#define DEFAULT_AMBIENT_LIGHT_INTENSITY_NAME    "AmbientLightIntensity"
 	#define DEFAULT_LIGHT_INTENSITY_NAME	        "LightIntensity"
+    #define DEFAULT_LIGHT_COLOR_NAME		        "LightColor"
+    #define DEFAULT_LIGHT_SOURCE_POSITION_NAME	    "LightSourcePosition"
+    #define DEFAULT_LIGHT_SOURCE_RANGE_NAME	        "LightRange"
+    #define DEFAULT_SHININESS_NAME	                "Shininess"
+    #define DEFAULT_SPECULAR_INTENSITY_NAME	        "SpecularIntensity"
+
 	#define DEFAULT_TRANSFORM_NAME			        "Transform"
 	#define DEFAULT_PROJECTION_NAME			        "Projection"
 	#define DEFAULT_VIEW_NAME				        "View"
-	#define DEFAULT_LIGHT_COLOR_NAME		        "LightColor"
-	#define DEFAULT_LIGHT_SOURCE_POSITION_NAME	    "LightSourcePosition"
+	#define DEFAULT_NORMAL_MATRIX_NAME				"NormalMatrix"
+	#define DEFAULT_CAMERA_POSITION_NAME			"CameraPosition"
+	
 
 	class Color;
 	class Texture;
@@ -54,9 +62,8 @@ namespace ForgeEngine
             void SetInt(const char* which, int value);
             void SetColor(const char* which, const Color& value);
             void SetTexture(unsigned int which, const Texture* texture);
-            void SetTransform(const char* which, const TransformComponent& transform);
-            void SetProjection(const char* which, const Matrix4& projection);
-            void SetView(const char* which, const Matrix4& view);
+            void SetMatrix4(const char* which, const glm::mat4& matrix);
+            void SetMatrix3(const char* which, const glm::mat3& matrix);
             void SetVector4(const char* which, const Vector3& vector);
 
 		private:

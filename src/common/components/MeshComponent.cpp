@@ -91,7 +91,9 @@ namespace ForgeEngine
 			m_Shader->Use();
 			m_Shader->SetColor(DEFAULT_RENDER_COLOR_NAME, m_Mesh.GetRenderColor());
 			m_Shader->SetTexture(GL_TEXTURE0, m_Mesh.GetTexture());
-			m_Shader->SetTransform(DEFAULT_TRANSFORM_NAME, m_Owner->GetTransform());
+			m_Shader->SetMatrix4(DEFAULT_TRANSFORM_NAME, m_Owner->GetTransform().GetMatrix());
+            //TODO: Don't do this per frame
+			m_Shader->SetMatrix3(DEFAULT_NORMAL_MATRIX_NAME, glm::mat3(glm::transpose(glm::inverse(m_Owner->GetTransform().GetMatrix()))));
 
             //Lighting
             std::vector<const LightComponent*> lights = GameHandler::Get().GetWorld().GetComponentByType<LightManager>()->GetLightsInRange(GetOwner()->GetPosition());
@@ -100,13 +102,18 @@ namespace ForgeEngine
                 m_Shader->SetColor(DEFAULT_LIGHT_COLOR_NAME, lights[0]->GetColor());
                 m_Shader->SetVector4(DEFAULT_LIGHT_SOURCE_POSITION_NAME, lights[0]->GetOwner()->GetPosition());
                 m_Shader->SetFloat(DEFAULT_LIGHT_INTENSITY_NAME, lights[0]->GetIntensity());
-                m_Shader->SetFloat(DEFAULT_AMBIENT_LIGHT_INTENSITY_NAME, 0.f);
+                m_Shader->SetFloat(DEFAULT_AMBIENT_LIGHT_INTENSITY_NAME, 0.2f);
+                m_Shader->SetFloat(DEFAULT_LIGHT_SOURCE_RANGE_NAME, lights[0]->GetRange());
             }
+
+            m_Shader->SetFloat(DEFAULT_SPECULAR_INTENSITY_NAME, 0.3f);
+            m_Shader->SetInt(DEFAULT_SHININESS_NAME, 16);
 
 			if (CameraComponent::GetActiveCamera() != nullptr)
 			{
-				m_Shader->SetProjection(DEFAULT_PROJECTION_NAME, CameraComponent::GetActiveCamera()->GetProjection());
-				m_Shader->SetView(DEFAULT_VIEW_NAME, CameraComponent::GetActiveCamera()->GetView());
+				m_Shader->SetMatrix4(DEFAULT_PROJECTION_NAME, CameraComponent::GetActiveCamera()->GetProjection());
+				m_Shader->SetMatrix4(DEFAULT_VIEW_NAME, CameraComponent::GetActiveCamera()->GetView());
+				m_Shader->SetVector4(DEFAULT_CAMERA_POSITION_NAME, CameraComponent::GetActiveCamera()->GetOwner()->GetPosition());
 			}
 
 			glBindVertexArray(m_VertexArrayObject);

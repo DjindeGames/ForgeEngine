@@ -125,19 +125,14 @@ namespace ForgeEngine
 		}
 	}
 
-	void Shader::SetTransform(const char* which, const TransformComponent& transform)
+	void Shader::SetMatrix4(const char* which, const glm::mat4& matrix)
 	{
-        glUniformMatrix4fv(glGetUniformLocation(m_ProgramID, which), 1, GL_FALSE, glm::value_ptr(transform.GetMatrix()));
+		glUniformMatrix4fv(glGetUniformLocation(m_ProgramID, which), 1, GL_FALSE, glm::value_ptr(matrix));
 	}
 
-	void Shader::SetProjection(const char* which, const Matrix4& projection)
+	void Shader::SetMatrix3(const char* which, const glm::mat3& matrix)
 	{
-		glUniformMatrix4fv(glGetUniformLocation(m_ProgramID, which), 1, GL_FALSE, glm::value_ptr(projection));
-	}
-
-	void Shader::SetView(const char* which, const Matrix4& view)
-	{
-		glUniformMatrix4fv(glGetUniformLocation(m_ProgramID, which), 1, GL_FALSE, glm::value_ptr(view));
+		glUniformMatrix3fv(glGetUniformLocation(m_ProgramID, which), 1, GL_FALSE, glm::value_ptr(matrix));
 	}
 
     void Shader::SetVector4(const char* which, const Vector3& vector)

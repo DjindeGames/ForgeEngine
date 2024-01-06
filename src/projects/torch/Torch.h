@@ -4,6 +4,11 @@
 
 using namespace ForgeEngine;
 
+namespace ForgeEngine
+{
+    class Entity;
+}
+
 namespace Torch
 {
     class Torch : public GameHandler
@@ -19,5 +24,9 @@ namespace Torch
             virtual void OnTermination() override;
 
             virtual bool ShouldTerminate() override;
+
+        private:
+            ForgeEngine::Entity* m_Light;
+            ForgeEngine::Entity* m_Cube;
     };
 }

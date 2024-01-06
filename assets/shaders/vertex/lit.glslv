@@ -5,6 +5,7 @@
 uniform mat4 Projection;
 uniform mat4 View;
 uniform mat4 Transform;
+uniform mat3 NormalMatrix;
 
 //ATTRIBUTE 3
 layout (location = 0) in vec3 aPosition;
@@ -20,7 +21,7 @@ out vec4 ourFragmentPosition;
 void main()
 {
 	gl_Position = Projection * View * Transform * vec4(aPosition, 1.0);
-	ourNormal = aNormal;
+	ourNormal = NormalMatrix * aNormal; ;
 	ourFragmentPosition = Transform * vec4(aPosition, 1.0);
 	ourTextureCoordinates = aTextureCoordinates;
 }
