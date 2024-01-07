@@ -102,7 +102,7 @@ namespace ForgeEngine
                 m_Shader->SetColor(DEFAULT_LIGHT_COLOR_NAME, lights[0]->GetColor());
                 m_Shader->SetVector4(DEFAULT_LIGHT_SOURCE_POSITION_NAME, lights[0]->GetOwner()->GetPosition());
                 m_Shader->SetFloat(DEFAULT_LIGHT_INTENSITY_NAME, lights[0]->GetIntensity());
-                m_Shader->SetFloat(DEFAULT_AMBIENT_LIGHT_INTENSITY_NAME, 0.2f);
+                m_Shader->SetFloat(DEFAULT_AMBIENT_LIGHT_INTENSITY_NAME, 0.05f);
                 m_Shader->SetFloat(DEFAULT_LIGHT_SOURCE_RANGE_NAME, lights[0]->GetRange());
             }
 

@@ -27,6 +27,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\common\worldcomponents\MaterialManager.h" />
+    <ClInclude Include="src\engine\shader\Material.h" />
     <ClInclude Include="src\common\worldcomponents\LightManager.h" />
     <ClInclude Include="src\common\components\LightComponent.h" />
     <ClInclude Include="src\common\helpers\DebugUtils.h" />
@@ -379,6 +381,8 @@
     <ClInclude Include="src\projects\torch\Torch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\common\worldcomponents\MaterialManager.cpp" />
+    <ClCompile Include="src\engine\shader\Material.cpp" />
     <ClCompile Include="src\common\worldcomponents\LightManager.cpp" />
     <ClCompile Include="src\common\components\LightComponent.cpp" />
     <ClCompile Include="src\common\helpers\DebugUtils.cpp" />
@@ -701,6 +705,11 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Final|x64'">
+    <ClCompile>
+      <LanguageStandard>/std:c++20</LanguageStandard>
+    </ClCompile>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

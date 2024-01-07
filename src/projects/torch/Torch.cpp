@@ -6,9 +6,10 @@
 #include "common/components/MeshComponent.h"
 #include "common/helpers/InputHelper.h"
 #include "common/helpers/MeshUtils.h"
-#include "common/worldcomponents/InputManager.h"
-#include "common/worldcomponents/ShaderManager.h"
 #include "common/worldcomponents/DebugManager.h"
+#include "common/worldcomponents/InputManager.h"
+#include "common/worldcomponents/MaterialManager.h"
+#include "common/worldcomponents/ShaderManager.h"
 #include "engine/core/ForgeEngine.h"
 #include "engine/misc/Texture.h"
 #include "engine/shader/ShaderUtils.h"
@@ -37,9 +38,12 @@ namespace Torch
         Entity* ground = world.RegisterEntity();
         ground->RegisterComponent(new MeshComponent(MeshUtils::MakePlane(100.f, COLOR_WHITE, new Texture("assets\\daggerfall\\textures\\grounds\\grass.PNG")), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Lit)));
         
+        Material* mat = world.GetComponentByType<MaterialManager>()->LoadMaterial("assets\\materials\\ruby.mat");
+
+        Color lightColor = COLOR_WHITE;
         m_Light = world.RegisterEntity();
-        m_Light->RegisterComponent(new MeshComponent(MeshUtils::MakeCube(0.1f, COLOR_WHITE), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Default)));
-        m_Light->RegisterComponent(new LightComponent(30.f, 1.f));
+        m_Light->RegisterComponent(new MeshComponent(MeshUtils::MakeCube(0.1f, lightColor), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Default)));
+        m_Light->RegisterComponent(new LightComponent(30.f, 10.f, lightColor));
         m_Light->GetTransform().Translate(VECTOR3_UP * 3.f + VECTOR3_SIDE * 2.f);
         
         Entity* player = world.RegisterEntity();
