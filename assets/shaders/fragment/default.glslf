@@ -2,11 +2,18 @@
 
 //FRAGMENT SHADER
 
-uniform vec4 RenderColor;
+struct MaterialData {
+    vec4 color;
+    float diffuse;
+    float specular;
+    int shininess;
+}; 
+  
+uniform MaterialData Material;
 
 out vec4 FragColor;
 
 void main()
 {
-	FragColor = RenderColor;
+	FragColor = Material.color;
 }

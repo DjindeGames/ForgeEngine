@@ -8,6 +8,7 @@
 
 namespace ForgeEngine
 {
+    class Material;
     class Texture;
 
     //TODO: TEXTURE MEMORY LEAK
@@ -18,15 +19,13 @@ namespace ForgeEngine
         Mesh() {}
         Mesh(const std::vector<Vector3>& vertices, 
             const std::vector<unsigned int>& triangleIndices, 
-            const std::vector<Vector2>& textureCoordinates, 
-            const Texture* texture = nullptr,
-            const Color& renderColor = COLOR_MAGENTA);
+            const std::vector<Vector2>& textureCoordinates,
+            const Material* material = nullptr);
 
         const std::vector<Vector3>& GetVertices() const { return m_Vertices; }
         unsigned int GetVerticesCount() const { return m_Vertices.size(); }
         unsigned int GetTrianglesCount() const { return m_Triangles.size(); }
-        const Color& GetRenderColor() const { return m_RenderColor; }
-        const Texture* GetTexture() const { return m_Texture; }
+        const Material* GetMaterial() const { return m_Material; }
 
         //data format [vx, xy, vz, nx, ny, nz, tx, ty] * GetTrianglesCount() * 3
         //v = vertex coordinates
@@ -61,7 +60,6 @@ namespace ForgeEngine
         std::vector<Vector3> m_Vertices{};
         std::vector<Triangle> m_Triangles{};
 
-        const Texture* m_Texture{ nullptr };
-        Color m_RenderColor{ COLOR_MAGENTA };
+        const Material* m_Material{ nullptr };
     };
 }

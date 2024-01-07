@@ -1,5 +1,10 @@
 #include "Mesh.h"
 
+#include "common/worldcomponents/MaterialManager.h"
+#include "engine/core/GameHandler.h"
+#include "engine/core/World.h"
+#include "engine/shader/Material.h"
+
 #include <iostream>
 
 namespace ForgeEngine
@@ -7,12 +12,15 @@ namespace ForgeEngine
     Mesh::Mesh(const std::vector<Vector3>& vertices,
         const std::vector<unsigned int>& triangleIndices,
         const std::vector<Vector2>& textureCoordinates,
-        const Texture* texture /*= nullptr*/,
-        const Color& renderColor /*= COLOR_MAGENTA*/)
+        const Material* material /*= nullptr*/)
         : m_Vertices(vertices)
-        , m_Texture(texture)
-        , m_RenderColor(renderColor)
+        , m_Material(material)
     {
+        if (material == nullptr)
+        {
+            m_Material = GameHandler::Get().GetWorld().GetComponentByType<MaterialManager>()->GetDefaultMaterial();
+        }
+
         for (unsigned int i = 0; i < triangleIndices.size(); i += 3)
         {
             unsigned int indices[3];

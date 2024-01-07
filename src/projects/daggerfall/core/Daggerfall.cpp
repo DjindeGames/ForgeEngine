@@ -40,7 +40,7 @@ namespace Daggerfall
         player->GetTransform().SetPosition(Vector3(0.f, 1.8f, 0.f));
 
         Entity* ground = world.RegisterEntity();
-        ground->RegisterComponent(new MeshComponent(MeshUtils::MakePlane(10.f, COLOR_MAGENTA, new Texture("assets\\daggerfall\\textures\\grounds\\grass.PNG")), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Textured)));
+        ground->RegisterComponent(new MeshComponent(MeshUtils::MakePlane(10.f), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Textured)));
     }
 
     void Daggerfall::OnUpdate(float dT) /*override*/

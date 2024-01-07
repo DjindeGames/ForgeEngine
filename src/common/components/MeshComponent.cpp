@@ -3,6 +3,7 @@
 #include "common/components/CameraComponent.h"
 #include "engine/core/ForgeEngine.h"
 #include "engine/misc/Texture.h"
+#include "engine/shader/Material.h"
 #include "engine/shader/Shader.h"
 #include "common/components/LightComponent.h"
 #include "common/worldcomponents/LightManager.h"
@@ -89,8 +90,6 @@ namespace ForgeEngine
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 			m_Shader->Use();
-			m_Shader->SetColor(DEFAULT_RENDER_COLOR_NAME, m_Mesh.GetRenderColor());
-			m_Shader->SetTexture(GL_TEXTURE0, m_Mesh.GetTexture());
 			m_Shader->SetMatrix4(DEFAULT_TRANSFORM_NAME, m_Owner->GetTransform().GetMatrix());
             //TODO: Don't do this per frame
 			m_Shader->SetMatrix3(DEFAULT_NORMAL_MATRIX_NAME, glm::mat3(glm::transpose(glm::inverse(m_Owner->GetTransform().GetMatrix()))));
@@ -102,12 +101,12 @@ namespace ForgeEngine
                 m_Shader->SetColor(DEFAULT_LIGHT_COLOR_NAME, lights[0]->GetColor());
                 m_Shader->SetVector4(DEFAULT_LIGHT_SOURCE_POSITION_NAME, lights[0]->GetOwner()->GetPosition());
                 m_Shader->SetFloat(DEFAULT_LIGHT_INTENSITY_NAME, lights[0]->GetIntensity());
-                m_Shader->SetFloat(DEFAULT_AMBIENT_LIGHT_INTENSITY_NAME, 0.05f);
                 m_Shader->SetFloat(DEFAULT_LIGHT_SOURCE_RANGE_NAME, lights[0]->GetRange());
             }
 
-            m_Shader->SetFloat(DEFAULT_SPECULAR_INTENSITY_NAME, 0.3f);
-            m_Shader->SetInt(DEFAULT_SHININESS_NAME, 16);
+            m_Shader->SetFloat(DEFAULT_AMBIENT_LIGHT_INTENSITY_NAME, 0.f);
+			
+            m_Shader->SetMaterial(*m_Mesh.GetMaterial());
 
 			if (CameraComponent::GetActiveCamera() != nullptr)
 			{
@@ -117,6 +116,7 @@ namespace ForgeEngine
 			}
 
 			glBindVertexArray(m_VertexArrayObject);
+            //TODO: Fix this
 			//glDrawElements(GL_TRIANGLES, m_NumIndices, GL_UNSIGNED_INT, 0);
             glDrawArrays(GL_TRIANGLES, 0, 3 * m_Mesh.GetTrianglesCount() * m_Shader->GetInputDataSize());
 		}

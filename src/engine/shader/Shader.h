@@ -22,6 +22,7 @@ namespace ForgeEngine
 
 	#define DEFAULT_RENDER_COLOR_NAME		        "RenderColor"
 	#define DEFAULT_RENDER_TEXTURE_NAME		        "RenderTexture"
+	#define DEFAULT_USE_TEXTURE_NAME		        "UseTexture"
 
 	#define DEFAULT_AMBIENT_LIGHT_INTENSITY_NAME    "AmbientLightIntensity"
 	#define DEFAULT_LIGHT_INTENSITY_NAME	        "LightIntensity"
@@ -36,11 +37,16 @@ namespace ForgeEngine
 	#define DEFAULT_VIEW_NAME				        "View"
 	#define DEFAULT_NORMAL_MATRIX_NAME				"NormalMatrix"
 	#define DEFAULT_CAMERA_POSITION_NAME			"CameraPosition"
+
+    #define DEFAULT_MATERIAL_COLOR_NAME	            "Material.color"
+    #define DEFAULT_MATERIAL_DIFFUSE_NAME	        "Material.diffuse"
+    #define DEFAULT_MATERIAL_SPECULAR_NAME	        "Material.specular"
+    #define DEFAULT_MATERIAL_SHININESS_NAME	        "Material.shininess"
 	
 
 	class Color;
+	class Material;
 	class Texture;
-	class TransformComponent;
 
 	class Shader : Object
 	{
@@ -65,6 +71,7 @@ namespace ForgeEngine
             void SetMatrix4(const char* which, const glm::mat4& matrix);
             void SetMatrix3(const char* which, const glm::mat3& matrix);
             void SetVector4(const char* which, const Vector3& vector);
+            void SetMaterial(const Material& material);
 
 		private:
 			GL_ID m_ProgramID{};

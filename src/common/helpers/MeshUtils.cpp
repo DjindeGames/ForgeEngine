@@ -211,24 +211,24 @@ namespace ForgeEngine
 
         /********HEADER FUNCTIONS********/
 
-        Mesh MakeCube(float scale /*= 1.f*/, const Color& renderColor /*= COLOR_MAGENTA*/, const Texture* texture /*= nullptr*/)
+        Mesh MakeCube(float scale /*= 1.f*/, const Material* material /* =nullptr*/)
         {
-            return Mesh(GetCubeVerticesCoordinates(scale), GetCubeVerticesIndexes(), GetCubeTextureCoordinates(scale), texture, renderColor);
+            return Mesh(GetCubeVerticesCoordinates(scale), GetCubeVerticesIndexes(), GetCubeTextureCoordinates(scale), material);
         }
 
-        Mesh MakePlane(float scale /*= 1.f*/, const Color& renderColor /*= COLOR_MAGENTA*/, const Texture* texture /*= nullptr*/)
+        Mesh MakePlane(float scale /*= 1.f*/, const Material* material /* =nullptr*/)
         {
-            return Mesh(GetPlaneVerticesCoordinates(scale), GetPlaneVerticesIndexes(), GetPlaneTextureCoordinates(scale), texture, renderColor);
+            return Mesh(GetPlaneVerticesCoordinates(scale), GetPlaneVerticesIndexes(), GetPlaneTextureCoordinates(scale), material);
         }
 
-        Mesh MakeTriangle(float scale /*= 1.f*/, const Color& renderColor /*= COLOR_MAGENTA*/, const Texture* texture /*= nullptr*/)
+        Mesh MakeTriangle(float scale /*= 1.f*/, const Material* material /* =nullptr*/)
         {
-            return Mesh(GetTriangleVerticesCoordinates(scale), GetTriangleVerticesIndexes(), GetTriangleTextureCoordinates(scale), texture, renderColor);
+            return Mesh(GetTriangleVerticesCoordinates(scale), GetTriangleVerticesIndexes(), GetTriangleTextureCoordinates(scale), material);
         }
 
-        Mesh MakeSphere(float scale /*= 1.f*/, const Color& renderColor /*= COLOR_MAGENTA*/, const Texture* texture /*= nullptr*/)
+        Mesh MakeSphere(float scale /*= 1.f*/, const Material* material /* =nullptr*/)
         {
-            return Mesh(GetSphereVerticesCoordinates(scale), GetSphereVerticesIndexes(), GetSphereTextureCoordinates(scale), texture, renderColor);
+            return Mesh(GetSphereVerticesCoordinates(scale), GetSphereVerticesIndexes(), GetSphereTextureCoordinates(scale), material);
         }
     }
 }

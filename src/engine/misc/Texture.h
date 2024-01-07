@@ -23,6 +23,8 @@ namespace ForgeEngine
 			int m_Height{};
 			int m_Channels{};
 
+            const char* m_Name;
+
 		/************************************/
 		/**************METHODS***************/
 		/************************************/
@@ -34,6 +36,7 @@ namespace ForgeEngine
 
 			int GetWidth() const { return m_Width; }
 			int GetHeight() const { return m_Height; }
+            const char* GetName() const { return m_Name; }
 
 			GL_ID GetGLTexture() const { return m_GLTexture; }
 			void Use();

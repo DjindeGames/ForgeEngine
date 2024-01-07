@@ -6,8 +6,9 @@
 
 namespace ForgeEngine
 {
-	Texture::Texture(const char* texturePath, unsigned int rgbaMode/*= GL_RGB*/, bool flip/* = true*/) :
-		Mother()
+	Texture::Texture(const char* texturePath, unsigned int rgbaMode/*= GL_RGB*/, bool flip/* = true*/) 
+        : Mother()
+        , m_Name(texturePath)
 	{
 		stbi_set_flip_vertically_on_load(flip);
 		unsigned char* data = stbi_load(texturePath, &m_Width, &m_Height, &m_Channels, 0);
@@ -29,7 +30,7 @@ namespace ForgeEngine
 		}
 		else
 		{
-			std::cout << "Could not load texture!" << std::endl;
+			std::cout << "Could not load texture " << texturePath << "." << std::endl;
 		}
 		
 		stbi_image_free(data);

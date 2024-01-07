@@ -11,23 +11,12 @@
 
 namespace ForgeEngine
 {
-#ifdef FORGE_DEBUG_ENABLED
-    void MaterialManager::OnDrawDebug(float dT) /*override*/
+    MaterialManager::MaterialManager()
+        : Mother()
     {
-        Mother::OnDrawDebug(dT);
-
-        ImGui::Begin("MaterialManager");
-        for (MaterialData& data : m_LoadedMaterials)
-        {
-            if (ImGui::CollapsingHeader(data.first))
-            {
-                data.second.OnDrawDebug();
-            }
-            
-        }
-        ImGui::End();
+        m_LoadedMaterials.push_back(MaterialData("DEFAULT", new Material("")));
+        m_LoadedMaterials.back().second.get()->SetColor(COLOR_MAGENTA);
     }
-#endif //FORGE_DEBUG_ENABLED
 
     Material* MaterialManager::LoadMaterial(const char* materialPath)
     {
@@ -51,8 +40,8 @@ namespace ForgeEngine
 
                 sourceContent = sourceStream.str();
 
-                m_LoadedMaterials.push_back(MaterialData(materialPath, Material(sourceContent)));
-                material = &m_LoadedMaterials.back().second;
+                m_LoadedMaterials.push_back(MaterialData(materialPath, new Material(sourceContent)));
+                material = m_LoadedMaterials.back().second.get();
             }
             catch (std::ifstream::failure failure)
             {
@@ -69,9 +58,27 @@ namespace ForgeEngine
         {
             if (materialPath == data.first)
             {
-                return &data.second;
+                return data.second.get();
             }
         }
         return nullptr;
     }
+
+#ifdef FORGE_DEBUG_ENABLED
+    void MaterialManager::OnDrawDebug(float dT) /*override*/
+    {
+        Mother::OnDrawDebug(dT);
+
+        ImGui::Begin("MaterialManager");
+        for (MaterialData& data : m_LoadedMaterials)
+        {
+            if (ImGui::CollapsingHeader(data.first))
+            {
+                data.second.get()->OnDrawDebug();
+            }
+
+        }
+        ImGui::End();
+    }
+#endif //FORGE_DEBUG_ENABLED
 }

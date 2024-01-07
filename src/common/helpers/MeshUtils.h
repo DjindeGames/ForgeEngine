@@ -7,13 +7,14 @@
 
 namespace ForgeEngine
 {
+    class Material;
     class Texture;
 
     namespace MeshUtils
     {
-        Mesh MakeCube(float scale = 1.f, const Color& renderColor = COLOR_MAGENTA, const Texture* texture = nullptr);
-        Mesh MakePlane(float scale = 1.f, const Color& renderColor = COLOR_MAGENTA, const Texture* texture = nullptr);
-        Mesh MakeTriangle(float scale = 1.f, const Color& renderColor = COLOR_MAGENTA, const Texture* texture = nullptr);
-        Mesh MakeSphere(float scale = 1.f, const Color& renderColor = COLOR_MAGENTA, const Texture* texture = nullptr);
+        Mesh MakeCube(float scale = 1.f, const Material* material = nullptr);
+        Mesh MakePlane(float scale = 1.f, const Material* material = nullptr);
+        Mesh MakeTriangle(float scale = 1.f, const Material* material = nullptr);
+        Mesh MakeSphere(float scale = 1.f, const Material* material = nullptr);
     }
 }

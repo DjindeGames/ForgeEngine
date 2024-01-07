@@ -1,3 +1,4 @@
-shininess:512
-specular:10
-color:255;0;0;255;1
+color:255;0;0;1
+specular:10.0
+diffuse:1
+shininess:128

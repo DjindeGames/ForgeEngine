@@ -2,6 +2,7 @@
 
 #include "engine/core/ForgeEngine.h"
 #include "engine/misc/Texture.h"
+#include "engine/shader/Material.h"
 #include "engine/shader/ShaderUtils.h"
 #include "system/misc/Color.h"
 #include "system/misc/Utils.h"
@@ -118,11 +119,9 @@ namespace ForgeEngine
 
 	void Shader::SetTexture(unsigned int which, const Texture* texture)
 	{
-		if (texture != nullptr)
-		{
-			glActiveTexture(texture != nullptr ? which : 0); // activate the texture unit first before binding texture
-			glBindTexture(GL_TEXTURE_2D, texture != nullptr ? texture->GetGLTexture() : 0);
-		}
+        SetBool(DEFAULT_USE_TEXTURE_NAME, texture != nullptr);
+        glActiveTexture(texture != nullptr ? which : 0); // activate the texture unit first before binding texture
+        glBindTexture(GL_TEXTURE_2D, texture != nullptr ? texture->GetGLTexture() : 0);
 	}
 
 	void Shader::SetMatrix4(const char* which, const glm::mat4& matrix)
@@ -138,5 +137,14 @@ namespace ForgeEngine
     void Shader::SetVector4(const char* which, const Vector3& vector)
     {
         glUniform4f(glGetUniformLocation(m_ProgramID, which), vector.x, vector.y, vector.z, 0.f);
+    }
+
+    void Shader::SetMaterial(const Material& material)
+    {
+        SetColor(DEFAULT_MATERIAL_COLOR_NAME, material.GetColor());
+        SetFloat(DEFAULT_MATERIAL_DIFFUSE_NAME, material.GetDiffuse());
+        SetFloat(DEFAULT_MATERIAL_SPECULAR_NAME, material.GetSpecular());
+        SetInt(DEFAULT_MATERIAL_SHININESS_NAME,material.GetShininess());
+        SetTexture(GL_TEXTURE0, material.GetTexture());
     }
 }
