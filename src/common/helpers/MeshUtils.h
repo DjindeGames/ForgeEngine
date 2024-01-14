@@ -12,9 +12,9 @@ namespace ForgeEngine
 
     namespace MeshUtils
     {
-        Mesh MakeCube(float scale = 1.f, const Material* material = nullptr);
-        Mesh MakePlane(float scale = 1.f, const Material* material = nullptr);
-        Mesh MakeTriangle(float scale = 1.f, const Material* material = nullptr);
-        Mesh MakeSphere(float scale = 1.f, const Material* material = nullptr);
+        Mesh MakeCube(float scale = 1.f, const char* materialPath = nullptr);
+        Mesh MakePlane(float scale = 1.f, const char* materialPath = nullptr);
+        Mesh MakeTriangle(float scale = 1.f, const char* materialPath = nullptr);
+        Mesh MakeSphere(float scale = 1.f, const char* materialPath = nullptr);
     }
 }

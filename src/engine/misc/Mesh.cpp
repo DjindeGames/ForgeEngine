@@ -12,13 +12,16 @@ namespace ForgeEngine
     Mesh::Mesh(const std::vector<Vector3>& vertices,
         const std::vector<unsigned int>& triangleIndices,
         const std::vector<Vector2>& textureCoordinates,
-        const Material* material /*= nullptr*/)
+        const char* materialPath /*= nullptr*/)
         : m_Vertices(vertices)
-        , m_Material(material)
     {
-        if (material == nullptr)
+        if (materialPath == nullptr)
         {
-            m_Material = GameHandler::Get().GetWorld().GetComponentByType<MaterialManager>()->GetDefaultMaterial();
+            m_Material = std::shared_ptr<Material>(*(GameHandler::Get().GetWorld().GetComponentByType<MaterialManager>()->GetDefault()));
+        }
+        else
+        {
+            m_Material = std::shared_ptr<Material>(*(GameHandler::Get().GetWorld().GetComponentByType<MaterialManager>()->GetOrLoadResource(materialPath)));
         }
 
         for (unsigned int i = 0; i < triangleIndices.size(); i += 3)

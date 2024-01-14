@@ -38,7 +38,7 @@ void main()
 	vec3 lightRayReflection = reflect(-directionToLightNormalized, ourNormal);
 	
 	float specularFactor = pow(max(dot(eyeDirection, lightRayReflection), 0), Material.shininess);
-	vec4 specularLight = LightColor * (Material.specular * Material.color * specularFactor);
+	vec4 specularLight = LightColor * (Material.specular * Material.color * specularFactor)  * (1 - distanceRatio);
 
 	float diffuseFactor = max(dot(directionToLightNormalized, ourNormal), 0.0);
 	vec4 diffuseLight = diffuseFactor * Material.color * Material.diffuse * LightColor * (1 - distanceRatio);

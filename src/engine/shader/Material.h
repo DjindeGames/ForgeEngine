@@ -1,5 +1,6 @@
 #pragma once
 
+#include "engine/core/LoadableResource.h"
 #include "system/misc/Color.h"
 
 #include <string>
@@ -9,7 +10,7 @@ namespace ForgeEngine
     class MaterialManager;
     class Texture;
 
-    class Material
+    class Material : public LoadableResource
     {
         friend class MaterialManager;
 

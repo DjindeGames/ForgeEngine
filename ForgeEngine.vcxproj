@@ -27,6 +27,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\engine\core\LoadableResource.h" />
+    <ClInclude Include="src\system\io\FileUtils.h" />
+    <ClInclude Include="src\engine\core\ResourceLoader.h" />
     <ClInclude Include="src\common\worldcomponents\MaterialManager.h" />
     <ClInclude Include="src\engine\shader\Material.h" />
     <ClInclude Include="src\common\worldcomponents\LightManager.h" />
@@ -381,6 +384,9 @@
     <ClInclude Include="src\projects\torch\Torch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\engine\core\LoadableResource.cpp" />
+    <ClCompile Include="src\system\io\FileUtils.cpp" />
+    <ClCompile Include="src\engine\core\ResourceLoader.cpp" />
     <ClCompile Include="src\common\worldcomponents\MaterialManager.cpp" />
     <ClCompile Include="src\engine\shader\Material.cpp" />
     <ClCompile Include="src\common\worldcomponents\LightManager.cpp" />

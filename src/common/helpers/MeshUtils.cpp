@@ -211,24 +211,24 @@ namespace ForgeEngine
 
         /********HEADER FUNCTIONS********/
 
-        Mesh MakeCube(float scale /*= 1.f*/, const Material* material /* =nullptr*/)
+        Mesh MakeCube(float scale /*= 1.f*/, const char* materialPath /* =nullptr*/)
         {
-            return Mesh(GetCubeVerticesCoordinates(scale), GetCubeVerticesIndexes(), GetCubeTextureCoordinates(scale), material);
+            return Mesh(GetCubeVerticesCoordinates(scale), GetCubeVerticesIndexes(), GetCubeTextureCoordinates(scale), materialPath);
         }
 
-        Mesh MakePlane(float scale /*= 1.f*/, const Material* material /* =nullptr*/)
+        Mesh MakePlane(float scale /*= 1.f*/, const char* materialPath /* =nullptr*/)
         {
-            return Mesh(GetPlaneVerticesCoordinates(scale), GetPlaneVerticesIndexes(), GetPlaneTextureCoordinates(scale), material);
+            return Mesh(GetPlaneVerticesCoordinates(scale), GetPlaneVerticesIndexes(), GetPlaneTextureCoordinates(scale), materialPath);
         }
 
-        Mesh MakeTriangle(float scale /*= 1.f*/, const Material* material /* =nullptr*/)
+        Mesh MakeTriangle(float scale /*= 1.f*/, const char* materialPath /* =nullptr*/)
         {
-            return Mesh(GetTriangleVerticesCoordinates(scale), GetTriangleVerticesIndexes(), GetTriangleTextureCoordinates(scale), material);
+            return Mesh(GetTriangleVerticesCoordinates(scale), GetTriangleVerticesIndexes(), GetTriangleTextureCoordinates(scale), materialPath);
         }
 
-        Mesh MakeSphere(float scale /*= 1.f*/, const Material* material /* =nullptr*/)
+        Mesh MakeSphere(float scale /*= 1.f*/, const char* materialPath /* =nullptr*/)
         {
-            return Mesh(GetSphereVerticesCoordinates(scale), GetSphereVerticesIndexes(), GetSphereTextureCoordinates(scale), material);
+            return Mesh(GetSphereVerticesCoordinates(scale), GetSphereVerticesIndexes(), GetSphereTextureCoordinates(scale), materialPath);
         }
     }
 }
