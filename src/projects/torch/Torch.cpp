@@ -54,7 +54,7 @@ namespace Torch
         cube1->GetTransform().Translate(VECTOR3_UP * 1.7f);
 
         m_Cube = world.RegisterEntity();
-        m_Cube->RegisterComponent(new MeshComponent(MeshUtils::MakeCube(1.f, "assets\\materials\\marble.mat"), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Lit)));
+        m_Cube->RegisterComponent(new MeshComponent(MeshUtils::MakeCube(1.f, nullptr), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Lit)));
         m_Cube->GetTransform().Translate(Vector3(4.f, 0.5f, 4.f));
     }
 

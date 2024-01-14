@@ -65,20 +65,19 @@ namespace ForgeEngine
 			translation -= VECTOR3_UP;
 		}
 
-        bool shouldUpdateCameraSight = true;
+        bool areControlsEnabled = true;
 #ifdef FORGE_DEBUG_ENABLED
         const DebugManager* debugManager = GameHandler::Get().GetWorld().GetComponentByType<const DebugManager>();
-        shouldUpdateCameraSight = debugManager == nullptr || !debugManager->IsFreeMouseEnabled();
+        areControlsEnabled = debugManager == nullptr || !debugManager->IsFreeMouseEnabled();
 #endif //FORGE_DEBUG_ENABLED
 
-        if (shouldUpdateCameraSight)
+        if (areControlsEnabled)
         {
             m_CameraComponent->SetYaw(yaw);
             m_CameraComponent->SetPitch(pitch);
+            Vector3 finalTranslation = translation != VECTOR3_NULL ? glm::normalize(translation) * m_MoveSpeed * dT : VECTOR3_NULL;
+            GetOwner()->GetTransform().Translate(finalTranslation);
         }
-
-        Vector3 finalTranslation = translation != VECTOR3_NULL ? glm::normalize(translation) * m_MoveSpeed * dT : VECTOR3_NULL;
-		GetOwner()->GetTransform().Translate(finalTranslation);
 	}
 
     void FirstPersonControllerComponent::OnDrawDebug(float dT) /*override*/

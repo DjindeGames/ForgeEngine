@@ -33,6 +33,10 @@ namespace ForgeEngine
                     {
                         AddResource(resourcePath, resourceContent);
                     }
+                    else
+                    {
+                        return GetDefault();
+                    }
                 }
                 else
                 {
@@ -73,7 +77,7 @@ namespace ForgeEngine
             ImGui::Begin(GetName());
             for (const Resource& resource : m_LoadedResources)
             {
-                if (ImGui::CollapsingHeader(resource.first))
+                if (ImGui::CollapsingHeader(resource.first.c_str()))
                 {
                     //resource.second.get()->OnDrawDebug();
                 }
@@ -88,13 +92,13 @@ namespace ForgeEngine
 
             bool IsResourceLoaded(const std::string& resourcePath)
             {
-                auto it = m_LoadedResources.find(resourcePath.c_str());
+                auto it = m_LoadedResources.find(resourcePath);
                 return (it != m_LoadedResources.end()) ? true : false;
             }
 
             const std::shared_ptr<T>* GetResource(const std::string& resourcePath)
             {
-                auto it = m_LoadedResources.find(resourcePath.c_str());
+                auto it = m_LoadedResources.find(resourcePath);
                 return (it != m_LoadedResources.end()) ? &((*it).second) : nullptr;
             }
 
@@ -103,7 +107,7 @@ namespace ForgeEngine
                 return FileUtils::TryLoadFileContent(resourcePath, resourceContent);
             }
 
-            using Resource = std::pair<const char*, const std::shared_ptr<T>&>;
-            std::unordered_map<const char*, std::shared_ptr<T>> m_LoadedResources{};
+            using Resource = std::pair<const std::string&, const std::shared_ptr<T>&>;
+            std::unordered_map<std::string, std::shared_ptr<T>> m_LoadedResources{};
     };
 }

@@ -36,6 +36,10 @@ namespace ForgeEngine
                 }
             }
         }
+        else
+        {
+            m_Color = COLOR_MAGENTA;
+        }
     }
 
     Material::~Material()
