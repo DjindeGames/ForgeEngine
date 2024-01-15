@@ -1008,9 +1008,6 @@
     <ClInclude Include="src\common\worldcomponents\InputManager.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\common\worldcomponents\ShaderManager.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="src\engine\components\TransformComponent.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
@@ -1081,6 +1078,9 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="src\common\worldcomponents\TextureLoader.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common\worldcomponents\ShaderLoader.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1193,9 +1193,6 @@
     <ClCompile Include="src\common\worldcomponents\InputManager.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\common\worldcomponents\ShaderManager.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="src\engine\components\TransformComponent.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
@@ -1266,6 +1263,9 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="src\common\worldcomponents\TextureLoader.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\worldcomponents\ShaderLoader.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>

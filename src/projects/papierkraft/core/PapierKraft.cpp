@@ -4,7 +4,6 @@
 #include "common/components/FirstPersonControllerComponent.h"
 #include "common/helpers/InputHelper.h"
 #include "common/worldcomponents/InputManager.h"
-#include "common/worldcomponents/ShaderManager.h"
 #include "common/worldcomponents/DebugManager.h"
 #include "engine/core/ForgeEngine.h"
 #include "engine/shader/ShaderUtils.h"

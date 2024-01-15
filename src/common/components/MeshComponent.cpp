@@ -7,6 +7,7 @@
 #include "engine/shader/Shader.h"
 #include "common/components/LightComponent.h"
 #include "common/worldcomponents/LightManager.h"
+#include "common/worldcomponents/ShaderLoader.h"
 
 #include <algorithm>
 #include <iterator>
@@ -14,11 +15,11 @@
 
 namespace ForgeEngine
 {
-	MeshComponent::MeshComponent(const Mesh& mesh, Shader* shader) 
+	MeshComponent::MeshComponent(const Mesh& mesh, const std::string& shaderPath)
         : Mother()
         , m_Mesh(mesh)
-        , m_Shader(shader)
 	{
+        m_Shader = std::shared_ptr<Shader>(*(GameHandler::Get().GetWorld().GetComponentByType<ShaderLoader>()->GetOrLoadResource(shaderPath)));
 		InitRender();
 	}
 

@@ -4,6 +4,7 @@
 #include "engine/misc/Texture.h"
 #include "engine/shader/Material.h"
 #include "engine/shader/ShaderUtils.h"
+#include "system/io/FileUtils.h"
 #include "system/misc/Color.h"
 #include "system/misc/Utils.h"
 
@@ -12,11 +13,10 @@
 #include <iostream>
 #include <numeric>
 #include <sstream>
-#include <string>
 
 namespace ForgeEngine
 {
-	Shader::Shader(const char* vsPath, const char* fsPath)
+	Shader::Shader(const std::string& vsPath, const std::string& fsPath)
 	{
 		std::ifstream vertexShaderFile;
 		std::ifstream fragmentShaderFile;
@@ -24,48 +24,28 @@ namespace ForgeEngine
 		std::stringstream vertexShaderStream;
 		std::stringstream fragmentShaderStream;
 
-		std::string vertexShaderSource{};
-		std::string fragmentShaderSource{};
+        std::string vertexContent;
+        std::string fragContent;
 
-		// ensure ifstream objects can throw exceptions:
-		vertexShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-		fragmentShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+        if (FileUtils::TryLoadFileContent(vsPath, vertexContent) && FileUtils::TryLoadFileContent(fsPath, fragContent))
+        {
+            std::vector<std::string> extractedLines = ForgeUtils::ExtractLines(GLSL_ATTRIBUTE_TOKEN, vertexContent);
+            for (const std::string& str : extractedLines)
+            {
+                std::vector<std::string> splitted = ForgeUtils::Split(" ", str);
+                if (splitted.size() == 2)
+                {
+                    m_AttributesSizes.push_back(std::stoi(splitted[1]));
+                }
+            }
 
-		try 
-		{
-			vertexShaderFile.open(vsPath);
-			fragmentShaderFile.open(fsPath);
-
-			vertexShaderStream << vertexShaderFile.rdbuf();
-			fragmentShaderStream << fragmentShaderFile.rdbuf();
-
-			vertexShaderFile.close();
-			fragmentShaderFile.close();
-
-			vertexShaderSource = vertexShaderStream.str();
-			fragmentShaderSource = fragmentShaderStream.str();
-
-			std::vector<std::string> extractedLines = ForgeUtils::ExtractLines(GLSL_ATTRIBUTE_TOKEN, vertexShaderSource);
-			for (const std::string& str : extractedLines)
-			{
-				std::vector<std::string> splitted = ForgeUtils::Split(" ", str);
-				if (splitted.size() == 2)
-				{
-					m_AttributesSizes.push_back(std::stoi(splitted[1]));
-				}
-			}
-
-			if (!ShaderUtils::TryCompileShader(m_VertexID, vsPath, vertexShaderSource.c_str(), GL_VERTEX_SHADER) ||
-				!ShaderUtils::TryCompileShader(m_FragmentID, fsPath, fragmentShaderSource.c_str(), GL_FRAGMENT_SHADER) ||
-				!ShaderUtils::TryLinkShaderProgram(m_ProgramID, true, &m_VertexID, &m_FragmentID))
-			{
-				std::cout << "Could not compile shaders!" << std::endl;
-			}
-		}
-		catch (std::ifstream::failure failure)
-		{
-			std::cout << "Cannot open source path!" << std::endl;
-		}
+            if (!ShaderUtils::TryCompileShader(m_VertexID, vsPath.c_str(), vertexContent.c_str(), GL_VERTEX_SHADER) ||
+                !ShaderUtils::TryCompileShader(m_FragmentID, fsPath.c_str(), fragContent.c_str(), GL_FRAGMENT_SHADER) ||
+                !ShaderUtils::TryLinkShaderProgram(m_ProgramID, true, &m_VertexID, &m_FragmentID))
+            {
+                std::cout << "Could not compile shaders!" << std::endl;
+            }
+        }
 	}
 
 	Shader::~Shader()

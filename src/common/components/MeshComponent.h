@@ -5,6 +5,9 @@
 #include "engine/misc/Mesh.h"
 #include "system/misc/Color.h"
 
+#include <memory>
+#include <string>
+
 namespace ForgeEngine
 {
 	class Shader;
@@ -20,7 +23,7 @@ namespace ForgeEngine
 
 		private:
             Mesh m_Mesh{};
-			Shader* m_Shader{};
+			std::shared_ptr<Shader> m_Shader{};
 
 			GL_ID m_VertexArrayObject{};
 			GL_ID m_VertexBufferObject{};
@@ -32,7 +35,7 @@ namespace ForgeEngine
 		/************************************/
 
 		public:
-			MeshComponent(const Mesh& mesh, Shader* shader);
+			MeshComponent(const Mesh& mesh, const std::string& shaderPath);
 
 			virtual void OnUpdate(float dT) override;
 			virtual void OnDestroy() override;

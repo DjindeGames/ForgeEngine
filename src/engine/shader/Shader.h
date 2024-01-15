@@ -1,11 +1,12 @@
 #pragma once
 
 #include "engine/core/Defines.h"
-#include "engine/core/Object.h"
+#include "engine/core/LoadableResource.h"
 #include "system/math/Matrix4.h"
 
 #include <utility>
 #include <vector>
+#include <string>
 
 namespace ForgeEngine
 {
@@ -48,13 +49,15 @@ namespace ForgeEngine
 	class Material;
 	class Texture;
 
-	class Shader : Object
+	class Shader : LoadableResource
 	{
         public:
-            Shader(const char* vertexShaderSource, const char* fragmentShaderSource);
+            Shader(const std::string& vertexShaderSource, const std::string& fragmentShaderSource);
             ~Shader();
 
             void Use();
+
+            bool IsValid() const override { return m_ProgramID && m_VertexID&& m_FragmentID; }
 
             int GetInputDataSize() const;
 

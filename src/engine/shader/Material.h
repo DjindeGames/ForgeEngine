@@ -15,6 +15,7 @@ namespace ForgeEngine
         friend class MaterialLoader;
 
         public:
+            bool IsValid() const override { return true; }
             int GetShininess() const { return m_Shininess; }
             float GetSpecular() const { return m_Specular; }
             float GetDiffuse() const { return m_Diffuse; }

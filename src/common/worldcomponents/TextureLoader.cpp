@@ -4,8 +4,20 @@
 
 namespace ForgeEngine
 {
-    void TextureLoader::AddResource(const std::string& resourcePath, const std::string& resourceContent)
+    bool TextureLoader::AddResource(const std::string& resourcePath)
     {
-        m_LoadedResources[resourcePath] = std::shared_ptr<Texture>(new Texture(resourcePath.c_str()));
+        Texture* texture = new Texture(resourcePath.c_str());
+
+        if (texture->IsValid())
+        {
+            m_LoadedResources[resourcePath] = std::shared_ptr<Texture>(texture);
+        }
+        else
+        {
+            delete(texture);
+            texture = nullptr;
+        }
+
+        return texture;
     }
 }

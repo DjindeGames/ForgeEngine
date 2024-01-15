@@ -6,7 +6,6 @@
 #include "common/helpers/InputHelper.h"
 #include "common/helpers/MeshUtils.h"
 #include "common/worldcomponents/InputManager.h"
-#include "common/worldcomponents/ShaderManager.h"
 #include "common/worldcomponents/DebugManager.h"
 #include "engine/core/ForgeEngine.h"
 #include "engine/misc/Texture.h"
@@ -41,11 +40,11 @@ namespace Newton
         player->GetTransform().SetPosition(Vector3(0.f, 1.8f, 0.f));
 
         Entity* ground = world.RegisterEntity();
-        ground->RegisterComponent(new MeshComponent(MeshUtils::MakePlane(1.f), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Default)));
+        ground->RegisterComponent(new MeshComponent(MeshUtils::MakePlane(1.f), "assets\\shaders\\emissive"));
         Entity* slope = world.RegisterEntity();
-        slope->RegisterComponent(new MeshComponent(MeshUtils::MakePlane(1.f), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Default)));
+        slope->RegisterComponent(new MeshComponent(MeshUtils::MakePlane(1.f), "assets\\shaders\\emissive"));
         Entity* cube = world.RegisterEntity();
-        cube->RegisterComponent(new MeshComponent(MeshUtils::MakeCube(1.f), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Default)));
+        cube->RegisterComponent(new MeshComponent(MeshUtils::MakeCube(1.f), "assets\\shaders\\emissive"));
         cube->GetTransform().Translate(VECTOR3_UP * 0.5f);
         slope->GetTransform().Rotate(Vector3(30.f, 0.f, 0.f));
         slope->GetTransform().Scale(Vector3(10.f, 1.f, 5.f));

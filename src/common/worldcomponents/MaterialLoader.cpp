@@ -1,11 +1,20 @@
 #include "MaterialLoader.h"
 
 #include "engine/shader/Material.h"
+#include "system/io/FileUtils.h"
 
 namespace ForgeEngine
 {
-    void MaterialLoader::AddResource(const std::string& resourcePath, const std::string& resourceContent)
+    bool MaterialLoader::AddResource(const std::string& resourcePath)
     {
-        m_LoadedResources[resourcePath] = std::shared_ptr<Material>(new Material(resourceContent));
+        std::string resourceContent;
+        bool success = FileUtils::TryLoadFileContent(resourcePath, resourceContent);
+
+        if (success)
+        {
+            m_LoadedResources[resourcePath] = std::shared_ptr<Material>(new Material(resourceContent));
+        }
+
+        return success;
     }
 }

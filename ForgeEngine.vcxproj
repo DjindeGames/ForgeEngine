@@ -65,7 +65,7 @@
     <ClInclude Include="src\engine\core\Defines.h" />
     <ClInclude Include="src\engine\core\Object.h" />
     <ClInclude Include="src\engine\core\NonCopyable.h" />
-    <ClInclude Include="src\common\worldcomponents\ShaderManager.h" />
+    <ClInclude Include="src\common\worldcomponents\ShaderLoader.h" />
     <ClInclude Include="src\system\math\Matrix4.h" />
     <ClInclude Include="src\system\math\Vector2.h" />
     <ClInclude Include="src\system\math\Vector3.h" />
@@ -418,7 +418,7 @@
     <ClCompile Include="src\common\components\CameraComponent.cpp" />
     <ClCompile Include="src\engine\core\Object.cpp" />
     <ClCompile Include="src\engine\core\NonCopyable.cpp" />
-    <ClCompile Include="src\common\worldcomponents\ShaderManager.cpp" />
+    <ClCompile Include="src\common\worldcomponents\ShaderLoader.cpp" />
     <ClCompile Include="src\system\math\Matrix4.cpp" />
     <ClCompile Include="src\system\math\Vector3.cpp" />
     <ClCompile Include="src\projects\papierkraft\data\BlockTextureData.cpp" />

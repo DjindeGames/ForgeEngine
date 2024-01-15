@@ -1,16 +1,14 @@
 #pragma once
 
 #include "engine/core/Defines.h"
-#include "engine/core/Object.h"
+#include "engine/core/LoadableResource.h"
 #include "engine/core/OpenGL.h"
 
 namespace ForgeEngine
 {
-	#define MISSING_TEXTURE "assets\\textures\\default\\default.png"
-
-	class Texture : Object
+	class Texture : LoadableResource
 	{
-		using Mother = Object;
+		using Mother = LoadableResource;
 
 		/************************************/
 		/************ATTRIBUTES**************/
@@ -33,6 +31,8 @@ namespace ForgeEngine
 			Texture(const char* texturePath, unsigned int rgbaMode = GL_RGBA, bool flip = true);
 			Texture(void* data, unsigned int width, unsigned int height);
 			~Texture();
+
+            bool IsValid() const override { return m_GLTexture; }
 
 			int GetWidth() const { return m_Width; }
 			int GetHeight() const { return m_Height; }

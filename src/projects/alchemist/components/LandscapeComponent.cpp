@@ -5,7 +5,6 @@
 #include "engine/misc/Texture.h"
 #include "common/helpers/InputHelper.h"
 #include "common/components/MeshComponent.h"
-#include "common/worldcomponents/ShaderManager.h"
 #include "system/math/MathUtils.h"
 
 #include <cstdlib>

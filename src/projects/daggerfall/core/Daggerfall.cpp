@@ -6,7 +6,6 @@
 #include "common/helpers/InputHelper.h"
 #include "common/helpers/MeshUtils.h"
 #include "common/worldcomponents/InputManager.h"
-#include "common/worldcomponents/ShaderManager.h"
 #include "common/worldcomponents/DebugManager.h"
 
 #include "engine/core/ForgeEngine.h"
@@ -40,7 +39,7 @@ namespace Daggerfall
         player->GetTransform().SetPosition(Vector3(0.f, 1.8f, 0.f));
 
         Entity* ground = world.RegisterEntity();
-        ground->RegisterComponent(new MeshComponent(MeshUtils::MakePlane(10.f), world.GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Textured)));
+        ground->RegisterComponent(new MeshComponent(MeshUtils::MakePlane(10.f), "assets\\shaders\\textured"));
     }
 
     void Daggerfall::OnUpdate(float dT) /*override*/

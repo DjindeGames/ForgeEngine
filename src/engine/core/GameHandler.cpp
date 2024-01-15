@@ -4,7 +4,7 @@
 #include "common/worldcomponents/InputManager.h"
 #include "common/worldcomponents/LightManager.h"
 #include "common/worldcomponents/MaterialLoader.h"
-#include "common/worldcomponents/ShaderManager.h"
+#include "common/worldcomponents/ShaderLoader.h"
 #include "common/worldcomponents/TextureLoader.h"
 
 #include "engine/core/ForgeEngine.h"
@@ -96,7 +96,7 @@ namespace ForgeEngine
 
 	void GameHandler::OnInit()
 	{
-        m_World.RegisterComponent(new ShaderManager());
+        m_World.RegisterComponent(new ShaderLoader());
         m_World.RegisterComponent(new InputManager());
         m_World.RegisterComponent(new LightManager());
         m_World.RegisterComponent(new MaterialLoader());

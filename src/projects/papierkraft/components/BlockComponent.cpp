@@ -2,7 +2,6 @@
 
 #include "common/components/MeshComponent.h"
 #include "common/components/ViewerComponent.h"
-#include "common/worldcomponents/ShaderManager.h"
 #include "engine/core/World.h"
 #include "engine/core/Entity.h"
 #include "engine/misc/Texture.h"
@@ -26,7 +25,8 @@ namespace PapierKraft
 	{
 		bool success = Mother::OnPreInit();
         m_TextureData = GetOwner()->GetWorld().GetComponentByType<BlockTextureManager>()->GetTextureDataByBlockType(m_BlockType);
-        m_Shader = GetOwner()->GetWorld().GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Textured);
+        //TODO: Fix this
+        //m_Shader = GetOwner()->GetWorld().GetComponentByType<ShaderManager>()->GetShaderByType(EShaderType::Textured);
 		BuildBlock();
 		return success;
 	}

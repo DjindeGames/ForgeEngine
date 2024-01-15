@@ -28,19 +28,14 @@ namespace ForgeEngine
             {
                 if (resourcePath != DEFAULT_RESOURCE_NAME)
                 {
-                    std::string resourceContent;
-                    if (TryLoadResourceContent(resourcePath, resourceContent))
-                    {
-                        AddResource(resourcePath, resourceContent);
-                    }
-                    else
+                    if (!AddResource(resourcePath))
                     {
                         return GetDefault();
                     }
                 }
                 else
                 {
-                    AddResource(resourcePath, "");
+                    AddResource(resourcePath);
                 }
             }
 
@@ -77,17 +72,15 @@ namespace ForgeEngine
             ImGui::Begin(GetName());
             for (const Resource& resource : m_LoadedResources)
             {
-                if (ImGui::CollapsingHeader(resource.first.c_str()))
-                {
-                    //resource.second.get()->OnDrawDebug();
-                }
+                ImGui::Text("%s [%d]", resource.first.c_str(), resource.second.use_count() - 1);
+                //ImGui::CollapsingHeader(resource.first.c_str())
             }
             ImGui::End();
         }
 #endif //FORGE_DEBUG_ENABLED
 
         protected:
-            virtual void AddResource(const std::string& resourcePath, const std::string& resourceContent) = 0;
+            virtual bool AddResource(const std::string& resourcePath) = 0;
             virtual const char* GetName() = 0;
 
             bool IsResourceLoaded(const std::string& resourcePath)
@@ -100,11 +93,6 @@ namespace ForgeEngine
             {
                 auto it = m_LoadedResources.find(resourcePath);
                 return (it != m_LoadedResources.end()) ? &((*it).second) : nullptr;
-            }
-
-            bool TryLoadResourceContent(const std::string& resourcePath, std::string& resourceContent)
-            {
-                return FileUtils::TryLoadFileContent(resourcePath, resourceContent);
             }
 
             using Resource = std::pair<const std::string&, const std::shared_ptr<T>&>;

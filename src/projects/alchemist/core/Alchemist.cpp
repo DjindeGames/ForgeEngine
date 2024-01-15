@@ -5,7 +5,6 @@
 #include "common/components/CameraComponent.h"
 #include "common/helpers/InputHelper.h"
 #include "common/worldcomponents/InputManager.h"
-#include "common/worldcomponents/ShaderManager.h"
 #include "common/worldcomponents/DebugManager.h"
 #include "engine/core/ForgeEngine.h"
 #include "engine/misc/Texture.h"

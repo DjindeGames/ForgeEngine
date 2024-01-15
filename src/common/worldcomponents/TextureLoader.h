@@ -11,7 +11,7 @@ namespace ForgeEngine
         using Mother = ResourceLoader<Texture>;
 
     protected:
-        void AddResource(const std::string& resourcePath, const std::string& resourceContent) override;
+        bool AddResource(const std::string& resourcePath) override;
         const char* GetName() { return "Loaded Textures"; }
     };
 }
