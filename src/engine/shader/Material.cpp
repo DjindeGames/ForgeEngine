@@ -1,5 +1,7 @@
 #include "Material.h"
 
+#include "common/worldcomponents/TextureLoader.h"
+#include "engine/core/GameHandler.h"
 #include "engine/misc/Texture.h"
 
 #ifdef FORGE_DEBUG_ENABLED
@@ -42,14 +44,6 @@ namespace ForgeEngine
         }
     }
 
-    Material::~Material()
-    {
-        if (m_Texture != nullptr)
-        {
-            delete(m_Texture);
-        }
-    }
-
     bool Material::ResolveAttribute(const std::string& name, const std::string& value)
     {
         bool success = true;
@@ -81,7 +75,7 @@ namespace ForgeEngine
         else if (name == "texture")
         {
             //TODO: Reuse texture if already exists
-            m_Texture = new Texture(value.c_str());
+            m_Texture = std::shared_ptr<Texture>(*(GameHandler::Get().GetWorld().GetComponentByType<TextureLoader>()->GetOrLoadResource(value)));
         }
         else
         {

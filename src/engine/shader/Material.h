@@ -7,21 +7,19 @@
 
 namespace ForgeEngine
 {
-    class MaterialManager;
+    class MaterialLoader;
     class Texture;
 
     class Material : public LoadableResource
     {
-        friend class MaterialManager;
+        friend class MaterialLoader;
 
         public:
-            ~Material();
-
             int GetShininess() const { return m_Shininess; }
             float GetSpecular() const { return m_Specular; }
             float GetDiffuse() const { return m_Diffuse; }
             const Color& GetColor() const { return m_Color; }
-            const Texture* GetTexture() const { return m_Texture; }
+            const Texture* GetTexture() const { return m_Texture.get(); }
 
         private:
             Material(const std::string& source);
@@ -37,6 +35,6 @@ namespace ForgeEngine
             float m_Diffuse{ 1.f };
             float m_Specular{ 0.f };
             Color m_Color{ COLOR_WHITE };
-            Texture* m_Texture{ nullptr };
+            std::shared_ptr<Texture> m_Texture{ nullptr };
     };
 }

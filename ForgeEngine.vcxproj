@@ -30,7 +30,7 @@
     <ClInclude Include="src\engine\core\LoadableResource.h" />
     <ClInclude Include="src\system\io\FileUtils.h" />
     <ClInclude Include="src\engine\core\ResourceLoader.h" />
-    <ClInclude Include="src\common\worldcomponents\MaterialManager.h" />
+    <ClInclude Include="src\common\worldcomponents\MaterialLoader.h" />
     <ClInclude Include="src\engine\shader\Material.h" />
     <ClInclude Include="src\common\worldcomponents\LightManager.h" />
     <ClInclude Include="src\common\components\LightComponent.h" />
@@ -382,12 +382,13 @@
     <ClInclude Include="src\system\math\MathUtils.h" />
     <ClInclude Include="src\system\time\Timer.h" />
     <ClInclude Include="src\projects\torch\Torch.h" />
+    <ClInclude Include="src\common\worldcomponents\TextureLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\engine\core\LoadableResource.cpp" />
     <ClCompile Include="src\system\io\FileUtils.cpp" />
     <ClCompile Include="src\engine\core\ResourceLoader.cpp" />
-    <ClCompile Include="src\common\worldcomponents\MaterialManager.cpp" />
+    <ClCompile Include="src\common\worldcomponents\MaterialLoader.cpp" />
     <ClCompile Include="src\engine\shader\Material.cpp" />
     <ClCompile Include="src\common\worldcomponents\LightManager.cpp" />
     <ClCompile Include="src\common\components\LightComponent.cpp" />
@@ -444,6 +445,7 @@
     <ClCompile Include="src\system\math\MathUtils.cpp" />
     <ClCompile Include="src\system\time\Timer.cpp" />
     <ClCompile Include="src\projects\torch\Torch.cpp" />
+    <ClCompile Include="src\common\worldcomponents\TextureLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\shaders\fragment\textured.glslf" />

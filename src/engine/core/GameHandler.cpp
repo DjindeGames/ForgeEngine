@@ -3,8 +3,9 @@
 #include "common/worldcomponents/DebugManager.h"
 #include "common/worldcomponents/InputManager.h"
 #include "common/worldcomponents/LightManager.h"
-#include "common/worldcomponents/MaterialManager.h"
+#include "common/worldcomponents/MaterialLoader.h"
 #include "common/worldcomponents/ShaderManager.h"
+#include "common/worldcomponents/TextureLoader.h"
 
 #include "engine/core/ForgeEngine.h"
 #include "engine/shader/ShaderUtils.h"
@@ -98,7 +99,8 @@ namespace ForgeEngine
         m_World.RegisterComponent(new ShaderManager());
         m_World.RegisterComponent(new InputManager());
         m_World.RegisterComponent(new LightManager());
-        m_World.RegisterComponent(new MaterialManager());
+        m_World.RegisterComponent(new MaterialLoader());
+        m_World.RegisterComponent(new TextureLoader());
 
 		#ifdef FORGE_DEBUG_ENABLED
             m_World.RegisterComponent(new DebugManager());

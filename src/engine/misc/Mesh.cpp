@@ -1,6 +1,6 @@
 #include "Mesh.h"
 
-#include "common/worldcomponents/MaterialManager.h"
+#include "common/worldcomponents/MaterialLoader.h"
 #include "engine/core/GameHandler.h"
 #include "engine/core/World.h"
 #include "engine/shader/Material.h"
@@ -17,11 +17,11 @@ namespace ForgeEngine
     {
         if (materialPath == nullptr)
         {
-            m_Material = std::shared_ptr<Material>(*(GameHandler::Get().GetWorld().GetComponentByType<MaterialManager>()->GetDefault()));
+            m_Material = std::shared_ptr<Material>(*(GameHandler::Get().GetWorld().GetComponentByType<MaterialLoader>()->GetDefault()));
         }
         else
         {
-            m_Material = std::shared_ptr<Material>(*(GameHandler::Get().GetWorld().GetComponentByType<MaterialManager>()->GetOrLoadResource(materialPath)));
+            m_Material = std::shared_ptr<Material>(*(GameHandler::Get().GetWorld().GetComponentByType<MaterialLoader>()->GetOrLoadResource(materialPath)));
         }
 
         for (unsigned int i = 0; i < triangleIndices.size(); i += 3)

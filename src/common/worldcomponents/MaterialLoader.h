@@ -6,12 +6,12 @@ namespace ForgeEngine
 {
     class Material;
 
-    class MaterialManager : public ResourceLoader<Material>
+    class MaterialLoader : public ResourceLoader<Material>
     {
         using Mother = ResourceLoader<Material>;
 
         protected:
             void AddResource(const std::string& resourcePath, const std::string& resourceContent) override;
-            const char* GetName() { return "MaterialLoader"; }
+            const char* GetName() { return "Loaded Materials"; }
     };
 }
