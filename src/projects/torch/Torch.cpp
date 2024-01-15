@@ -49,7 +49,7 @@ namespace Torch
         cube1->GetTransform().Translate(VECTOR3_UP * 1.7f);
 
         m_Cube = world.RegisterEntity();
-        m_Cube->RegisterComponent(new MeshComponent(MeshUtils::MakeCube(1.f, "assets\\materials\\marble.mat"), "assets\\shaders\\lit"));
+        m_Cube->RegisterComponent(new MeshComponent(MeshUtils::MakeCube(1.f, "assets\\materials\\ruby.mat"), "assets\\shaders\\lit"));
         m_Cube->GetTransform().Translate(Vector3(4.f, 0.5f, 4.f));
     }
 

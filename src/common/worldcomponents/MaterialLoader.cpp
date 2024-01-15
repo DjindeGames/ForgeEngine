@@ -8,7 +8,7 @@ namespace ForgeEngine
     bool MaterialLoader::AddResource(const std::string& resourcePath)
     {
         std::string resourceContent;
-        bool success = FileUtils::TryLoadFileContent(resourcePath, resourceContent);
+        bool success = resourcePath == DEFAULT_RESOURCE_NAME || FileUtils::TryLoadFileContent(resourcePath, resourceContent);
 
         if (success)
         {
