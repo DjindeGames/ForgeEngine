@@ -13,6 +13,12 @@ namespace ForgeEngine
         public:
             TransformComponent();
 
+#ifdef FORGE_DEBUG_ENABLED
+            void OnDrawDebug(float dT) const override;
+
+            const char* GetDebugName() const override { return "TransformComponent"; }
+#endif //FORGE_DEBUG_ENABLED
+
             const Matrix4& GetMatrix() const { return m_Matrix; }
 
             const Vector3& GetPosition() const;

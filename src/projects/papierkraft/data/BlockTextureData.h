@@ -50,6 +50,11 @@ namespace PapierKraft
 			BlockTextureData(const TextureCoordinates& sideTextureCoordinates, const TextureCoordinates& topBottomTextureCoordinates);
 			BlockTextureData(const TextureCoordinates& uniformTextureCoordinates);
 
+            //TODO: fix this
+#ifdef FORGE_DEBUG_ENABLED
+            const char* GetDebugName() const override { return "TODO"; }
+#endif //FORGE_DEBUG_ENABLED
+
 			TextureCoordinates GetSideTexture() const { return m_SideTextureCoordinates; }
 			TextureCoordinates GetTopTexture() const { return m_TopTextureCoordinates; }
 			TextureCoordinates GetBottomTexture() const { return m_BottomTextureCoordinates; }

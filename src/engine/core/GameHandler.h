@@ -1,6 +1,5 @@
 #pragma once
 
-#include "engine/core/Object.h"
 #include "engine/core/World.h"
 
 #include <string>
@@ -11,7 +10,7 @@ namespace ForgeEngine
 {
     class World;
 
-	class GameHandler : Object
+	class GameHandler
 	{
 		/************************************/
 		/************ATTRIBUTES**************/

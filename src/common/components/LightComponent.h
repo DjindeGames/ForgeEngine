@@ -12,6 +12,10 @@ namespace ForgeEngine
     public:
         LightComponent(float range = 1.f, float intensity = 1.f, const Color& color = COLOR_WHITE);
 
+#ifdef FORGE_DEBUG_ENABLED
+        const char* GetDebugName() const override { return "LightComponent"; }
+#endif //FORGE_DEBUG_ENABLED
+
         float GetRange() const { return m_Range; }
         float GetIntensity() const { return m_Intensity; }
         const Color& GetColor() const { return m_Color; }

@@ -63,25 +63,14 @@ namespace Alchemist
 	{
 		using Mother = Component;
 
-		using ParticleContainer = Particle[ALCHEMIST_LANDSCAPE_HEIGHT][ALCHEMIST_LANDSCAPE_WIDTH];
-
-		/************************************/
-		/************ATTRIBUTES**************/
-		/************************************/
-
-		private:
-			ParticleContainer m_ParticleContainer;
-			float m_Pixels[ALCHEMIST_LANDSCAPE_WIDTH * ALCHEMIST_LANDSCAPE_HEIGHT * ALCHEMIST_PIXEL_DATA_SIZE];
-			Unique<Texture> m_Texture;
-
-		/************************************/
-		/**************METHODS***************/
-		/************************************/
-
 		public:
 			virtual bool OnPreInit() override;
 			virtual void OnPreUpdate(float dT) override;
-			virtual void OnDrawDebug(float dT) override;
+			virtual void OnDrawDebug(float dT) const override;
+
+#ifdef FORGE_DEBUG_ENABLED
+            const char* GetDebugName() const override { return "LandscapeComponent"; }
+#endif //FORGE_DEBUG_ENABLED
 
 			void SpawnParticle(EParticleType type, int x, int y);
 
@@ -95,5 +84,12 @@ namespace Alchemist
 
 			void UpdateSand(unsigned int x, unsigned int y);
 			void UpdateWater(unsigned int x, unsigned int y);
+
+        private:
+		    using ParticleContainer = Particle[ALCHEMIST_LANDSCAPE_HEIGHT][ALCHEMIST_LANDSCAPE_WIDTH];
+
+            ParticleContainer m_ParticleContainer;
+            float m_Pixels[ALCHEMIST_LANDSCAPE_WIDTH * ALCHEMIST_LANDSCAPE_HEIGHT * ALCHEMIST_PIXEL_DATA_SIZE];
+            Unique<Texture> m_Texture;
 	};
 }

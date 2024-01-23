@@ -38,6 +38,10 @@ namespace PapierKraft
 		public:
 			BlockTextureManager();
 
+#ifdef FORGE_DEBUG_ENABLED
+            const char* GetDebugName() const override { return "BlockTextureManager"; }
+#endif //FORGE_DEBUG_ENABLED
+
 			BlockTextureData* GetTextureDataByBlockType(EBlockType blockType) const;
 			Texture* GetTextureAtlas() const { return m_TextureAtlas.get(); }
 	};

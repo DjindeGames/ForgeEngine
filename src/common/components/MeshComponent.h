@@ -17,32 +17,27 @@ namespace ForgeEngine
 	{
 		using Mother = Component;
 
-		/************************************/
-		/************ATTRIBUTES**************/
-		/************************************/
-
-		private:
-            Mesh m_Mesh{};
-			std::shared_ptr<Shader> m_Shader{};
-
-			GL_ID m_VertexArrayObject{};
-			GL_ID m_VertexBufferObject{};
-			GL_ID m_VertexBufferElement{};
-			unsigned int m_NumIndices{};
-
-		/************************************/
-		/**************METHODS***************/
-		/************************************/
-
 		public:
 			MeshComponent(const Mesh& mesh, const std::string& shaderPath);
 
 			virtual void OnUpdate(float dT) override;
 			virtual void OnDestroy() override;
 
+#ifdef FORGE_DEBUG_ENABLED
+            const char* GetDebugName() const override { return "MeshComponent"; }
+#endif //FORGE_DEBUG_ENABLED
+
             Mesh& GetMesh() { return m_Mesh; }
 
 		private:
 			void InitRender();
+
+            Mesh m_Mesh{};
+            std::shared_ptr<Shader> m_Shader{};
+
+            GL_ID m_VertexArrayObject{};
+            GL_ID m_VertexBufferObject{};
+            GL_ID m_VertexBufferElement{};
+            unsigned int m_NumIndices{};
 	};
 }

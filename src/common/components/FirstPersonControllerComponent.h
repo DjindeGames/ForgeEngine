@@ -17,7 +17,11 @@ namespace ForgeEngine
 		virtual void OnUpdate(float dT) override;
 		virtual void OnDestroy() override;
 
-        void OnDrawDebug(float dT) override;
+#ifdef FORGE_DEBUG_ENABLED
+        void OnDrawDebug(float dT) const override;
+
+        const char* GetDebugName() const override { return "FirstPersonControllerComponent"; }
+#endif //FORGE_DEBUG_ENABLED
 
     private:
         float m_MoveSpeed{10.f};

@@ -7,6 +7,7 @@
 
 #include <memory>
 #include <vector>
+#include <string>
 
 namespace ForgeEngine
 {
@@ -67,8 +68,14 @@ namespace ForgeEngine
 				return false;
 			}
 
+#ifdef FORGE_DEBUG_ENABLED
+        public:
+            const char* GetDebugName() const override { return m_DebugName.c_str(); }
+            virtual void OnDrawDebug(float dT) const override;
+#endif //FORGE_DEBUG_ENABLED
+
 		protected:
-            Entity(World& world, TransformComponent* transform);
+            Entity(World& world, TransformComponent* transform, const std::string& debugName);
 
 			virtual bool OnPreInit() override;
 			virtual bool OnInit() override;
@@ -78,8 +85,6 @@ namespace ForgeEngine
 			virtual void OnUpdate(float dT) override;
 			virtual void OnPostUpdate(float dT) override;
 
-			virtual void OnDrawDebug(float dT) override;
-
 			virtual void OnDestroy() override;
 
         private:
@@ -88,5 +93,8 @@ namespace ForgeEngine
 
             std::vector<Unique<Component>> m_RegisteredComponents;
 
+#ifdef FORGE_DEBUG_ENABLED
+            const std::string m_DebugName;
+#endif //FORGE_DEBUG_ENABLED
 	};
 }

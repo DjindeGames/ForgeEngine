@@ -67,17 +67,15 @@ namespace Alchemist
 		}
 	}
 
-	void LandscapeComponent::OnDrawDebug(float dT) /*override*/ 
+	void LandscapeComponent::OnDrawDebug(float dT) const  /*override*/ 
 	{
 		Vector2 mousePosition = GetMousePosition();
 		float heightConversionRatio = GameHandler::Get().GetWindowHeight() / static_cast<float>(ALCHEMIST_LANDSCAPE_HEIGHT);
 		float widthConversionRatio = GameHandler::Get().GetWindowWidth() / static_cast<float>(ALCHEMIST_LANDSCAPE_WIDTH);
 
-		ImGui::Begin("Alchemist");
 		ImGui::Text("Grid Size: %d x %d", ALCHEMIST_LANDSCAPE_WIDTH, ALCHEMIST_LANDSCAPE_HEIGHT);
 		ImGui::Text("Grid Mouse Position {%d,%d}", static_cast<int>(mousePosition.x), static_cast<int>(mousePosition.y));
 		ImGui::Text("Conversion Ratio {%f,%f}", heightConversionRatio, widthConversionRatio);
-		ImGui::End();
 	}
 
 	Vector2 LandscapeComponent::GetMousePosition() const

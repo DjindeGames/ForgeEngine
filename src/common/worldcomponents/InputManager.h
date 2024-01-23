@@ -13,23 +13,14 @@ namespace ForgeEngine
 	{
 		using Mother = WorldComponent;
 
-		/************************************/
-		/************ATTRIBUTES**************/
-		/************************************/
-
-		private:
-			std::unordered_map<EInputAction, Unique<InputAction>> m_InputActionMappings{};
-			Vector2 m_MousePosition{};
-			Vector2 m_PreviousMousePosition{};
-
-		/************************************/
-		/**************METHODS***************/
-		/************************************/
-
 		public:
 			InputManager();
 
 			virtual void OnPreUpdate(float dT) override;
+
+#ifdef FORGE_DEBUG_ENABLED
+            const char* GetDebugName() const override { return "InputManager"; }
+#endif //FORGE_DEBUG_ENABLED
 
 			bool IsInputActive(EInputAction actionType) const;
 			Vector2 GetMousePosition() const { return m_MousePosition; };
@@ -37,5 +28,9 @@ namespace ForgeEngine
 
 		private:
 			void UpdateMousePosition();
+
+            std::unordered_map<EInputAction, Unique<InputAction>> m_InputActionMappings{};
+            Vector2 m_MousePosition{};
+            Vector2 m_PreviousMousePosition{};
 	};
 }

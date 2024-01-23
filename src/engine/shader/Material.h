@@ -15,6 +15,11 @@ namespace ForgeEngine
         friend class MaterialLoader;
 
         public:
+            //TODO: fix this
+#ifdef FORGE_DEBUG_ENABLED
+            const char* GetDebugName() const override { return "TODO"; }
+#endif //FORGE_DEBUG_ENABLED
+
             bool IsValid() const override { return true; }
             int GetShininess() const { return m_Shininess; }
             float GetSpecular() const { return m_Specular; }

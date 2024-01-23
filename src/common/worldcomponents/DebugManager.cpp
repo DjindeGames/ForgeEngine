@@ -14,19 +14,21 @@ namespace ForgeEngine
         glPolygonMode(GL_FRONT_AND_BACK, m_CurrentDrawMode);
 	}
 
-	void DebugManager::OnDrawDebug(float dT) /*override*/
-	{
-		Vector2 mousePosition = InputHelper::GetMousePosition();
-		ProcessDebugInput();
+    void DebugManager::OnUpdate(float dT) /*override*/
+    {
+        ProcessDebugInput();
+        ComputeFramerate(dT);
+    }
 
-		ImGui::Begin("General");
-		ImGui::Text("FPS: %d", ComputeFramerate(dT));
+	void DebugManager::OnDrawDebug(float dT) const  /*override*/
+	{
+		ImGui::Text("FPS: %d", m_FrameRate);
 		ImGui::Text("Window Size: %d x %d", GameHandler::Get().GetWindowWidth(), GameHandler::Get().GetWindowHeight());
+		Vector2 mousePosition = InputHelper::GetMousePosition();
 		ImGui::Text("Mouse {%d,%d}", static_cast<int>(mousePosition.x), static_cast<int>(mousePosition.y));
-		ImGui::End();
 	}
 
-	int DebugManager::ComputeFramerate(float dT)
+	void DebugManager::ComputeFramerate(float dT)
 	{
 		static std::list<float> deltaTimes;
 		float framerate = 0;
@@ -42,7 +44,7 @@ namespace ForgeEngine
 			framerate += *it;
 		}
 
-		return static_cast<int>(1 / (framerate / deltaTimes.size()));
+        m_FrameRate = static_cast<int>(1 / (framerate / deltaTimes.size()));
 	}
 
 	void DebugManager::ProcessDebugInput()

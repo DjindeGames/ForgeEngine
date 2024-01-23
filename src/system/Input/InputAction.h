@@ -66,6 +66,11 @@ namespace ForgeEngine
 		public:
 			InputAction(EInputType type, EDeviceTarget target, KeyID id);
 
+#ifdef FORGE_DEBUG_ENABLED
+            //TODO: Fix this
+            const char* GetDebugName() const override { return "TODO"; }
+#endif //FORGE_DEBUG_ENABLED
+
 			virtual void Update(float dT);
 			bool IsActive() const { return m_IsActive; }
 

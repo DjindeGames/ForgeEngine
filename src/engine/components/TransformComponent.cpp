@@ -1,5 +1,9 @@
 #include "TransformComponent.h"
 
+#ifdef FORGE_DEBUG_ENABLED
+#include "engine/ui/ImGUI.h"
+#endif //FORGE_DEBUG_ENABLED
+
 namespace ForgeEngine
 {
 	TransformComponent::TransformComponent() : 
@@ -7,6 +11,15 @@ namespace ForgeEngine
 		m_Matrix{1}
 	{
 	}
+
+#ifdef FORGE_DEBUG_ENABLED
+    void TransformComponent::OnDrawDebug(float dT) const  const
+    {
+        ImGui::Text("Position: (%.2f, %.2f, %.2f)", m_Position.x, m_Position.y, m_Position.z);
+        ImGui::Text("Rotation: (%.2f, %.2f, %.2f)", m_Rotation.x, m_Rotation.y, m_Rotation.z);
+        ImGui::Text("Scale: (%.2f, %.2f, %.2f)", m_Scale.x, m_Scale.y, m_Scale.z);
+    }
+#endif //FORGE_DEBUG_ENABLED
 
     const Vector3& TransformComponent::GetPosition() const 
     { 

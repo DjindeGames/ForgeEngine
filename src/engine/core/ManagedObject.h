@@ -12,7 +12,7 @@ namespace ForgeEngine
 		Initialized
 	};
 
-	class ManagedObject : Object
+	class ManagedObject : public Object
 	{
 		using Mother = Object;
 
@@ -45,7 +45,7 @@ namespace ForgeEngine
             virtual void OnPostUpdate(float dT) {}
 
     #ifdef FORGE_DEBUG_ENABLED
-            virtual void OnDrawDebug(float dT) {}
+            virtual void OnDrawDebug(float dT) const {}
     #endif //FORGE_DEBUG_ENABLED
 
         virtual void OnDestroy() {}

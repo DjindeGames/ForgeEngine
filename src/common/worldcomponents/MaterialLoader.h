@@ -10,8 +10,12 @@ namespace ForgeEngine
     {
         using Mother = ResourceLoader<Material>;
 
+        public:
+#ifdef FORGE_DEBUG_ENABLED
+            const char* GetDebugName() const override { return "MaterialLoader"; }
+#endif //FORGE_DEBUG_ENABLED
+
         protected:
             bool AddResource(const std::string& resourcePath) override;
-            const char* GetName() { return "Loaded Materials"; }
     };
 }

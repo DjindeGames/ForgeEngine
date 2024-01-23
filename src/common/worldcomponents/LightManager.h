@@ -18,6 +18,10 @@ namespace ForgeEngine
         public:
             LightManager();
 
+#ifdef FORGE_DEBUG_ENABLED
+            const char* GetDebugName() const override { return "LightManager"; }
+#endif //FORGE_DEBUG_ENABLED
+
             void RegisterLight(const LightComponent* light);
             void RemoveLight(const LightComponent* light);
 

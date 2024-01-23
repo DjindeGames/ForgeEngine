@@ -34,7 +34,11 @@ namespace ForgeEngine
 		public:
 			~World();
 
-            Entity* RegisterEntity();
+#ifdef FORGE_DEBUG_ENABLED
+            const char* GetDebugName() const override { return "Global Debug"; }
+#endif //FORGE_DEBUG_ENABLED
+
+            Entity* RegisterEntity(const char* debugName = nullptr);
 
             template <typename T>
             T* RegisterComponent(T* component)
@@ -84,8 +88,12 @@ namespace ForgeEngine
             void Update(float dT);
             void PostUpdate(float dT);
 
+			void OnDestroy();
+
+#ifdef FORGE_DEBUG_ENABLED
             void DrawDebug(float dT);
 
-			void OnDestroy();
+            unsigned int m_LastCreatedEntityId = 1;
+#endif //FORGE_DEBUG_ENABLED
 	};
 }

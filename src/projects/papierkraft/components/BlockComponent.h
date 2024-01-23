@@ -47,6 +47,10 @@ namespace PapierKraft
 
 			virtual bool OnPreInit() override;
 
+#ifdef FORGE_DEBUG_ENABLED
+            const char* GetDebugName() const override { return "BlockComponent"; }
+#endif //FORGE_DEBUG_ENABLED
+
 		private:
 			void BuildBlock();
 	};

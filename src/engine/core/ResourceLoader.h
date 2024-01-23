@@ -65,23 +65,19 @@ namespace ForgeEngine
         }
 
 #ifdef FORGE_DEBUG_ENABLED
-        void OnDrawDebug(float dT) override
+        void OnDrawDebug(float dT) const override
         {
             Mother::OnDrawDebug(dT);
-
-            ImGui::Begin(GetName());
             for (const Resource& resource : m_LoadedResources)
             {
-                ImGui::Text("%s [%d]", resource.first.c_str(), resource.second.use_count() - 1);
                 //ImGui::CollapsingHeader(resource.first.c_str())
+                ImGui::Text("%s [%d]", resource.first.c_str(), resource.second.use_count() - 1);
             }
-            ImGui::End();
         }
 #endif //FORGE_DEBUG_ENABLED
 
         protected:
             virtual bool AddResource(const std::string& resourcePath) = 0;
-            virtual const char* GetName() = 0;
 
             bool IsResourceLoaded(const std::string& resourcePath)
             {

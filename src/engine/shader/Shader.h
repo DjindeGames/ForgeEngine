@@ -55,6 +55,11 @@ namespace ForgeEngine
             Shader(const std::string& vertexShaderSource, const std::string& fragmentShaderSource);
             ~Shader();
 
+            //TODO: fix this
+#ifdef FORGE_DEBUG_ENABLED
+            const char* GetDebugName() const override { return "TODO"; }
+#endif //FORGE_DEBUG_ENABLED
+
             void Use();
 
             bool IsValid() const override { return m_ProgramID && m_VertexID&& m_FragmentID; }

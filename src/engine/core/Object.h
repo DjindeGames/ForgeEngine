@@ -25,6 +25,10 @@ namespace ForgeEngine
 			Object();
 			virtual ~Object() {}
 
+#ifdef FORGE_DEBUG_ENABLED
+            virtual const char* GetDebugName() const = 0;
+#endif //FORGE_DEBUG_ENABLED
+
 			ObjectID GetID() const { return m_ID; }
 	};
 }

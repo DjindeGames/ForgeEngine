@@ -79,14 +79,13 @@ namespace ForgeEngine
             GetOwner()->GetTransform().Translate(finalTranslation);
         }
 	}
-
-    void FirstPersonControllerComponent::OnDrawDebug(float dT) /*override*/
+#ifdef FORGE_DEBUG_ENABLED
+    void FirstPersonControllerComponent::OnDrawDebug(float dT) const  /*override*/
     {
-        ImGui::Begin("FirstPersonControllerComponent");
         const Vector3& playerPosition = GetOwner()->GetPosition();
         ImGui::Text("Player Position: (%.2f, %.2f, %.2f)", playerPosition.x, playerPosition.y, playerPosition.z);
-        ImGui::End();
     }
+#endif //FORGE_DEBUG_ENABLED
 
 	void FirstPersonControllerComponent::OnDestroy() /*override*/
 	{

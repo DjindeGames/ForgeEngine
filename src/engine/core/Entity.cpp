@@ -3,13 +3,20 @@
 #include "engine/components/TransformComponent.h"
 #include "system/math/Vector3.h"
 
+#ifdef FORGE_DEBUG_ENABLED
+#include "engine/ui/ImGUI.h"
+#endif //FORGE_DEBUG_ENABLED
+
 #include <algorithm>
 
 namespace ForgeEngine
 {
-    Entity::Entity(World& world, TransformComponent* transform) 
+    Entity::Entity(World& world, TransformComponent* transform, const std::string& debugName)
         : m_World(world)
         , m_Transform(*transform)
+#ifdef FORGE_DEBUG_ENABLED
+        , m_DebugName(debugName)
+#endif //FORGE_DEBUG_ENABLED
     {
         m_RegisteredComponents.push_back(Unique<TransformComponent>(transform));
     }
@@ -144,27 +151,30 @@ namespace ForgeEngine
 			}
 		}
 	}
-
-	void Entity::OnDrawDebug(float dT) /*override*/
+#ifdef FORGE_DEBUG_ENABLED
+	void Entity::OnDrawDebug(float dT) const  /*override*/
 	{
-		if (!IsActive())
-		{
-			return;
-		}
-
 		Mother::OnDrawDebug(dT);
 
+        ImGui::PushID(GetID());
 		for (auto& component : m_RegisteredComponents)
 		{
-			if (component != nullptr && component->IsActive())
+			if (component != nullptr)
 			{
-				if (component->IsInitialized())
-				{
-					component->OnDrawDebug(dT);
-				}
+                if (ImGui::CollapsingHeader(component->GetDebugName()))
+                {
+                    ImGui::Indent();
+                    if (component->IsInitialized())
+                    {
+                        component->OnDrawDebug(dT);
+                    }
+                    ImGui::Unindent();
+                }
 			}
 		}
+        ImGui::PopID();
 	}
+#endif //FORGE_DEBUG_ENABLED
 
 	void Entity::OnDestroy() /*override*/
 	{

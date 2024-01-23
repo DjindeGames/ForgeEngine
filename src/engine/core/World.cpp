@@ -3,14 +3,29 @@
 #include "engine/components/TransformComponent.h"
 #include "engine/core/Entity.h"
 #include "engine/core/WorldComponent.h"
+#include "engine/core/WorldComponent.h"
+
+#ifdef FORGE_DEBUG_ENABLED
+#include "engine/ui/ImGUI.h"
+#endif //FORGE_DEBUG_ENABLED
 
 #include <algorithm>
+#include <string>
 
 namespace ForgeEngine
 {
-	Entity* World::RegisterEntity()
+	Entity* World::RegisterEntity(const char* debugName /*= nullptr*/)
 	{
-        Entity* entity = new Entity(*this, new TransformComponent());
+        std::string finalDebugName{ debugName != nullptr ? debugName : "" };
+#ifdef FORGE_DEBUG_ENABLED
+        if (debugName == nullptr)
+        {
+            finalDebugName = "Entity" + std::to_string(m_LastCreatedEntityId);
+            m_LastCreatedEntityId++;
+        }
+#endif //FORGE_DEBUG_ENABLED
+
+        Entity* entity = new Entity(*this, new TransformComponent(), finalDebugName);
 		m_RegisteredEntities.push_back(Unique<Entity>(entity));
 		return entity;
 	}
@@ -169,27 +184,50 @@ namespace ForgeEngine
             }
         }
 	}
-
+#ifdef FORGE_DEBUG_ENABLED
 	void World::DrawDebug(float dT) 
 	{
-		for (auto& entity : m_RegisteredEntities)
-		{
-			if (entity != nullptr)
-			{
-				if (entity->IsInitialized())
-				{
-					entity->OnDrawDebug(dT);
-				}
-			}
-		}
-        for (auto& component : m_Components)
+        ImGui::Begin("World");
+        if (ImGui::CollapsingHeader("Components"))
         {
-            if (component != nullptr)
+            ImGui::Indent();
+            for (auto& component : m_Components)
             {
-                component->OnDrawDebug(dT);
+                if (component != nullptr)
+                {
+                    if (ImGui::CollapsingHeader(component->GetDebugName()))
+                    {
+                        ImGui::Indent();
+                        component->OnDrawDebug(dT);
+                        ImGui::Unindent();
+                    }
+                }
             }
+            ImGui::Unindent();
         }
+        if (ImGui::CollapsingHeader("Entities"))
+        {
+            ImGui::Indent();
+            for (auto& entity : m_RegisteredEntities)
+            {
+                if (entity != nullptr)
+                {
+                    if (ImGui::CollapsingHeader(entity->GetDebugName()))
+                    {
+                        ImGui::Indent();
+                        if (entity->IsInitialized())
+                        {
+                            entity->OnDrawDebug(dT);
+                        }
+                        ImGui::Unindent();
+                    }
+                }
+            }
+            ImGui::Unindent();
+        }
+        ImGui::End();
 	}
+#endif
 
 	void World::OnDestroy()
 	{

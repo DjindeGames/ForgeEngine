@@ -10,8 +10,12 @@ namespace ForgeEngine
 	{
 		using Mother = ResourceLoader<Shader>;
 
+    public:
+#ifdef FORGE_DEBUG_ENABLED
+        const char* GetDebugName() const override { return "ShaderLoader"; }
+#endif //FORGE_DEBUG_ENABLED
+
     protected:
         bool AddResource(const std::string& resourcePath) override;
-        const char* GetName() { return "Loaded Shaders"; }
 	};
 }
