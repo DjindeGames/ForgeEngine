@@ -8,6 +8,7 @@
 
 namespace ForgeEngine
 {
+#ifdef FORGE_DEBUG_ENABLED
 	DebugManager::DebugManager() :
 		m_CurrentDrawMode(GL_FILL)
 	{
@@ -57,6 +58,10 @@ namespace ForgeEngine
         {
             ToggleFreeMouse();
         }
+        if (InputHelper::IsInputActive(EInputAction::ToggleImGUI))
+        {
+            m_ImGUIEnabled = m_ImGUIEnabled ? false : true;
+        }
 	}
 
     void DebugManager::ToggleFreeMouse()
@@ -79,4 +84,5 @@ namespace ForgeEngine
 		glPolygonMode(GL_FRONT_AND_BACK, newDrawMode);
 		m_CurrentDrawMode = newDrawMode;
 	}
+#endif //FORGE_DEBUG_ENABLED
 }

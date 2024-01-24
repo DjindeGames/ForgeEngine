@@ -24,6 +24,10 @@ namespace ForgeEngine
         bool OnInit() override;
         void OnDestroy() override;
 
+#ifdef FORGE_DEBUG_ENABLED
+        void OnDrawDebug(float dT) const override;
+#endif //FORGE_DEBUG_ENABLED
+
     private:
         float m_Range{ 1.f };
         float m_Intensity{ 1.f };

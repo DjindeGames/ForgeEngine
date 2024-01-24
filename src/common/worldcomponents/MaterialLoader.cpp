@@ -17,4 +17,11 @@ namespace ForgeEngine
 
         return success;
     }
+
+#ifdef FORGE_DEBUG_ENABLED
+    void MaterialLoader::DebugResource(const Material& resource) const
+    {
+        resource.OnDrawDebug();
+    }
+#endif //FORGE_DEBUG_ENABLED
 }

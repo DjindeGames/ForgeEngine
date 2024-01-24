@@ -91,11 +91,12 @@ namespace ForgeEngine
         ImGui::Text("Diffuse: %.2f", m_Diffuse);
         ImGui::Text("Specular: %.2f", m_Specular);
         ImGui::Text("Shininess: %d", m_Shininess);
-        float color[4]{ m_Color.GetR(), m_Color.GetG(), m_Color.GetB(), m_Color.GetA() };
-        ImGui::ColorEdit4("Color: %s", color);
+        ImGui::Text("Color: ");
+        ImGui::SameLine();
+        ImGui::ColorButton("Color##3c", ImVec4(m_Color.GetR(), m_Color.GetG(), m_Color.GetB(), m_Color.GetA()), 0, ImVec2(50, 15));
         if (m_Texture != nullptr)
         {
-            ImGui::Text("Texture: %s", m_Texture->GetName());
+            ImGui::Text("Texture: %s", m_Texture->GetDebugName());
         }
     }
 #endif //FORGE_DEBUG_ENABLED

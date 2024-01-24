@@ -27,4 +27,11 @@ namespace ForgeEngine
 
         return shader;
     }
+
+#ifdef FORGE_DEBUG_ENABLED
+    void ShaderLoader::DebugResource(const Shader& resource) const
+    {
+        resource.OnDrawDebug();
+    }
+#endif //FORGE_DEBUG_ENABLED
 }

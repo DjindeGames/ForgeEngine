@@ -20,4 +20,11 @@ namespace ForgeEngine
 
         return texture;
     }
+
+#ifdef FORGE_DEBUG_ENABLED
+    void TextureLoader::DebugResource(const Texture& resource) const
+    {
+        resource.OnDrawDebug();
+    }
+#endif //FORGE_DEBUG_ENABLED
 }

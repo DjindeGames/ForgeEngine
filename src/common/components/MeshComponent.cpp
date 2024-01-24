@@ -9,6 +9,10 @@
 #include "common/worldcomponents/LightManager.h"
 #include "common/worldcomponents/ShaderLoader.h"
 
+#ifdef FORGE_DEBUG_ENABLED
+#include "engine/ui/ImGUI.h"
+#endif //FORGE_DEBUG_ENABLED
+
 #include <algorithm>
 #include <iterator>
 #include <utility>
@@ -130,4 +134,14 @@ namespace ForgeEngine
 		glDeleteBuffers(1, &m_VertexBufferElement);
 		Mother::OnDestroy();
 	}
+
+#ifdef FORGE_DEBUG_ENABLED
+    void MeshComponent::OnDrawDebug(float dT) const
+    {
+        ImGui::Text("VAO ID: %d", m_VertexArrayObject);
+        ImGui::Text("VBO ID: %d", m_VertexBufferObject);
+        ImGui::Text("VBE ID: %d", m_VertexBufferElement);
+        ImGui::Text("Num Indices: %d", m_NumIndices);
+    }
+#endif //FORGE_DEBUG_ENABLED
 }

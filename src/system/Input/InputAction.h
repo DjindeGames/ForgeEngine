@@ -8,6 +8,7 @@ namespace ForgeEngine
 	{
 		ToggleWireframe,
 		ToggleFreeMouse,
+        ToggleImGUI,
 
 		MoveForward,
 		MoveBackward,
@@ -41,6 +42,7 @@ namespace ForgeEngine
 
 	class Timer;
 
+    //TODO: Make this a loadable resource
 	class InputAction : public Object
 	{
 		using Mother = Object;

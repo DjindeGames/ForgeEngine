@@ -17,5 +17,9 @@ namespace ForgeEngine
 
     protected:
         bool AddResource(const std::string& resourcePath) override;
+
+#ifdef FORGE_DEBUG_ENABLED
+        void DebugResource(const Shader& resource) const override;
+#endif //FORGE_DEBUG_ENABLED
 	};
 }

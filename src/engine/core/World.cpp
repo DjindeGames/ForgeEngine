@@ -1,5 +1,6 @@
 #include "engine/core/World.h"
 
+#include "common/worldcomponents/DebugManager.h"
 #include "engine/components/TransformComponent.h"
 #include "engine/core/Entity.h"
 #include "engine/core/WorldComponent.h"
@@ -187,45 +188,66 @@ namespace ForgeEngine
 #ifdef FORGE_DEBUG_ENABLED
 	void World::DrawDebug(float dT) 
 	{
-        ImGui::Begin("World");
-        if (ImGui::CollapsingHeader("Components"))
+        const DebugManager* debugManager = GetComponentByType<const DebugManager>();
+        if (debugManager && debugManager->IsImGUIEnabled())
         {
-            ImGui::Indent();
-            for (auto& component : m_Components)
+            ImGui::Begin("World");
             {
-                if (component != nullptr)
+                static bool showDemo = false;
+                ImGui::Checkbox("Show Demo", &showDemo);
+                if (showDemo)
                 {
-                    if (ImGui::CollapsingHeader(component->GetDebugName()))
-                    {
-                        ImGui::Indent();
-                        component->OnDrawDebug(dT);
-                        ImGui::Unindent();
-                    }
+                    ImGui::ShowDemoWindow();
                 }
-            }
-            ImGui::Unindent();
-        }
-        if (ImGui::CollapsingHeader("Entities"))
-        {
-            ImGui::Indent();
-            for (auto& entity : m_RegisteredEntities)
-            {
-                if (entity != nullptr)
+
+                if (ImGui::CollapsingHeader("Components"))
                 {
-                    if (ImGui::CollapsingHeader(entity->GetDebugName()))
+                    ImGui::Indent();
                     {
-                        ImGui::Indent();
-                        if (entity->IsInitialized())
+                        for (auto& component : m_Components)
                         {
-                            entity->OnDrawDebug(dT);
+                            if (component != nullptr)
+                            {
+                                if (ImGui::CollapsingHeader(component->GetDebugName()))
+                                {
+                                    ImGui::Indent();
+                                    {
+                                        component->OnDrawDebug(dT);
+                                    }
+                                    ImGui::Unindent();
+                                }
+                            }
                         }
-                        ImGui::Unindent();
                     }
+                    ImGui::Unindent();
+                }
+                if (ImGui::CollapsingHeader("Entities"))
+                {
+                    ImGui::Indent();
+                    {
+                        for (auto& entity : m_RegisteredEntities)
+                        {
+                            if (entity != nullptr)
+                            {
+                                if (ImGui::CollapsingHeader(entity->GetDebugName()))
+                                {
+                                    ImGui::Indent();
+                                    {
+                                        if (entity->IsInitialized())
+                                        {
+                                            entity->OnDrawDebug(dT);
+                                        }
+                                    }
+                                    ImGui::Unindent();
+                                }
+                            }
+                        }
+                    }
+                    ImGui::Unindent();
                 }
             }
-            ImGui::Unindent();
+            ImGui::End();
         }
-        ImGui::End();
 	}
 #endif
 

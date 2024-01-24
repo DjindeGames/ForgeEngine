@@ -49,7 +49,7 @@ namespace ForgeEngine
 	class Material;
 	class Texture;
 
-	class Shader : LoadableResource
+	class Shader : public LoadableResource
 	{
         public:
             Shader(const std::string& vertexShaderSource, const std::string& fragmentShaderSource);
@@ -58,6 +58,7 @@ namespace ForgeEngine
             //TODO: fix this
 #ifdef FORGE_DEBUG_ENABLED
             const char* GetDebugName() const override { return "TODO"; }
+            void OnDrawDebug() const override;
 #endif //FORGE_DEBUG_ENABLED
 
             void Use();

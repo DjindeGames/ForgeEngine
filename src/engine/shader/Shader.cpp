@@ -8,6 +8,10 @@
 #include "system/misc/Color.h"
 #include "system/misc/Utils.h"
 
+#ifdef FORGE_DEBUG_ENABLED
+#include "engine/ui/ImGUI.h"
+#endif //FORGE_DEBUG_ENABLED
+
 #include <fstream>
 #include <glm/gtc/type_ptr.hpp>
 #include <iostream>
@@ -127,4 +131,11 @@ namespace ForgeEngine
         SetInt(DEFAULT_MATERIAL_SHININESS_NAME,material.GetShininess());
         SetTexture(GL_TEXTURE0, material.GetTexture());
     }
+
+#ifdef FORGE_DEBUG_ENABLED
+    void Shader::OnDrawDebug() const
+    {
+        ImGui::Text("Input Data Size: %d", GetInputDataSize());
+    }
+#endif //FORGE_DEBUG_ENABLED
 }

@@ -1,17 +1,21 @@
 #include "Texture.h"
 
+#ifdef FORGE_DEBUG_ENABLED
+#include "engine/ui/ImGUI.h"
+#endif //FORGE_DEBUG_ENABLED
+
 #include <iostream>
 
 #include <stb_image/stb_image.h>
 
 namespace ForgeEngine
 {
-	Texture::Texture(const char* texturePath, unsigned int rgbaMode/*= GL_RGB*/, bool flip/* = true*/) 
+	Texture::Texture(const std::string& texturePath, unsigned int rgbaMode/*= GL_RGB*/, bool flip/* = true*/) 
         : Mother()
         , m_Name(texturePath)
 	{
 		stbi_set_flip_vertically_on_load(flip);
-		unsigned char* data = stbi_load(texturePath, &m_Width, &m_Height, &m_Channels, 0);
+		unsigned char* data = stbi_load(texturePath.c_str(), &m_Width, &m_Height, &m_Channels, 0);
 		stbi_set_flip_vertically_on_load(false);
 
 		if (data)
@@ -66,4 +70,13 @@ namespace ForgeEngine
 	{
 		glBindTexture(GL_TEXTURE_2D, m_GLTexture);
 	}
+
+#ifdef FORGE_DEBUG_ENABLED
+    void Texture::OnDrawDebug() const
+    {
+        ImGui::Text("Width: %d", m_Width);
+        ImGui::Text("Height: %d", m_Height);
+        ImGui::Text("Channels: %d", m_Channels);
+    }
+#endif //FORGE_DEBUG_ENABLED
 }

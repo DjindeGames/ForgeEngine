@@ -29,6 +29,11 @@ namespace ForgeEngine
 
             Mesh& GetMesh() { return m_Mesh; }
 
+    protected:
+#ifdef FORGE_DEBUG_ENABLED
+        void OnDrawDebug(float dT) const override;
+#endif //FORGE_DEBUG_ENABLED
+
 		private:
 			void InitRender();
 

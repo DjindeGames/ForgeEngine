@@ -70,14 +70,21 @@ namespace ForgeEngine
             Mother::OnDrawDebug(dT);
             for (const Resource& resource : m_LoadedResources)
             {
-                //ImGui::CollapsingHeader(resource.first.c_str())
-                ImGui::Text("%s [%d]", resource.first.c_str(), resource.second.use_count() - 1);
+                std::string resourceHeader = resource.first + " [" + std::to_string(resource.second.use_count() - 1) + "]";
+                if (ImGui::CollapsingHeader(resourceHeader.c_str()))
+                {
+                    DebugResource(*resource.second.get());
+                }
             }
         }
 #endif //FORGE_DEBUG_ENABLED
 
         protected:
             virtual bool AddResource(const std::string& resourcePath) = 0;
+
+#ifdef FORGE_DEBUG_ENABLED
+            virtual void DebugResource(const T& resource) const = 0;
+#endif //FORGE_DEBUG_ENABLED
 
             bool IsResourceLoaded(const std::string& resourcePath)
             {

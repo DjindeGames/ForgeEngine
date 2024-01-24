@@ -34,7 +34,7 @@ namespace ForgeEngine
             void SetColor(Color color) { m_Color = color; }
 
 #ifdef FORGE_DEBUG_ENABLED
-            void OnDrawDebug() const;
+            void OnDrawDebug() const override;
 #endif //FORGE_DEBUG_ENABLED
 
             int m_Shininess{ 2 };
