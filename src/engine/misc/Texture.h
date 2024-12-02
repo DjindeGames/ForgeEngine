@@ -1,6 +1,5 @@
 #pragma once
 
-#include "engine/core/Defines.h"
 #include "engine/core/LoadableResource.h"
 #include "engine/core/OpenGL.h"
 
@@ -28,11 +27,11 @@ namespace ForgeEngine
 			int GetWidth() const { return m_Width; }
 			int GetHeight() const { return m_Height; }
 
-			GL_ID GetGLTexture() const { return m_GLTexture; }
+			unsigned int GetGLTexture() const { return m_GLTexture; }
 			void Use();
 
         private:
-            GL_ID m_GLTexture{};
+			unsigned int m_GLTexture{};
 
             int m_Width{};
             int m_Height{};

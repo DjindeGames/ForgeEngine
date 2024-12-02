@@ -1,10 +1,10 @@
 #pragma once
 
-#include "engine/core/Defines.h"
 #include "engine/core/WorldComponent.h"
 #include "system/input/InputAction.h"
 #include "system/math/Vector2.h"
 
+#include <memory>
 #include <unordered_map>
 
 namespace ForgeEngine
@@ -29,7 +29,7 @@ namespace ForgeEngine
 		private:
 			void UpdateMousePosition();
 
-            std::unordered_map<EInputAction, Unique<InputAction>> m_InputActionMappings{};
+            std::unordered_map<EInputAction, std::unique_ptr<InputAction>> m_InputActionMappings{};
             Vector2 m_MousePosition{};
             Vector2 m_PreviousMousePosition{};
 	};

@@ -1,11 +1,10 @@
 #pragma once
 
 #include "engine/core/Component.h"
-#include "engine/core/Defines.h"
 #include "system/misc/Color.h"
 #include "system/math/Vector2.h"
 
-#include <array>
+#include <memory>
 
 namespace ForgeEngine
 {
@@ -90,6 +89,6 @@ namespace Alchemist
 
             ParticleContainer m_ParticleContainer;
             float m_Pixels[ALCHEMIST_LANDSCAPE_WIDTH * ALCHEMIST_LANDSCAPE_HEIGHT * ALCHEMIST_PIXEL_DATA_SIZE];
-            Unique<Texture> m_Texture;
+            std::unique_ptr<Texture> m_Texture;
 	};
 }

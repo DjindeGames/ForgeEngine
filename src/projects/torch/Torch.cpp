@@ -51,6 +51,15 @@ namespace Torch
         m_Cube = world.RegisterEntity("RubyCube");
         m_Cube->RegisterComponent(new MeshComponent(MeshUtils::MakeCube(1.f, "assets\\materials\\ruby.mat"), "assets\\shaders\\lit"));
         m_Cube->GetTransform().Translate(Vector3(4.f, 0.5f, 4.f));
+
+        //using Vector3f = Vector<3, float>;
+        //Vector3f test(std::initializer_list<float>{1.f, 2.f, 3.f});
+
+        Vector3f test(1.f, 2.f, 3.f);
+        Vector3f test2(3.f, 5.f, 7.f);
+        //float dot = test.Dot(test2);
+        Vector3f cross = test.Cross(test2);
+        bool yolo = true;
     }
 
     void Torch::OnUpdate(float dT) /*override*/

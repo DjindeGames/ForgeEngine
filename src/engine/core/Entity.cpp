@@ -18,7 +18,7 @@ namespace ForgeEngine
         , m_DebugName(debugName)
 #endif //FORGE_DEBUG_ENABLED
     {
-        m_RegisteredComponents.push_back(Unique<TransformComponent>(transform));
+        m_RegisteredComponents.push_back(std::unique_ptr<TransformComponent>(transform));
     }
 
     const Vector3& Entity::GetPosition() const

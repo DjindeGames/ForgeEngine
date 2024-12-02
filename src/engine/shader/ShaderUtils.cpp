@@ -12,7 +12,7 @@ namespace ForgeEngine
 	{
 		#define LOG_SIZE 512
 
-		bool TryCompileShader(GL_ID& shader, const char* shaderPath, const char* shaderSource, int shaderType, bool outputLogs /* = true*/)
+		bool TryCompileShader(unsigned int& shader, const char* shaderPath, const char* shaderSource, int shaderType, bool outputLogs /* = true*/)
 		{
 			//Compile shader
 			shader = glCreateShader(shaderType);
@@ -20,7 +20,7 @@ namespace ForgeEngine
 			glCompileShader(shader);
 
 			//Check if compilation was successful
-			GL_RESULT compilationSuccess;
+			int compilationSuccess;
 			char infoLog[LOG_SIZE];
 			glGetShaderiv(shader, GL_COMPILE_STATUS, &compilationSuccess);
 
@@ -36,7 +36,7 @@ namespace ForgeEngine
 			return static_cast<bool>(compilationSuccess);
 		}
 
-		bool TryLinkShaderProgram(GL_ID& shaderProgram, bool outputLogs, const GL_ID* shaders, ...)
+		bool TryLinkShaderProgram(unsigned int& shaderProgram, bool outputLogs, const unsigned int* shaders, ...)
 		{
 			va_list args;
 
@@ -56,7 +56,7 @@ namespace ForgeEngine
 			glLinkProgram(shaderProgram);
 
 			//Check if linking was successful
-			GL_RESULT compilationSuccess;
+			int compilationSuccess;
 			char infoLog[LOG_SIZE];
 			glGetProgramiv(shaderProgram, GL_LINK_STATUS, &compilationSuccess);
 
@@ -70,7 +70,7 @@ namespace ForgeEngine
 			return static_cast<bool>(compilationSuccess);
 		}
 
-		void DeleteShaders(const GL_ID* shaders, ...)
+		void DeleteShaders(const unsigned int* shaders, ...)
 		{
 			va_list args;
 			va_start(args, shaders);
@@ -83,7 +83,7 @@ namespace ForgeEngine
 			va_end(args);
 		}
 
-		void DeletePrograms(const GL_ID* programs, ...)
+		void DeletePrograms(const unsigned int* programs, ...)
 		{
 			va_list args;
 			va_start(args, programs);

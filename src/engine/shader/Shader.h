@@ -1,6 +1,5 @@
 #pragma once
 
-#include "engine/core/Defines.h"
 #include "engine/core/LoadableResource.h"
 #include "system/math/Matrix4.h"
 
@@ -83,9 +82,9 @@ namespace ForgeEngine
             void SetMaterial(const Material& material);
 
 		private:
-			GL_ID m_ProgramID{};
-			GL_ID m_VertexID{};
-			GL_ID m_FragmentID{};
+            unsigned int m_ProgramID{};
+            unsigned int m_VertexID{};
+            unsigned int m_FragmentID{};
 
 			//Stores the attributes declared in the shader source using the GLSL_ATTRIBUTE_TOKEN (must be declared in the right order !
 			std::vector<unsigned int> m_AttributesSizes{};

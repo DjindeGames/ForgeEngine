@@ -1,7 +1,6 @@
 #pragma once
 
 #include "engine/core/Component.h"
-#include "engine/core/Defines.h"
 #include "engine/misc/Mesh.h"
 #include "system/misc/Color.h"
 
@@ -40,9 +39,9 @@ namespace ForgeEngine
             Mesh m_Mesh{};
             std::shared_ptr<Shader> m_Shader{};
 
-            GL_ID m_VertexArrayObject{};
-            GL_ID m_VertexBufferObject{};
-            GL_ID m_VertexBufferElement{};
+            unsigned int m_VertexArrayObject{};
+			unsigned int m_VertexBufferObject{};
+			unsigned int m_VertexBufferElement{};
             unsigned int m_NumIndices{};
 	};
 }

@@ -2,7 +2,6 @@
 
 #include "engine/core/WorldComponent.h"
 
-#include "engine/core/Defines.h"
 #include "system/math/Vector3.h"
 
 #include <vector>

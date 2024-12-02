@@ -918,9 +918,6 @@
     <ClInclude Include="src\engine\core\Object.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\engine\core\Defines.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="src\common\components\CameraComponent.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>

@@ -67,7 +67,7 @@ namespace ForgeEngine
 		//Should be done for each attribute of the vertexShader, eg each in variable
 		int offset = 0;
         const unsigned int inputDataSize = m_Shader->GetInputDataSize() * sizeof(float);
-		for (COUNTER i = 0; i < m_Shader->GetNBAttributes() ; i++)
+		for (unsigned int i = 0; i < m_Shader->GetNBAttributes() ; i++)
 		{
 			unsigned int attributeSize = m_Shader->GetAttributeSize(i);
 			glVertexAttribPointer(i, attributeSize, GL_FLOAT, GL_FALSE, inputDataSize, (void*)offset);

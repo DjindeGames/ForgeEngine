@@ -3,6 +3,7 @@
 #include "engine/core/WorldComponent.h"
 #include "projects/papierkraft/data/BlockTextureData.h"
 
+#include <memory>
 #include <unordered_map>
 
 namespace ForgeEngine
@@ -28,8 +29,8 @@ namespace PapierKraft
 		/************************************/
 
 		private:
-			Unique<Texture> m_TextureAtlas{};
-			std::unordered_map<EBlockType, Unique<BlockTextureData>> m_RegisteredTextures{};
+			std::unique_ptr<Texture> m_TextureAtlas{};
+			std::unordered_map<EBlockType, std::unique_ptr<BlockTextureData>> m_RegisteredTextures{};
 
 		/************************************/
 		/**************METHODS***************/

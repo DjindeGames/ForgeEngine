@@ -7,7 +7,7 @@ namespace PapierKraft
 {
 	BlockTextureManager::BlockTextureManager() :
 		Mother(),
-		m_TextureAtlas(Unique<Texture>(new Texture(TEXTURE_ATLAS_PATH)))
+		m_TextureAtlas(std::unique_ptr<Texture>(new Texture(TEXTURE_ATLAS_PATH)))
 	{
 		//GRASS
 		m_RegisteredTextures[EBlockType::Grass] = std::make_unique<BlockTextureData>(

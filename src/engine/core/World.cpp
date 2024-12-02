@@ -27,7 +27,7 @@ namespace ForgeEngine
 #endif //FORGE_DEBUG_ENABLED
 
         Entity* entity = new Entity(*this, new TransformComponent(), finalDebugName);
-		m_RegisteredEntities.push_back(Unique<Entity>(entity));
+		m_RegisteredEntities.push_back(std::unique_ptr<Entity>(entity));
 		return entity;
 	}
 

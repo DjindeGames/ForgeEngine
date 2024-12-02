@@ -1,7 +1,6 @@
 #pragma once
 
 #include "engine/core/Component.h"
-#include "engine/core/Defines.h"
 #include "engine/core/ManagedObject.h"
 #include "system/math/Vector3.h"
 
@@ -34,7 +33,7 @@ namespace ForgeEngine
 			{
 				if (dynamic_cast<Component*>(component))
 				{
-					m_RegisteredComponents.push_back(Unique<Component>(component));
+					m_RegisteredComponents.push_back(std::unique_ptr<Component>(component));
 					component->SetOwner(this);
 				}
 				return component;
@@ -91,7 +90,7 @@ namespace ForgeEngine
             World& m_World;
             TransformComponent& m_Transform;
 
-            std::vector<Unique<Component>> m_RegisteredComponents;
+            std::vector<std::unique_ptr<Component>> m_RegisteredComponents;
 
 #ifdef FORGE_DEBUG_ENABLED
             const std::string m_DebugName;

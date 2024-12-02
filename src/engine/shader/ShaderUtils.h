@@ -1,6 +1,5 @@
 #pragma once
 
-#include "engine/core/Defines.h"
 #include "engine/shader/Shader.h"
 
 namespace ForgeEngine
@@ -9,10 +8,10 @@ namespace ForgeEngine
 
 	namespace ShaderUtils
 	{
-		bool TryCompileShader(GL_ID& shader, const char* shaderPath, const char* shaderSource, int shaderType, bool outputLogs = true);
-		bool TryLinkShaderProgram(GL_ID& shaderProgram, bool outputLogs, const GL_ID* shaders, ...);
-		void DeleteShaders(const GL_ID* shaders, ...);
-		void DeletePrograms(const GL_ID* programs, ...);
+		bool TryCompileShader(unsigned int& shader, const char* shaderPath, const char* shaderSource, int shaderType, bool outputLogs = true);
+		bool TryLinkShaderProgram(unsigned int& shaderProgram, bool outputLogs, const unsigned int* shaders, ...);
+		void DeleteShaders(const unsigned int* shaders, ...);
+		void DeletePrograms(const unsigned int* programs, ...);
 
 		void ClearScreen(Color backgroundColor);
 	}

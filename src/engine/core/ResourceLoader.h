@@ -53,7 +53,7 @@ namespace ForgeEngine
 
             for (auto it = m_LoadedResources.begin(); it != m_LoadedResources.end();) 
             {
-                if ((*it).second.unique())
+                if ((*it).second.use_count() == 1)
                 {
                     it = m_LoadedResources.erase(it);
                 }
